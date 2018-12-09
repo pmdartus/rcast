@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>rcast</title>
+    </head>
+    <body>
+        <div id="root">
+                <button data-playing="false" role="switch" aria-checked="false">
+                    <span>Play/Pause</span>
+                </button>
+                <input type="range" id="volume" min="0" max="2" value="1" step="0.01" />
+        </div>
+
+        <div id="unsupported-browser" style="display: none;">
+            This browser is not supported!
+        </div>
+        <script nomodule>
+            document.querySelector('#unsupported-browser').style.display = '';
+        </script>
+        <script>
+            if (
+                !('AudioContext' in window) ||
+                !supportModules() ||
+                !supportsDynamicImport()
+            ) {
+                document.querySelector('#unsupported-browser').style.display =
+                    '';
+            }
+
+            function supportModules() {
+                const script = document.createElement('script');
+                return 'noModule' in script;
+            }
+
+            function supportsDynamicImport() {
+                try {
+                    new Function('import("")');
+                    return true;
+                } catch (err) {
+                    return false;
+                }
+            }
+        </script>
+
+        <script type="module" src="index.js"></script>
+    </body>
+</html>

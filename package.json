@@ -1,0 +1,21 @@
+{
+  "name": "rcast",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js",
+    "serve": "node ./src/server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-copy": "^0.2.3",
+    "rollup-plugin-replace": "^2.1.0"
+  }
+}
