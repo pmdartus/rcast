@@ -1,6 +1,9 @@
+/* eslint-env node */
+
 'use strict';
 
 const path = require('path');
+const lwc = require('@lwc/rollup-plugin');
 const copy = require('rollup-plugin-copy');
 const replace = require('rollup-plugin-replace');
 
@@ -18,13 +21,20 @@ module.exports = {
     },
 
     plugins: [
+        lwc({
+            rootDir: path.resolve(SRC_DIR, 'modules'),
+        }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(__ENV__),
         }),
         copy({
-            [path.resolve(SRC_DIR, 'index.html')]: path.resolve(
+            [path.resolve(SRC_DIR, 'public/index.html')]: path.resolve(
                 DIST_DIR,
                 'index.html',
+            ),
+            [path.resolve(SRC_DIR, 'public/svg/')]: path.resolve(
+                DIST_DIR,
+                'svg/',
             ),
         }),
     ],

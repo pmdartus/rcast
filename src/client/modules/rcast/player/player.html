@@ -1,0 +1,32 @@
+<template>
+    <audio preload="auto" src={mediaUrl}
+        oncanplaythrough={handleAudioCanPlay} ontimeupdate={handleAudioTimeUpdate}
+        onerror={handleAudioError} onended={handleAudioEnded}>
+    </audio>
+
+    <img src={coverUrl} alt="cover" width="500" />
+
+    <div>{titleText}</div>
+
+    <rcast-progress-bar duration={state.duration} current-time={state.currentTime}></rcast-progress-bar>
+
+    <div>
+        <button class="control-button" onclick={handleRewindClick}>
+            <img src="/svg/rewind.svg" alt="Rewind">
+        </button>
+
+        <button class="control-button" role="switch" 
+            aria-checked={state.playing} onclick={handlePlayPauseClick}>
+            <template if:true={state.playing}>
+                <img src="/svg/pause.svg" alt="Pause">
+            </template>
+            <template if:false={state.playing}>
+                <img src="/svg/play.svg" alt="Play">
+            </template>
+        </button>
+
+        <button class="control-button" onclick={handleFastForwardClick}>
+            <img src="/svg/fast-forward.svg" alt="Fast forward">
+        </button>
+    </div>
+</template>

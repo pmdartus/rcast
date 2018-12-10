@@ -1,9 +1,19 @@
 {
+    "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module"
     },
 
+    "plugins": ["@lwc/eslint-plugin-lwc"],
+
     "env": {
         "browser": true
+    },
+
+    "rules": {
+        "@lwc/lwc/no-deprecated": "error",
+        "@lwc/lwc/valid-api": "error",
+        "@lwc/lwc/valid-track": "error",
+        "@lwc/lwc/valid-wire": "error"
     }
 }

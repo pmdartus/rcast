@@ -1,48 +1,16 @@
-import { listEpisodes } from './api';
+import { createElement } from 'lwc';
+import Player from 'rcast/player';
 
-const rootEl = document.querySelector('#root');
-const playPauseEl = document.querySelector('#root button');
-const volumeEl = document.querySelector('#volume');
-
-listEpisodes({
-    podcastId: '47970'
-}).then(res => {
-    const { content_type: contentType, enclosure: mediaUrl } = res.episodes[0];
-
-    const audioEl = document.createElement('audio');
-    audioEl.src = `/api/stream/${encodeURIComponent(mediaUrl)}`;
-    audioEl.type = contentType;
-    audioEl.crossOrigin = 'anonymous';
-
-    document.body.appendChild(audioEl);
-
-    const audioCtx = new AudioContext();
-    const track = audioCtx.createMediaElementSource(audioEl);
-
-    const gainNode = audioCtx.createGain();
-
-    track.connect(gainNode).connect(audioCtx.destination);
-
-    playPauseEl.addEventListener('click', () => {
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-    
-        // play or pause track depending on state
-        if (playPauseEl.dataset.playing === 'false') {
-            audioEl.play();
-            playPauseEl.dataset.playing = 'true';
-        } else if (playPauseEl.dataset.playing === 'true') {
-            audioEl.pause();
-            playPauseEl.dataset.playing = 'false';
-        }    
-    })
-
-    volumeEl.addEventListener('change', () => {
-        gainNode.gain.value = volumeEl.value;
-    });
-
-    audioEl.addEventListener('ended', () => {
-        playPauseEl.dataset.playing = 'false';
-    }, false);
+const player = createElement('rcast-player', {
+    is: Player,
+    fallback: false,
 });
+
+player.titleText = 'Dyson: James Dyson';
+player.coverUrl =
+    'https://media.npr.org/assets/img/2018/02/08/ep68-dyson_wide-0cac8437ffbe9316816290795248fbefdbfb3dbf.jpg?s=1400';
+player.mediaUrl = `/api/stream/${encodeURIComponent(
+    'https://play.podtrac.com/npr-510313/npr.mc.tritondigital.com/NPR_510313/media/anon.npr-mp3/npr/hibt/2018/02/20180209_hibt_dyson.mp3?orgId=1&d=2684&p=510313&story=584331881&t=podcast&e=584331881&ft=pod&f=510313',
+)}`;
+
+document.body.appendChild(player);

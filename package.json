@@ -4,15 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint src/",
     "build": "rollup -c ./rollup.config.js",
     "serve": "node ./src/server/index.js"
   },
   "dependencies": {
+    "@lwc/compiler": "^0.33.16",
+    "@lwc/engine": "^0.33.16",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "@lwc/eslint-plugin-lwc": "^0.6.0",
+    "@lwc/rollup-plugin": "^0.33.16",
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.10.0",
     "rollup": "^0.67.4",
     "rollup-plugin-copy": "^0.2.3",

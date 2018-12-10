@@ -1,0 +1,20 @@
+<template>
+    <input
+        class="progress-bar"
+        type="range"
+        title="Progress"
+        min="0"
+        max="1"
+        step="any"
+        value={progressBarValue}
+        onmousedown={handleProgressMouseDown}
+        onmouseout={handleProgressMouseUp}
+        oninput={handleProgressInput}
+        onchange={handleProgressChange}
+    />
+
+    <div class="label-container">
+        <span title="Past">{pastLabel}</span>
+        <span title="Remaining">{remainingLabel}</span>
+    </div>
+</template>

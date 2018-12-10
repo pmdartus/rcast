@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    background-color: aqua;
+}
+
+.progress-bar {
+    width: 100%;
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+}
