@@ -9,7 +9,7 @@ export default class RcastProgressBar extends LightningElement {
     // TODO: add details about the controlled vs. uncontrolled state
     @track _currentTime = 0;
 
-    // Flag indicating if the progress bar is currently dragged/hold by the user. In this case the currentTime public 
+    // Flag indicating if the progress bar is currently dragged/hold by the user. In this case the currentTime public
     // property change should not be reflected.
     isControlled = false;
 
@@ -30,29 +30,19 @@ export default class RcastProgressBar extends LightningElement {
         return `-${formatTime(this.duration - this.currentTime)}`;
     }
     get progressBarValue() {
-        return this.currentTime / this.duration;
+        const { duration, currentTime } = this;
+        return duration === 0 ? 0 : currentTime / duration;
     }
 
     handleProgressMouseDown() {
         this.isControlled = true;
     }
-    handleProgressMouseUp() {
-        this.isControlled = false;
-    }
     handleProgressInput(event) {
         const { value } = event.target;
         this._currentTime = this.duration * value;
     }
-
-    handleProgressChange(event) {
-        const { value } = event.target;
-
-        this.dispatchEvent(
-            new CustomEvent('currenttimechange', {
-                detail: {
-                    currentTime: value,
-                },
-            }),
-        );
+    handleProgressMouseUp() {
+        this.isControlled = false;
+        this.dispatchEvent(new CustomEvent('currenttimechange'));
     }
 }

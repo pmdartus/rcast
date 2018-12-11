@@ -35,6 +35,14 @@ export default class Player extends LightningElement {
         }
     }
 
+    handleCurrentTimeChange(event) {
+        const { state, _audioElRef } = this;
+        const { currentTime } = event.target;
+
+        state.currentTime = currentTime;
+        _audioElRef.currentTime = currentTime;
+    }
+
     handleRewindClick() {
         const { state, _audioElRef } = this;
         const progress = Math.max(0, state.currentTime - PROGRESS_STEP);
