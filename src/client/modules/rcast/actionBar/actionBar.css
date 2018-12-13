@@ -1,0 +1,32 @@
+:host {
+    background: #010101;
+    color: #C4C4C4;
+
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+.action-container {
+    display: flex;
+    justify-content: space-evenly;
+
+    border-top: 1px solid #494949;
+}
+
+.action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 3px;
+}
+
+.active {
+    color: #1CA0EA;
+}
+
+svg {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+}

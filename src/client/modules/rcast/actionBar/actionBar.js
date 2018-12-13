@@ -1,8 +1,8 @@
 import { LightningElement, api } from 'lwc';
 
 const VIEWS = [
-    { viewName: 'podcast', label: 'Podcast', iconUrl: `/svg/app/tiles.svg` },
-    { viewName: 'discover', label: 'Discover', iconUrl: `/svg/app/search.svg` },
+    { viewName: 'podcast', label: 'Podcast', iconUrl: `/svg/sprite.svg#grid` },
+    { viewName: 'discover', label: 'Discover', iconUrl: `/svg/sprite.svg#search` },
 ];
 
 export default class ActionBar extends LightningElement {
@@ -12,7 +12,12 @@ export default class ActionBar extends LightningElement {
         return VIEWS.map(view => {
             return {
                 ...view,
-                className: view.viewName === this.viewName ? 'active' : '',
+                className: [
+                    `action`,
+                    view.viewName === this.viewName ? 'active' : '',
+                ]
+                .filter(Boolean)
+                .join(' '),
             };
         });
     }

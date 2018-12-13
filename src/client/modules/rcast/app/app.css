@@ -1,0 +1,9 @@
+rcast-action-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+
+    z-index: 10;
+}

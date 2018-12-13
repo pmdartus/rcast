@@ -1,8 +1,12 @@
 <template>
-    <template for:each={views} for:item="item">
-        <div key={item.viewName} class={view.className} data-view-name={item.viewName} onclick={handleViewClick}>
-            <img src={category.iconUrl} alt={view.label}>
-            {view.label}
-        </div>
-    </template>
+    <div class="action-container">
+        <template for:each={views} for:item="view">
+            <div key={view.viewName} class={view.className} data-view-name={view.viewName} onclick={handleViewClick}>
+                <svg alt={view.label}>
+                    <use xlink:href={view.iconUrl}></use>
+                </svg>
+                {view.label}
+            </div>
+        </template>
+    </div>
 </template>

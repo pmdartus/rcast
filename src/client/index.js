@@ -13,11 +13,20 @@
 // )}`;
 
 
-import { createElement } from 'lwc';
-import Discover from 'rcast/discover';
+// import { createElement } from 'lwc';
+// import Discover from 'rcast/discover';
 
-const page = createElement('rcast-discover', {
-    is: Discover,
+// const page = createElement('rcast-discover', {
+//     is: Discover,
+//     fallback: false,
+// })
+// document.body.appendChild(page);
+
+import { createElement } from 'lwc';
+import App from 'rcast/app';
+
+const bar = createElement('rcast-discover', {
+    is: App,
     fallback: false,
-})
-document.body.appendChild(page);
+});
+document.body.appendChild(bar);

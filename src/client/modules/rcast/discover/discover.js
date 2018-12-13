@@ -6,7 +6,7 @@ export default class Discovery extends LightningElement {
         return {
             id: category.id,
             name: category.name,
-            iconUrl: `/svg/categories/${category.iconName}.svg`
+            iconUrl: `/svg/sprite.svg#${category.iconName}`
         };
     });
 }
