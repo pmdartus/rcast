@@ -9,6 +9,7 @@
 * Need some documentation around controlled input vs. uncontrolled input: https://reactjs.org/docs/uncontrolled-components.html / https://reactjs.org/docs/forms.html
 * Need to restart watcher to pick-up css. Took me 10 minutes to remember this.
 * Unnecessary DOM node re-creation: `<span>{foo}</span>`, when `foo` is updated the `span` appears to be recreated (the `<span>` blinks in the Chrome devtool). This need to be investigated a bit more.
+* `@lwc/rollup-plugin` doesn't play well with other rollup plugin. `import gridIcon from '../../../public/svg/grid.svg';` can't be used along with the `rollup-plugin-svg` because it throws the following error `WC1005: No available transformer for "/Users/p.dartus/code/_tmp/rcast/src/client/public/svg/grid.svg`.
 
 ## Credits
 
