@@ -1,0 +1,13 @@
+<template>
+    <rcast-header>
+        Podcasts
+    </rcast-header>
+
+    <div class="grid">
+        <template for:each={podcasts} for:item="podcast">
+            <div key={podcast.id} class="grid-item" onclick={handlePodcastClick} data-podcast-id={podcast.id}>
+                <img src={podcast.cover.large} alt={podcast.name}>
+            </div>
+        </template>
+    </div>
+</template>

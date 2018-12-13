@@ -1,4 +1,7 @@
 <template>
-    <rcast-discover></rcast-discover>
+    <div class="view">
+        <rcast-view-podcasts if:true={isViewPodcastsActive}></rcast-view-podcasts>
+        <rcast-view-discover if:true={isViewDiscoverActive}></rcast-view-discover>
+    </div>
     <rcast-action-bar view-name={viewName} onnavigate={handleNavigate}></rcast-action-bar>
 </template>

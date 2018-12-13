@@ -8,6 +8,9 @@
             :root {
                 --background-color: #242424;
                 --font-color: #ffffff;
+                
+                --header-height: 40px;
+                --action-bar-height: 50px;
             }
 
             /* TODO: Add HTML minifier */
@@ -43,8 +46,7 @@
         <script>
             if (
                 !('AudioContext' in window) ||
-                !supportModules() ||
-                !supportsDynamicImport()
+                !supportModules()
             ) {
                 document.querySelector('#unsupported-browser').style.display =
                     '';
@@ -53,15 +55,6 @@
             function supportModules() {
                 const script = document.createElement('script');
                 return 'noModule' in script;
-            }
-
-            function supportsDynamicImport() {
-                try {
-                    new Function('import("")');
-                    return true;
-                } catch (err) {
-                    return false;
-                }
             }
         </script>
 

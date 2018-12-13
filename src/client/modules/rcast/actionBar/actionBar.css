@@ -1,7 +1,9 @@
 :host {
     background: #010101;
-    color: #C4C4C4;
-
+    
+    border-top: 1px solid #494949;
+    height: 50px;
+    
     font-size: 0.7rem;
     font-weight: 300;
 }
@@ -9,8 +11,6 @@
 .action-container {
     display: flex;
     justify-content: space-evenly;
-
-    border-top: 1px solid #494949;
 }
 
 .action {
@@ -18,11 +18,15 @@
     flex-direction: column;
     align-items: center;
 
-    margin-bottom: 3px;
+    padding: 0 10px;
+
+    color: #C4C4C4;
+    fill: #C4C4C4;
 }
 
-.active {
+.action.active {
     color: #1CA0EA;
+    fill: #1CA0EA;
 }
 
 svg {

@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
 const VIEWS = [
-    { viewName: 'podcast', label: 'Podcast', iconUrl: `/svg/sprite.svg#grid` },
+    { viewName: 'podcasts', label: 'Podcasts', iconUrl: `/svg/sprite.svg#grid` },
     { viewName: 'discover', label: 'Discover', iconUrl: `/svg/sprite.svg#search` },
 ];
 
@@ -23,7 +23,7 @@ export default class ActionBar extends LightningElement {
     }
 
     handleViewClick(event) {
-        const { viewName } = event.target.dataset;
+        const { viewName } = event.currentTarget.dataset;
 
         // Discard event if the target view is the currently selected one
         if (viewName === this.viewName) {

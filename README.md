@@ -10,6 +10,9 @@
 * Need to restart watcher to pick-up css. Took me 10 minutes to remember this.
 * Unnecessary DOM node re-creation: `<span>{foo}</span>`, when `foo` is updated the `span` appears to be recreated (the `<span>` blinks in the Chrome devtool). This need to be investigated a bit more.
 * `@lwc/rollup-plugin` doesn't play well with other rollup plugin. `import gridIcon from '../../../public/svg/grid.svg';` can't be used along with the `rollup-plugin-svg` because it throws the following error `WC1005: No available transformer for "/Users/p.dartus/code/_tmp/rcast/src/client/public/svg/grid.svg`.
+* By default the `@lwc/rollup-plugin` doesn't allow the definition of custom properties and there is no way to configure it. A workaround is to define everything in the `index.html`.
+* Creation of a new component requires to restart the build watch.
+* Engine at runtime should warn if a the object doesn't have a property accessed from the template defined (make sure the property is at least set `null` or `undefined`). This would avoid a lot of pain when the property name has a typo in the template.
 
 ## Credits
 
