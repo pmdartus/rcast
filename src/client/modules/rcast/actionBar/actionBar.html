@@ -1,0 +1,8 @@
+<template>
+    <template for:each={views} for:item="item">
+        <div key={item.viewName} class={view.className} data-view-name={item.viewName} onclick={handleViewClick}>
+            <img src={category.iconUrl} alt={view.label}>
+            {view.label}
+        </div>
+    </template>
+</template>

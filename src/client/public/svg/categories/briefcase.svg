@@ -1,15 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 20 25" style="enable-background:new 0 0 20 20;" xml:space="preserve"><style type="text/css">
-	.st0{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st2{fill:#3BACD9;}
-	.st3{fill:#85E7FB;}
-	.st4{fill:#4C565D;}
-	.st5{fill:#FBBB59;stroke:#000000;stroke-miterlimit:10;}
-	.st6{fill:#969FA6;}
-	.st7{fill:none;}
-	.st8{fill-rule:evenodd;clip-rule:evenodd;fill:#85E7FB;}
-	.st9{fill:#2795B7;}
-	.st10{fill:#FBBB59;}
-	.st11{fill:#1BB978;}
-	.st12{fill-rule:evenodd;clip-rule:evenodd;}
-</style><g><path d="M13.5,7.5h-1v-1C12.5,5.7,11.8,5,11,5H9C8.2,5,7.5,5.7,7.5,6.5v1h-1v-1C6.5,5.1,7.6,4,9,4h2   c1.4,0,2.5,1.1,2.5,2.5V7.5z"/></g><path class="st1" d="M16,7h-2.5h-1h-5h-1H4C3.4,7,3,7.5,3,8.1v7C3,15.6,3.4,16,4,16h12c0.6,0,1-0.4,1-0.9v-7  C17,7.5,16.6,7,16,7z"/><text x="0" y="35" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Jemis mali</text><text x="0" y="40" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text></svg>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M71.75 32.875H65.5V26.625C65.5 21.625 61.125 17.25 56.125 17.25H43.625C38.625 17.25 34.25 21.625 34.25 26.625V32.875H28V26.625C28 17.875 34.875 11 43.625 11H56.125C64.875 11 71.75 17.875 71.75 26.625V32.875Z" fill="#7A7A7C"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M3 36.625C3 31.5541 6.52019 26.625 12.375 26.625H87.375C93.2298 26.625 96.75 31.5541 96.75 36.625V80.375C96.75 85.4399 92.6288 89.125 87.375 89.125H12.375C7.12124 89.125 3 85.4399 3 80.375V36.625ZM12.375 32.875C10.7298 32.875 9.25 34.1959 9.25 36.625V80.375C9.25 81.5601 10.1288 82.875 12.375 82.875H87.375C89.6212 82.875 90.5 81.5601 90.5 80.375V36.625C90.5 34.1959 89.0202 32.875 87.375 32.875H12.375Z" fill="#7A7A7C"/>
+</svg>

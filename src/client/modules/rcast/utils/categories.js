@@ -5,7 +5,7 @@ export default [
     { id: 1303, name: 'Comedy', iconName: 'smile' },
     { id: 1304, name: 'Education', iconName: 'pen' },
     { id: 1307, name: 'Health', iconName: 'heart' },
-    { id: 1309, name: 'TV & Film', iconName: 'video-player' },
+    { id: 1309, name: 'TV & Film', iconName: 'video' },
     { id: 1310, name: 'Music', iconName: 'music' },
     { id: 1311, name: 'News & Politics', iconName: 'news' },
     { id: 1314, name: 'Religion & Spirituality', iconName: 'cross' },

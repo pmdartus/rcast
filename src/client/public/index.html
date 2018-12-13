@@ -5,21 +5,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>rcast</title>
         <style>
+            :root {
+                --background-color: #242424;
+                --font-color: #ffffff;
+            }
+
+            /* TODO: Add HTML minifier */
             body,
             html {
                 height: 100%;
                 padding: 0;
                 margin: 0;
-                font: system-ui, -apple-system, BlinkMacSystemFont, Roboto,
+
+                /* Use system font */
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto,
                     Helvetica, sans-serif;
+
+                background: var(--background-color);
+                color: var(--font-color);
+
+                /* 
+                  Disable element highlight on tap. 
+                  https://medium.com/@owencm/designing-great-uis-for-progressive-web-apps-dd38c1d20f7
+                */
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
         </style>
     </head>
     <body>
         <div id="root"></div>
 
+        <!-- TODO: Add styling for error message -->
         <div id="unsupported-browser" style="display: none;">
-            This browser is not supported!
+            This browser is not supported! 😱
         </div>
         <script nomodule>
             document.querySelector('#unsupported-browser').style.display = '';

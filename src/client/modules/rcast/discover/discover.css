@@ -1,8 +1,18 @@
+.categories {
+    padding: 0 15px;
+}
+
+.header {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
 .category {
     display: flex;
     align-items: center;
 }
 
 .category img {
-    width: 30px;
+    width: 20px;
+    margin: 15px 15px 15px 0;
 }
