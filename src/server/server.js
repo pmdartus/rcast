@@ -3,8 +3,10 @@
 const path = require('path');
 
 const morgan = require('morgan');
+const helmet = require('helmet');
 const express = require('express');
 const request = require('request');
+const compression = require('compression');
 
 const apiRouter = require('./api');
 
@@ -18,7 +20,13 @@ if (__ENV__ !== 'test') {
     app.use(morgan(__ENV__ ? 'dev' : 'common'));
 }
 
-// Static file server for the single page application
+// Disable certain HTTP headers.
+app.use(helmet());
+
+// GZip all the responses.
+app.use(compression());
+
+// Static file server for the single page application.
 app.use(express.static(DIST_DIR));
 
 // API endpoints

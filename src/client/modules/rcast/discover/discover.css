@@ -1,0 +1,8 @@
+.category {
+    display: flex;
+    align-items: center;
+}
+
+.category img {
+    width: 30px;
+}

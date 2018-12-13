@@ -1497,6 +1497,11 @@ camelcase@~5.0.0:
   resolved "http://npm.lwcjs.org/camelcase/-/camelcase-5.0.0/03295527d58bd3cd4aa75363f35b2e8d97be2f42.tgz#03295527d58bd3cd4aa75363f35b2e8d97be2f42"
   integrity sha512-faqwZqnWxbxn+F1d399ygeamQNy3lPp/H9H6rNrqYh4FSVCtcY+3cub1MxA8o9mDd55mM8Aghuu/kuyYA6VTsA==
 
+camelize@1.0.0:
+  version "1.0.0"
+  resolved "http://npm.lwcjs.org/camelize/-/camelize-1.0.0/164a5483e630fa4321e5af07020e531831b2609b.tgz#164a5483e630fa4321e5af07020e531831b2609b"
+  integrity sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=
+
 caniuse-api@^1.5.2:
   version "1.6.1"
   resolved "http://npm.lwcjs.org/caniuse-api/-/caniuse-api-1.6.1/b534e7c734c4f81ec5fbe8aca2ad24354b962c6c.tgz#b534e7c734c4f81ec5fbe8aca2ad24354b962c6c"
@@ -1718,6 +1723,26 @@ component-emitter@^1.2.0, component-emitter@^1.2.1:
   resolved "http://npm.lwcjs.org/component-emitter/-/component-emitter-1.2.1/137918d6d78283f7df7a6b7c5a63e140e69425e6.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
   integrity sha1-E3kY1teCg/ffemt8WmPhQOaUJeY=
 
+compressible@~2.0.14:
+  version "2.0.15"
+  resolved "http://npm.lwcjs.org/compressible/-/compressible-2.0.15/857a9ab0a7e5a07d8d837ed43fe2defff64fe212.tgz#857a9ab0a7e5a07d8d837ed43fe2defff64fe212"
+  integrity sha512-4aE67DL33dSW9gw4CI2H/yTxqHLNcxp0yS6jB+4h+wr3e43+1z7vm0HU9qXOH8j+qjKuL8+UtkOxYQSMq60Ylw==
+  dependencies:
+    mime-db ">= 1.36.0 < 2"
+
+compression@^1.7.3:
+  version "1.7.3"
+  resolved "http://npm.lwcjs.org/compression/-/compression-1.7.3/27e0e176aaf260f7f2c2813c3e440adb9f1993db.tgz#27e0e176aaf260f7f2c2813c3e440adb9f1993db"
+  integrity sha512-HSjyBG5N1Nnz7tF2+O7A9XUhyjru71/fwgNb7oIsEVHR0WShfs2tIS/EySLgiTe98aOK18YDlMXpzjCXY/n9mg==
+  dependencies:
+    accepts "~1.3.5"
+    bytes "3.0.0"
+    compressible "~2.0.14"
+    debug "2.6.9"
+    on-headers "~1.0.1"
+    safe-buffer "5.1.2"
+    vary "~1.1.2"
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "http://npm.lwcjs.org/concat-map/-/concat-map-0.0.1/d8a96bd77fd68df7793a73036a3ba0d5405d477b.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -1732,6 +1757,11 @@ content-disposition@0.5.2:
   version "0.5.2"
   resolved "http://npm.lwcjs.org/content-disposition/-/content-disposition-0.5.2/0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
   integrity sha1-DPaLud318r55YcOoUXjLhdunjLQ=
+
+content-security-policy-builder@2.0.0:
+  version "2.0.0"
+  resolved "http://npm.lwcjs.org/content-security-policy-builder/-/content-security-policy-builder-2.0.0/8749a1d542fcbe82237281ea9f716ce68b394dd2.tgz#8749a1d542fcbe82237281ea9f716ce68b394dd2"
+  integrity sha512-j+Nhmj1yfZAikJLImCvPJFE29x/UuBi+/MWqggGGc515JKaZrjuei2RhULJmy0MsstW3E3htl002bwmBNMKr7w==
 
 content-type@~1.0.4:
   version "1.0.4"
@@ -1864,6 +1894,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+dasherize@2.0.0:
+  version "2.0.0"
+  resolved "http://npm.lwcjs.org/dasherize/-/dasherize-2.0.0/6d809c9cd0cf7bb8952d80fc84fa13d47ddb1308.tgz#6d809c9cd0cf7bb8952d80fc84fa13d47ddb1308"
+  integrity sha1-bYCcnNDPe7iVLYD8hPoT1H3bEwg=
 
 data-urls@^1.0.0:
   version "1.1.0"
@@ -2010,6 +2045,11 @@ diff@^3.2.0:
   resolved "http://npm.lwcjs.org/diff/-/diff-3.5.0/800c0dd1e0a8bfbc95835c202ad220fe317e5a12.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
+dns-prefetch-control@0.1.0:
+  version "0.1.0"
+  resolved "http://npm.lwcjs.org/dns-prefetch-control/-/dns-prefetch-control-0.1.0/60ddb457774e178f1f9415f0cabb0e85b0b300b2.tgz#60ddb457774e178f1f9415f0cabb0e85b0b300b2"
+  integrity sha1-YN20V3dOF48flBXwyrsOhbCzALI=
+
 doctrine@^2.1.0:
   version "2.1.0"
   resolved "http://npm.lwcjs.org/doctrine/-/doctrine-2.1.0/5cd01fc101621b42c4cd7f5d1a66243716d3f39d.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
@@ -2056,6 +2096,11 @@ domutils@^1.5.1:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
+
+dont-sniff-mimetype@1.0.0:
+  version "1.0.0"
+  resolved "http://npm.lwcjs.org/dont-sniff-mimetype/-/dont-sniff-mimetype-1.0.0/5932890dc9f4e2f19e5eb02a20026e5e5efc8f58.tgz#5932890dc9f4e2f19e5eb02a20026e5e5efc8f58"
+  integrity sha1-WTKJDcn04vGeXrAqIAJuXl78j1g=
 
 dot-prop@^4.1.1:
   version "4.2.0"
@@ -2320,6 +2365,11 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
+expect-ct@0.1.1:
+  version "0.1.1"
+  resolved "http://npm.lwcjs.org/expect-ct/-/expect-ct-0.1.1/de84476a2dbcb85000d5903737e9bc8a5ba7b897.tgz#de84476a2dbcb85000d5903737e9bc8a5ba7b897"
+  integrity sha512-ngXzTfoRGG7fYens3/RMb6yYoVLvLMfmsSllP/mZPxNHgFq41TmPSLF/nLY7fwoclI2vElvAmILFWGUYqdjfCg==
+
 expect@^23.6.0:
   version "23.6.0"
   resolved "http://npm.lwcjs.org/expect/-/expect-23.6.0/1e0c8d3ba9a581c87bd71fb9bc8862d443425f98.tgz#1e0c8d3ba9a581c87bd71fb9bc8862d443425f98"
@@ -2449,6 +2499,11 @@ fb-watchman@^2.0.0:
   integrity sha1-VOmr99+i8mzZsWNsWIwa/AXeXVg=
   dependencies:
     bser "^2.0.0"
+
+feature-policy@0.2.0:
+  version "0.2.0"
+  resolved "http://npm.lwcjs.org/feature-policy/-/feature-policy-0.2.0/22096de49ab240176878ffe2bde2f6ff04d48c43.tgz#22096de49ab240176878ffe2bde2f6ff04d48c43"
+  integrity sha512-2hGrlv6efG4hscYVZeaYjpzpT6I2OZgYqE2yDUzeAcKj2D1SH0AsEzqJNXzdoglEddcIXQQYop3lD97XpG75Jw==
 
 feedparser@^2.2.9:
   version "2.2.9"
@@ -2599,6 +2654,11 @@ fragment-cache@^0.2.1:
   integrity sha1-QpD60n8T6Jvn8zeZxrxaCr//DRk=
   dependencies:
     map-cache "^0.2.2"
+
+frameguard@3.0.0:
+  version "3.0.0"
+  resolved "http://npm.lwcjs.org/frameguard/-/frameguard-3.0.0/7bcad469ee7b96e91d12ceb3959c78235a9272e9.tgz#7bcad469ee7b96e91d12ceb3959c78235a9272e9"
+  integrity sha1-e8rUae57lukdEs6zlZx4I1qScuk=
 
 fresh@0.5.2:
   version "0.5.2"
@@ -2826,6 +2886,46 @@ he@^1.1.1:
   resolved "http://npm.lwcjs.org/he/-/he-1.2.0/84ae65fa7eafb165fddb61566ae14baf05664f0f.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+helmet-crossdomain@0.3.0:
+  version "0.3.0"
+  resolved "http://npm.lwcjs.org/helmet-crossdomain/-/helmet-crossdomain-0.3.0/707e2df930f13ad61f76ed08e1bb51ab2b2e85fa.tgz#707e2df930f13ad61f76ed08e1bb51ab2b2e85fa"
+  integrity sha512-YiXhj0E35nC4Na5EPE4mTfoXMf9JTGpN4OtB4aLqShKuH9d2HNaJX5MQoglO6STVka0uMsHyG5lCut5Kzsy7Lg==
+
+helmet-csp@2.7.1:
+  version "2.7.1"
+  resolved "http://npm.lwcjs.org/helmet-csp/-/helmet-csp-2.7.1/e8e0b5186ffd4db625cfcce523758adbfadb9dca.tgz#e8e0b5186ffd4db625cfcce523758adbfadb9dca"
+  integrity sha512-sCHwywg4daQ2mY0YYwXSZRsgcCeerUwxMwNixGA7aMLkVmPTYBl7gJoZDHOZyXkqPrtuDT3s2B1A+RLI7WxSdQ==
+  dependencies:
+    camelize "1.0.0"
+    content-security-policy-builder "2.0.0"
+    dasherize "2.0.0"
+    platform "1.3.5"
+
+helmet@^3.15.0:
+  version "3.15.0"
+  resolved "http://npm.lwcjs.org/helmet/-/helmet-3.15.0/fe0bb80e05d9eec589e3cbecaf5384409a3a64c9.tgz#fe0bb80e05d9eec589e3cbecaf5384409a3a64c9"
+  integrity sha512-j9JjtAnWJj09lqe/PEICrhuDaX30TeokXJ9tW6ZPhVH0+LMoihDeJ58CdWeTGzM66p6EiIODmgAaWfdeIWI4Gg==
+  dependencies:
+    dns-prefetch-control "0.1.0"
+    dont-sniff-mimetype "1.0.0"
+    expect-ct "0.1.1"
+    feature-policy "0.2.0"
+    frameguard "3.0.0"
+    helmet-crossdomain "0.3.0"
+    helmet-csp "2.7.1"
+    hide-powered-by "1.0.0"
+    hpkp "2.0.0"
+    hsts "2.1.0"
+    ienoopen "1.0.0"
+    nocache "2.0.0"
+    referrer-policy "1.1.0"
+    x-xss-protection "1.1.0"
+
+hide-powered-by@1.0.0:
+  version "1.0.0"
+  resolved "http://npm.lwcjs.org/hide-powered-by/-/hide-powered-by-1.0.0/4a85ad65881f62857fc70af7174a1184dccce32b.tgz#4a85ad65881f62857fc70af7174a1184dccce32b"
+  integrity sha1-SoWtZYgfYoV/xwr3F0oRhNzM4ys=
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "http://npm.lwcjs.org/home-or-tmp/-/home-or-tmp-2.0.0/e36c3f2d2cae7d746a857e38d18d5f32a7882db8.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -2838,6 +2938,16 @@ hosted-git-info@^2.1.4:
   version "2.7.1"
   resolved "http://npm.lwcjs.org/hosted-git-info/-/hosted-git-info-2.7.1/97f236977bd6e125408930ff6de3eec6281ec047.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
   integrity sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
+
+hpkp@2.0.0:
+  version "2.0.0"
+  resolved "http://npm.lwcjs.org/hpkp/-/hpkp-2.0.0/10e142264e76215a5d30c44ec43de64dee6d1672.tgz#10e142264e76215a5d30c44ec43de64dee6d1672"
+  integrity sha1-EOFCJk52IVpdMMROxD3mTe5tFnI=
+
+hsts@2.1.0:
+  version "2.1.0"
+  resolved "http://npm.lwcjs.org/hsts/-/hsts-2.1.0/cbd6c918a2385fee1dd5680bfb2b3a194c0121cc.tgz#cbd6c918a2385fee1dd5680bfb2b3a194c0121cc"
+  integrity sha512-zXhh/DqgrTXJ7erTN6Fh5k/xjMhDGXCqdYN3wvxUvGUQvnxcFfUd8E+6vLg/nk3ss1TYMb+DhRl25fYABioTvA==
 
 html-comment-regex@^1.1.0:
   version "1.1.2"
@@ -2895,6 +3005,11 @@ iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   integrity sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
+
+ienoopen@1.0.0:
+  version "1.0.0"
+  resolved "http://npm.lwcjs.org/ienoopen/-/ienoopen-1.0.0/346a428f474aac8f50cf3784ea2d0f16f62bda6b.tgz#346a428f474aac8f50cf3784ea2d0f16f62bda6b"
+  integrity sha1-NGpCj0dKrI9QzzeE6i0PFvYr2ms=
 
 ignore-walk@^3.0.1:
   version "3.0.1"
@@ -4017,7 +4132,7 @@ micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-mime-db@~1.37.0:
+"mime-db@>= 1.36.0 < 2", mime-db@~1.37.0:
   version "1.37.0"
   resolved "http://npm.lwcjs.org/mime-db/-/mime-db-1.37.0/0b6a0ce6fdbe9576e25f1f2d2fde8830dc0ad0d8.tgz#0b6a0ce6fdbe9576e25f1f2d2fde8830dc0ad0d8"
   integrity sha512-R3C4db6bgQhlIhPU48fUtdVmKnflq+hRdad7IyKhtFj06VPNVdk2RhiYL3UjQIlso8L+YxAtFkobT0VK+S/ybg==
@@ -4172,6 +4287,11 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "http://npm.lwcjs.org/nice-try/-/nice-try-1.0.5/a3378a7696ce7d223e88fc9b764bd7ef1089e366.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
+nocache@2.0.0:
+  version "2.0.0"
+  resolved "http://npm.lwcjs.org/nocache/-/nocache-2.0.0/202b48021a0c4cbde2df80de15a17443c8b43980.tgz#202b48021a0c4cbde2df80de15a17443c8b43980"
+  integrity sha1-ICtIAhoMTL3i34DeFaF0Q8i0OYA=
 
 nock@^10.0.4:
   version "10.0.4"
@@ -4578,6 +4698,11 @@ pkg-dir@^2.0.0:
   integrity sha1-9tXREJ4Z1j7fQo4L1X4Sd3YVM0s=
   dependencies:
     find-up "^2.1.0"
+
+platform@1.3.5:
+  version "1.3.5"
+  resolved "http://npm.lwcjs.org/platform/-/platform-1.3.5/fb6958c696e07e2918d2eeda0f0bc9448d733444.tgz#fb6958c696e07e2918d2eeda0f0bc9448d733444"
+  integrity sha512-TuvHS8AOIZNAlE77WUDiR4rySV/VMptyMfcfeoMgs4P8apaZM3JrnbzBiixKUv+XR6i+BXrQh8WAnjaSPFO65Q==
 
 pluralize@^7.0.0:
   version "7.0.0"
@@ -5053,6 +5178,11 @@ reduce-function-call@^1.0.1:
   integrity sha1-WiAL+S4ON3UXUv5FsKszD9S2vpk=
   dependencies:
     balanced-match "^0.4.2"
+
+referrer-policy@1.1.0:
+  version "1.1.0"
+  resolved "http://npm.lwcjs.org/referrer-policy/-/referrer-policy-1.1.0/35774eb735bf50fb6c078e83334b472350207d79.tgz#35774eb735bf50fb6c078e83334b472350207d79"
+  integrity sha1-NXdOtzW/UPtsB46DM0tHI1AgfXk=
 
 regenerate-unicode-properties@^7.0.0:
   version "7.0.0"
@@ -6220,6 +6350,11 @@ ws@^5.2.0:
   integrity sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==
   dependencies:
     async-limiter "~1.0.0"
+
+x-xss-protection@1.1.0:
+  version "1.1.0"
+  resolved "http://npm.lwcjs.org/x-xss-protection/-/x-xss-protection-1.1.0/4f1898c332deb1e7f2be1280efb3e2c53d69c1a7.tgz#4f1898c332deb1e7f2be1280efb3e2c53d69c1a7"
+  integrity sha512-rx3GzJlgEeZ08MIcDsU2vY2B1QEriUKJTSiNHHUIem6eg9pzVOr2TL3Y4Pd6TMAM5D5azGjcxqI62piITBDHVg==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

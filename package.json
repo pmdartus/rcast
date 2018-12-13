@@ -12,8 +12,10 @@
   "dependencies": {
     "@lwc/compiler": "^0.33.16",
     "@lwc/engine": "^0.33.16",
+    "compression": "^1.7.3",
     "express": "^4.16.4",
     "feedparser": "^2.2.9",
+    "helmet": "^3.15.0",
     "morgan": "^1.9.1",
     "request": "^2.88.0",
     "sanitize-html": "^1.19.3"
