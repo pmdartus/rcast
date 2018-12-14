@@ -6,7 +6,7 @@
  */
 
 const request = require('request');
-const { ServiceUnavailable } = require('./http-error');
+const { ServiceUnavailable } = require('../utils/http-error');
 
 function top({ genreId, country }, callback) {
     request(

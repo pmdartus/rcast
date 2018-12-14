@@ -5,8 +5,10 @@
  * https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
  */
 
+const { URL } = require('url');
+
 const request = require('request');
-const { ServiceUnavailable } = require('./http-error');
+const { ServiceUnavailable } = require('../utils/http-error');
 
 const BASE_URL = 'https://itunes.apple.com';
 

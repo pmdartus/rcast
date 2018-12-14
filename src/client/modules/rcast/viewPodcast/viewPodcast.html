@@ -1,0 +1,11 @@
+<template>
+    <template if:true={podcast}>
+        <div class="header">
+            <img src={podcast.cover.large}>
+            <div class="header-details">
+                <div class="header-name">{podcast.name}</div>
+                <div class="header-genre">{podcast.primaryGenreName}</div>
+            </div>
+        </div>
+    </template>
+</template>

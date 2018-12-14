@@ -9,11 +9,13 @@ function getEpisodes(feedUrl, callback) {
         feedurl: feedUrl,
         normalize: true,
     });
-
+    
+    let success = true;
     const episodes = [];
 
     feedParser.on('error', function(error) {
-        return callback(error, episodes);
+        success = false;
+        return callback(error);
     });
 
     feedParser.on('readable', function() {
@@ -39,12 +41,15 @@ function getEpisodes(feedUrl, callback) {
                 });
             }
         } catch (error) {
+            success = false;
             return callback(error);
         }
     });
 
     feedParser.on('end', function() {
-        return callback(null, episodes);
+        if (success) {
+            return callback(null, episodes);
+        }
     });
 
     request(feedUrl).pipe(feedParser);

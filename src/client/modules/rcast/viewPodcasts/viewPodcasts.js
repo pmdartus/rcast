@@ -1,34 +1,35 @@
 import { LightningElement, track } from 'lwc';
 
-const PODCASTS = new Array(20).fill({
-    id: 275834665,
-    name: 'Apple Keynotes',
-    primaryGenreName: 'Tech News',
-    releaseDate: '2018-10-30T16:00:00Z',
-    feedUrl:
-        'http://podcasts.apple.com/apple_keynotes/apple_keynotes.xml',
-    artist: {
-        id: 706424103,
-        name: 'Apple',
-    },
-    cover: {
-        large:
-            'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/600x600bb.jpg',
-        medium:
-            'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/100x100bb.jpg',
-        small:
-            'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/60x60bb.jpg',
-    },
-}).map((item, index) => ({
-    ...item,
-    id: item.id + index
-}));
+const PODCAST_IDS = [
+    1150510297,
+    354668519,
+    // // 1253186678,
+    // 496893300,
+    // 1066446588,
+    // 1237401284,
+    // 1232093829,
+    // // 396032722,
+    // 803206041,
+    // 401615933
+];
 
 export default class ViewPodcasts extends LightningElement {
-    @track podcasts = PODCASTS;
+    @track podcasts = [];
+    @track selectedPodcastId = null;
+
+    connectedCallback() {
+        Promise.all(
+            PODCAST_IDS.map(id => {
+                return fetch(`/api/1/podcasts/${id}`)
+                    .then(res => res.json())
+            })
+        ).then(podcasts => {
+            this.podcasts = podcasts;
+        })
+    }
 
     handlePodcastClick(event) {
         const { podcastId } = event.currentTarget.dataset;
-        console.log(podcastId)
+        this.selectedPodcastId = podcastId;
     }
 }

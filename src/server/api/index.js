@@ -6,7 +6,7 @@ const { top } = require('./itunes-top-api');
 const { getEpisodes } = require('./podcast-feed');
 const { search, lookup } = require('./itunes-search-api');
 
-const { HTTPError, BadRequest, NotFound } = require('./http-error');
+const { HTTPError, BadRequest, NotFound } = require('../utils/http-error');
 
 const router = express.Router();
 
