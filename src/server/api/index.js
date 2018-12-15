@@ -3,83 +3,78 @@
 const express = require('express');
 
 const { top } = require('./itunes-top-api');
-const { getEpisodes } = require('./podcast-feed');
+const { getPodcastInfo } = require('./podcast-feed');
 const { search, lookup } = require('./itunes-search-api');
 
 const { HTTPError, BadRequest, NotFound } = require('../utils/http-error');
 
 const router = express.Router();
 
-router.get('/search', (request, response, next) => {
-    const { term } = request.query;
+function asyncMiddleware(fn) {
+    return (req, res, next) => {
+        return Promise.resolve(fn(req, res, next)).catch(next);
+    };
+}
 
-    if (!term) {
-        return next(new BadRequest('Missing required "term" query string.'));
-    }
+router.get(
+    '/search',
+    asyncMiddleware(async (request, response) => {
+        const { term } = request.query;
 
-    search(
-        {
+        if (!term) {
+            throw new BadRequest('Missing required "term" query string.');
+        }
+
+        const podcasts = await search({
             media: 'podcast',
             term,
-        },
-        (err, podcasts) => {
-            if (err) {
-                return next(err);
-            }
-
-            return response.send({
-                count: podcasts.length,
-                results: podcasts,
-            });
-        },
-    );
-});
-
-router.get('/top', (request, response, next) => {
-    const { genreId, country = 'us' } = request.query;
-
-    if (!genreId) {
-        return next(new BadRequest('Missing required "genreId" query string.'));
-    }
-
-    top({ genreId, country }, (err, podcasts) => {
-        if (err) {
-            return next(err);
-        }
+        });
 
         return response.send({
             count: podcasts.length,
             results: podcasts,
         });
-    });
-});
+    }),
+);
 
-router.get('/podcasts/:id', (request, response, next) => {
-    const { id } = request.params;
+router.get(
+    '/top',
+    asyncMiddleware(async (request, response) => {
+        const { genreId, country = 'us' } = request.query;
 
-    lookup(id, (err, podcasts) => {
-        if (err) {
-            return next(err);
+        if (!genreId) {
+            throw new BadRequest('Missing required "genreId" query string.');
         }
+
+        const podcasts = await top({ genreId, country });
+
+        return response.send({
+            count: podcasts.length,
+            results: podcasts,
+        });
+    }),
+);
+
+router.get(
+    '/podcasts/:id',
+    asyncMiddleware(async (request, response) => {
+        const { id } = request.params;
+
+        const podcasts = await lookup(id);
 
         if (podcasts.length === 0) {
-            return next(new NotFound());
+            throw new NotFound();
         }
 
-        const podcast = podcasts[0];
+        const podcast = await getPodcastInfo(podcasts[0].feedUrl);
 
-        getEpisodes(podcast.feedUrl, (err, episodes) => {
-            if (err) {
-                return next(err);
-            }
-
-            response.send({
-                ...podcast,
-                episodes
-            });
+        return response.send({
+            ...podcast,
+            id,
+            author: podcasts[0].author,
         });
-    });
-});
+    }),
+);
 
 // Custom 404 handler for API
 // eslint-disable-next-line no-unused-vars

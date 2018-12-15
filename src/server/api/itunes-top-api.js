@@ -5,34 +5,41 @@
  * https://affiliate.itunes.apple.com/resources/blog/introduction-rss-feed-generator/
  */
 
-const request = require('request');
+const request = require('../utils/request');
+const { Cache } = require('../utils/cache');
 const { ServiceUnavailable } = require('../utils/http-error');
 
-function top({ genreId, country }, callback) {
-    request(
-        `https://itunes.apple.com/${country}/rss/toppodcasts/genre=${genreId}/json`,
-        (err, response, body) => {
-            if (err) {
-                return callback(err);
-            }
+const RESPONSE_CACHE = new Cache({
+    stdTTL: 60 * 60 // 1 hour
+});
 
-            if (response.statusCode !== 200) {
-                return callback(new ServiceUnavailable());
-            }
+async function top({ genreId, country }) {
+    const url = `https://itunes.apple.com/${country}/rss/toppodcasts/genre=${genreId}/json`;
+    
+    const cachedResult = RESPONSE_CACHE.get(url);
+    if (cachedResult !== undefined) {
+        return cachedResult;
+    }
 
-            const parsedBody = JSON.parse(body);
-            const result = parsedBody.feed.entry.map(resultEntryToPodcast);
+    const response = await request(url);
 
-            callback(null, result);
-        },
-    );
-} 
+    if (response.statusCode !== 200) {
+        throw new ServiceUnavailable();
+    }
+
+    const parsedBody = JSON.parse(response.body);
+    const result = parsedBody.feed.entry.map(resultEntryToPodcast);
+
+    RESPONSE_CACHE.set(url, result);
+
+    return result;
+}
 
 function resultEntryToPodcast(entry) {
     const entryArtistField = entry['im:artist'];
 
     // Some of the artists doesn't have an associated id.
-    const artist = {
+    const author = {
         id: null,
         name: entryArtistField.label,
     };
@@ -42,31 +49,18 @@ function resultEntryToPodcast(entry) {
         // url. For example:
         // https://itunes.apple.com/us/artist/npr/125443881?mt=2&uo=2
         const artistUrl = new URL(entryArtistField.attributes.href);
-        artist.id = artistUrl.pathname.split('/').pop();
+        author.id = artistUrl.pathname.split('/').pop();
     }
 
-    const smallCover = entry['im:image'].find(image => {
-        return image.attributes.height === '60';
-    }).label;
-    const mediumCover = entry['im:image'].find(image => {
+    const image = entry['im:image'].find(image => {
         return image.attributes.height === '170';
     }).label;
-
-    // The max images size provided by this API is the 170x170.
-    const cover = {
-        small: smallCover,
-        medium: mediumCover,
-        large: null
-    };
 
     return {
         id: entry.id.attributes['im:id'],
         name: entry.title.label,
-        primaryGenreName: entry.category.attributes.label,
-        releaseDate: entry['im:releaseDate'].label,
-
-        artist,
-        cover,
+        image,
+        author,
     };
 }
 

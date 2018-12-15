@@ -7,63 +7,62 @@
 
 const { URL } = require('url');
 
-const request = require('request');
+const request = require('../utils/request');
+const { Cache } = require('../utils/cache');
 const { ServiceUnavailable } = require('../utils/http-error');
 
 const BASE_URL = 'https://itunes.apple.com';
+const RESPONSE_CACHE = new Cache({
+    stdTTL: 60 * 60, // 1 hour
+});
 
-function search(params, callback) {
-    return requestApi('/search', params, callback);
+function search(params) {
+    return requestApi('/search', params);
 }
 
-function lookup(id, callback) {
-    return requestApi('/lookup', { id }, callback);
+function lookup(id) {
+    return requestApi('/lookup', { id });
 }
 
-function requestApi(endpoint, params, callback) {
+async function requestApi(endpoint, params) {
     const url = new URL(endpoint, BASE_URL);
-
     for (const [name, value] of Object.entries(params)) {
         url.searchParams.set(name, value);
     }
 
-    return request(
-        url.toString(),
-        (err, response, body) => {
-            if (err) {
-                return callback(err);
-            }
+    const strUrl = url.toString();
 
-            if (response.statusCode !== 200) {
-                return callback(new ServiceUnavailable());
-            }
+    const cachedResult = RESPONSE_CACHE.get(strUrl);
+    if (cachedResult !== undefined) {
+        return cachedResult;
+    }
 
-            const parsedBody = JSON.parse(body);
-            const result = parsedBody.results.map(resultEntryToPodcast);
+    const response = await request(strUrl);
 
-            callback(null, result);
-        },
-    );
+    if (response.statusCode !== 200) {
+        throw new ServiceUnavailable();
+    }
+
+    const parsedBody = JSON.parse(response.body);
+    const result = parsedBody.results.map(resultEntryToPodcast);
+
+    RESPONSE_CACHE.set(strUrl, result);
+
+    return result;
 }
 
 function resultEntryToPodcast(entry) {
     return {
         id: entry.collectionId,
         name: entry.collectionName,
-        primaryGenreName: entry.primaryGenreName,
-        releaseDate: entry.releaseDate,
-        feedUrl: entry.feedUrl,
+        image: entry.artworkUrl100,
 
-        artist: {
+        author: {
             id: entry.artistId,
             name: entry.artistName,
         },
 
-        cover: {
-            small: entry.artworkUrl60,
-            medium: entry.artworkUrl100,
-            large: entry.artworkUrl600,
-        },
+        feedUrl: entry.feedUrl,
     };
 }
 

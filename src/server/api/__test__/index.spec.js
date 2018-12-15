@@ -5,9 +5,14 @@ const nock = require('nock');
 const request = require('supertest');
 
 const api = require('../../server');
+const { _flushAllCaches } = require('../../utils/cache');
 
 const fixturePath = filename =>
     path.resolve(__dirname, `./fixtures/${filename}`);
+
+afterEach(() => {
+    _flushAllCaches();
+});
 
 it('return 404 if endpoint is unknown', async () => {
     const { status, header, body } = await request(api).get('/api/1/unkown');
@@ -104,21 +109,13 @@ describe('GET /api/1/search', () => {
         expect(body.results[0]).toEqual({
             id: 275834665,
             name: 'Apple Keynotes',
-            primaryGenreName: 'Tech News',
-            releaseDate: '2018-10-30T16:00:00Z',
+            image:
+                'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/100x100bb.jpg',
             feedUrl:
                 'http://podcasts.apple.com/apple_keynotes/apple_keynotes.xml',
-            artist: {
+            author: {
                 id: 706424103,
                 name: 'Apple',
-            },
-            cover: {
-                large:
-                    'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/600x600bb.jpg',
-                medium:
-                    'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/100x100bb.jpg',
-                small:
-                    'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/60x60bb.jpg',
             },
         });
     });
@@ -193,21 +190,14 @@ describe('GET /api/1/top', () => {
         expect(body.count).toBe(50);
         expect(body.results).toHaveLength(50);
         expect(body.results[0]).toEqual({
-            artist: {
+            id: '523121474',
+            name: 'TED Radio Hour - NPR',
+            image:
+                'https://is3-ssl.mzstatic.com/image/thumb/Podcasts118/v4/ef/e2/d4/efe2d4c6-a7cf-0eb4-cd60-a94ec7720f98/mza_1915696984681289998.jpg/170x170bb-85.png',
+            author: {
                 id: '125443881',
                 name: 'NPR',
             },
-            cover: {
-                large: null,
-                medium:
-                    'https://is3-ssl.mzstatic.com/image/thumb/Podcasts118/v4/ef/e2/d4/efe2d4c6-a7cf-0eb4-cd60-a94ec7720f98/mza_1915696984681289998.jpg/170x170bb-85.png',
-                small:
-                    'https://is3-ssl.mzstatic.com/image/thumb/Podcasts118/v4/ef/e2/d4/efe2d4c6-a7cf-0eb4-cd60-a94ec7720f98/mza_1915696984681289998.jpg/60x60bb-85.png',
-            },
-            id: '523121474',
-            name: 'TED Radio Hour - NPR',
-            primaryGenreName: 'Technology',
-            releaseDate: '2018-12-06T21:01:00-07:00',
         });
     });
 });
@@ -268,6 +258,23 @@ describe('GET /podcasts/:id', () => {
         const { status, body } = await request(api).get('/api/1/podcasts/123');
 
         expect(status).toBe(200);
+
+        expect(body).toMatchObject({
+            name: 'Apple Keynotes',
+            subtitle: "Video of Apple's most important announcements.",
+            description:
+                "The Apple Keynotes podcast offers video of the company's most important announcements, including presentations by Apple CEO Tim Cook.",
+            author: {
+                id: 706424103,
+                name: 'Apple'
+            },
+            language: 'en-us',
+            link: 'http://www.apple.com/',
+            image:
+                'http://podcasts.apple.com/apple_keynotes/images/0326_apple_keynote_logo.png',
+            episodes: expect.any(Array),
+        });
+
         expect(body.episodes).toHaveLength(3);
         expect(body.episodes[0]).toEqual({
             id:
@@ -275,6 +282,7 @@ describe('GET /podcasts/:id', () => {
             title: 'Apple Special Event, October 2018',
             description:
                 'See Apple CEO Tim Cook and team introduce the new Mac mini, MacBook Air, iPad Pro with all-screen design, and second-generation Apple Pencil.',
+            image: null,
             duration: 5482,
             publication_date: '2018-10-30T16:00:00.000Z',
             audio: {
