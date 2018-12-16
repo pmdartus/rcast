@@ -26,17 +26,23 @@ app.use(helmet());
 // GZip all the responses.
 app.use(compression());
 
-// Static file server for the single page application.
-app.use(express.static(DIST_DIR));
-
-// API endpoints
-app.use('/api/1', apiRouter);
+// Match static files requests
+const publicDir = path.resolve(DIST_DIR, 'public');
+app.use('/public', express.static(publicDir));
 
 // Since some of the podcast enclosed URL doesn't provide CORS headers, we use this endpoint as a proxy to get around
 // the same origin policy.
-app.get('/api/stream/*', (req, res) => {
+app.get('/proxy/*', (req, res) => {
     const streamUrl = decodeURIComponent(req.params[0]);
     request(streamUrl).pipe(res);
+});
+
+// Match API requests
+app.use('/api/1', apiRouter);
+
+// Match all the other requests
+app.use('*', (req, res) => {
+    res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
 
 module.exports = app;

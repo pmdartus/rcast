@@ -6,5 +6,5 @@ const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => {
     // eslint-disable-next-line no-console
-    console.log(`rcast is ready port ${PORT}!`);
+    console.log(`Application available at: http://localhost:${PORT}`);
 });

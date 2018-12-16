@@ -16,7 +16,7 @@ module.exports = {
     input: path.resolve(SRC_DIR, 'index.js'),
 
     output: {
-        file: path.resolve(DIST_DIR, 'index.js'),
+        file: path.resolve(DIST_DIR, 'public/index.js'),
         format: 'es',
     },
 
@@ -28,13 +28,13 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify(__ENV__),
         }),
         copy({
-            [path.resolve(SRC_DIR, 'public/index.html')]: path.resolve(
+            [path.resolve(SRC_DIR, 'index.html')]: path.resolve(
                 DIST_DIR,
                 'index.html',
             ),
-            [path.resolve(SRC_DIR, 'public/svg/')]: path.resolve(
+            [path.resolve(SRC_DIR, 'public/')]: path.resolve(
                 DIST_DIR,
-                'svg/',
+                'public/',
             ),
         }),
     ],
