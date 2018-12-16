@@ -1,8 +1,8 @@
 import { LightningElement, api } from 'lwc';
 
 const VIEWS = [
-    { viewName: 'podcasts', label: 'Podcasts', iconUrl: `/svg/sprite.svg#grid` },
-    { viewName: 'discover', label: 'Discover', iconUrl: `/svg/sprite.svg#search` },
+    { viewName: 'podcasts', label: 'Podcasts', iconUrl: `/svg/icons.svg#icon-grid` },
+    { viewName: 'discover', label: 'Discover', iconUrl: `/svg/icons.svg#icon-search` },
 ];
 
 export default class ActionBar extends LightningElement {

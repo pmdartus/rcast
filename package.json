@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint",
     "test": "jest",
+    "clean": "rm -rf dist/",
     "build": "rollup -c ./rollup.config.js",
     "start": "node ./src/server/index.js"
   },

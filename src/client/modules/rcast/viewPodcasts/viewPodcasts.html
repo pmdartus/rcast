@@ -7,7 +7,7 @@
         <div class="grid">
             <template for:each={podcasts} for:item="podcast">
                 <div key={podcast.id} class="grid-item" onclick={handlePodcastClick} data-podcast-id={podcast.id}>
-                    <img src={podcast.cover.large} alt={podcast.name}>
+                    <img src={podcast.image} alt={podcast.name}>
                 </div>
             </template>
         </div>
