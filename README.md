@@ -15,6 +15,7 @@
 * Engine at runtime should warn if a the object doesn't have a property accessed from the template defined (make sure the property is at least set `null` or `undefined`). This would avoid a lot of pain when the property name has a typo in the template.
 * The compiler care about what get's imported from LWC or not. It's the job of rollup. `Invalid import. "LigthningElement" is not part of the lwc api.`
 * Clunky error message: `[LWC warning]: Property "podcast" of [object:vm undefined (5)] is set to a non-trackable object, which means changes into that object cannot be observed.`. This error message appears when set a `Response` object to a track property.
+* Debugging application with shadow DOM enabled on an iPhone with safari debugger is painful! The debugger doesn't allow to inspect the native shadow DOM, only the top level element is debuggable. 
 
 ## Credits
 

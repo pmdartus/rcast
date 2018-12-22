@@ -8,7 +8,7 @@
         
         <div role="list">
             <template for:each={categories} for:item="category">
-                <div class="category" role="listitem" key={category.id} data-category-id={category.id}>
+                <div class="category" role="listitem" key={category.id} data-category-id={category.id} onclick={handleGenreClick}>
                     <svg alt={category.name}>
                         <use xlink:href={category.iconUrl}></use>
                     </svg>

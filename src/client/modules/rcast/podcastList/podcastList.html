@@ -1,0 +1,13 @@
+<template>
+    <template if:true={isLoading}>
+        Loading...
+    </template>
+
+    <template if:false={isLoading}>
+        <template for:each={podcasts} for:item="podcast">
+            <div>
+                {podcast.name}
+            </div>
+        </template>
+    </template>
+</template>

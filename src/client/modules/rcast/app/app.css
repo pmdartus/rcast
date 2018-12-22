@@ -1,16 +1,20 @@
-.view {
+:host {
+    /* Make the app container takes 100% of the viewport */
     height: 100%;
-    padding-bottom: var(--action-bar-height);
-    overflow-y: scroll;
-    box-sizing: border-box;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
 }
 
-rcast-action-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: var(--action-bar-height);
+.view {
+    /* Make sure the view stretch with the remaining height once the action bar is placed */
+    flex: 1;
+    overflow-y: scroll;
 
-    z-index: 10;
+    /* 
+        Add scrolling momentum for the view content to feel more like a native app.
+        https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
+     */
+    -webkit-overflow-scrolling: touch;
 }

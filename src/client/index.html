@@ -10,7 +10,6 @@
                 --font-color: #ffffff;
                 
                 --header-height: 40px;
-                --action-bar-height: 50px;
             }
 
             /* TODO: Add HTML minifier */
@@ -32,12 +31,15 @@
                   https://medium.com/@owencm/designing-great-uis-for-progressive-web-apps-dd38c1d20f7
                 */
                 -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+                /* Prevent the elastic scrolling effect when trying to scroll past the page bottom. */
+                overflow: hidden;
             }
         </style>
     </head>
     <body>
-        <!-- TODO: Add styling for error message -->
-        <div id="unsupported-browser" style="display: none;">
+        <!-- TODO: Better handle unsupported browser. We need to prevent the browser from rendering the app in this case. -->
+        <!-- <div id="unsupported-browser" style="display: none;">
             This browser is not supported! 😱
         </div>
         <script nomodule>
@@ -56,7 +58,7 @@
                 const script = document.createElement('script');
                 return 'noModule' in script;
             }
-        </script>
+        </script> -->
 
         <script type="module" src="/public/index.js"></script>
     </body>
