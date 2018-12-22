@@ -4,6 +4,7 @@
  * More details:
  * https://affiliate.itunes.apple.com/resources/blog/introduction-rss-feed-generator/
  */
+const { URL } = require('url');
 
 const request = require('../utils/request');
 const { Cache } = require('../utils/cache');
@@ -58,7 +59,7 @@ function resultEntryToPodcast(entry) {
 
     return {
         id: entry.id.attributes['im:id'],
-        name: entry.title.label,
+        name: entry['im:name'].label,
         image,
         author,
     };

@@ -1,11 +1,25 @@
 <template>
     <template if:true={podcast}>
         <div class="header">
-            <img src={podcast.cover.large}>
+            <img src={podcast.image}>
             <div class="header-details">
                 <div class="header-name">{podcast.name}</div>
-                <div class="header-genre">{podcast.primaryGenreName}</div>
+                <div class="header-genre">{podcast.author.name}</div>
+
+                <button class="subscribe">Subscribe</button>
             </div>
+        </div>
+
+        <div class="description" lwc:dom="manual"></div>
+
+        <div class="episode-list">
+            <template for:each={podcast.episodes} for:item="episode">
+                <div key={episode.id} class="episode">
+                    {episode.publication_date}
+                    {episode.title}
+                    {episode.duration}
+                </div>
+            </template>
         </div>
     </template>
 </template>

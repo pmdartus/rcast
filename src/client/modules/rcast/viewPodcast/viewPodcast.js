@@ -11,4 +11,12 @@ export default class ViewPodcast extends LightningElement {
                 this.podcast = res;
             });
     }
+
+    renderedCallback() {
+        const { podcast } = this;
+
+        if (podcast) {
+            this.template.querySelector('.description').innerHTML = podcast.description;
+        }
+    }
 }

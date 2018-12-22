@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import { categories } from 'rcast/utils';
 
 const CATEGORIES = categories.map(category => {
@@ -12,8 +12,16 @@ const CATEGORIES = categories.map(category => {
 export default class ViewDiscovery extends LightningElement {
     categories = CATEGORIES;
 
+    @track selectedCategory;
+    @track selectedPodcast;
+
     handleGenreClick(event) {
         const { categoryId } = event.currentTarget.dataset;
-        console.log(categoryId);
+        this.selectedCategory = categoryId;
+    }
+
+    handlePodcastSelected(event) {
+        const { podcastId } = event.detail;
+        this.selectedPodcast = podcastId;
     }
 }

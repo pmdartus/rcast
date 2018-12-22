@@ -1,20 +1,30 @@
 <template>
-    <rcast-header>
-        Categories
-    </rcast-header>
+    <template if:false={selectedCategory}>
+        <rcast-header>
+            Categories
+        </rcast-header>
 
-    <div class="categories">
-        <div class="header" role="heading">Browse By Category</div>
-        
-        <div role="list">
-            <template for:each={categories} for:item="category">
-                <div class="category" role="listitem" key={category.id} data-category-id={category.id} onclick={handleGenreClick}>
-                    <svg alt={category.name}>
-                        <use xlink:href={category.iconUrl}></use>
-                    </svg>
-                    {category.name}
-                </div>
-            </template>
+        <div class="categories">
+            <div class="header" role="heading">Browse By Category</div>
+            
+            <div role="list">
+                <template for:each={categories} for:item="category">
+                    <div class="category" role="listitem" key={category.id} data-category-id={category.id} onclick={handleGenreClick}>
+                        <svg alt={category.name}>
+                            <use xlink:href={category.iconUrl}></use>
+                        </svg>
+                        {category.name}
+                    </div>
+                </template>
+            </div>
         </div>
-    </div>
+    </template>
+
+    <template if:true={selectedCategory}>
+        <rcast-podcast-list category-id={selectedCategory} onpodcastselected={handlePodcastSelected}></rcast-podcast-list>
+    </template>
+
+    <template if:true={selectedPodcast}>
+        <rcast-view-podcast podcast-id={selectedPodcast}></rcast-view-podcast>
+    </template>
 </template>

@@ -191,7 +191,7 @@ describe('GET /api/1/top', () => {
         expect(body.results).toHaveLength(50);
         expect(body.results[0]).toEqual({
             id: '523121474',
-            name: 'TED Radio Hour - NPR',
+            name: 'TED Radio Hour',
             image:
                 'https://is3-ssl.mzstatic.com/image/thumb/Podcasts118/v4/ef/e2/d4/efe2d4c6-a7cf-0eb4-cd60-a94ec7720f98/mza_1915696984681289998.jpg/170x170bb-85.png',
             author: {

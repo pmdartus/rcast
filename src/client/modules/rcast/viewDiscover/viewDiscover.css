@@ -1,3 +1,7 @@
+:host {
+    display: block;
+}
+
 .categories {
     padding: 0 15px;
 }
