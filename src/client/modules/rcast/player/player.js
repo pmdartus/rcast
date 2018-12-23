@@ -92,7 +92,10 @@ export default class Player extends LightningElement {
 
     handleAudioError(event) {
         const { target } = event;
+
+        // eslint-disable-next-line
         console.error(target.error);
+
         // TODO - Handle loading error gracefully
     }
 
