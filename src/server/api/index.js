@@ -85,12 +85,6 @@ router.use((req, res, next) => {
 // Custom error handler for API
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
-    // Don't log error in test mode, it pollutes the logs
-    if (process.env.NODE_ENV !== 'test') {
-        // eslint-disable-next-line no-console
-        console.error(err);
-    }
-
     if (err instanceof HTTPError) {
         return res.status(err.code).send({
             error: err.toJSON(),
@@ -103,7 +97,11 @@ router.use((err, req, res, next) => {
             },
         };
 
-        // TODO: Add logging here with the stack trace for production debugging
+        // Don't log error in test mode, it pollutes the logs
+        if (process.env.NODE_ENV !== 'test') {
+            // eslint-disable-next-line no-console
+            console.error(err);
+        }
 
         // TODO: Move this check somewhere else?
         if (process.env.NODE_ENV !== 'production') {

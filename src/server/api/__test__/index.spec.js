@@ -266,12 +266,13 @@ describe('GET /podcasts/:id', () => {
                 "The Apple Keynotes podcast offers video of the company's most important announcements, including presentations by Apple CEO Tim Cook.",
             author: {
                 id: 706424103,
-                name: 'Apple'
+                name: 'Apple',
             },
             language: 'en-us',
             link: 'http://www.apple.com/',
             image:
                 'http://podcasts.apple.com/apple_keynotes/images/0326_apple_keynote_logo.png',
+            categories: ['Technology', 'Tech News/Tech News'],
             episodes: expect.any(Array),
         });
 

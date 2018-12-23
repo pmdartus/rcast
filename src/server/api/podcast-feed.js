@@ -70,6 +70,7 @@ function parseFeed(content, url) {
                 image:
                     getOrNul(meta, 'itunes:image', '#') ||
                     getOrNul(meta, 'image', 'url'),
+                categories: getOrNul(meta, 'categories') || [],
             };
         });
 
