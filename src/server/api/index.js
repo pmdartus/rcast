@@ -6,6 +6,7 @@ const { top } = require('./itunes-top-api');
 const { getPodcastInfo } = require('./podcast-feed');
 const { search, lookup } = require('./itunes-search-api');
 
+const { __ENV__ } = require('../config');
 const { HTTPError, BadRequest, NotFound } = require('../utils/http-error');
 
 const router = express.Router();
@@ -98,13 +99,13 @@ router.use((err, req, res, next) => {
         };
 
         // Don't log error in test mode, it pollutes the logs
-        if (process.env.NODE_ENV !== 'test') {
+        if (__ENV__ !== 'test') {
             // eslint-disable-next-line no-console
             console.error(err);
         }
 
-        // TODO: Move this check somewhere else?
-        if (process.env.NODE_ENV !== 'production') {
+        // Attached to the response message, the stack trace in development mode.
+        if (__ENV__ !== 'production') {
             message.error.stack = err.stack;
         }
 

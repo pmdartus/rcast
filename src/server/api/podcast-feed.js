@@ -11,7 +11,7 @@ const sanitizeHTML = require('sanitize-html');
 
 const request = require('../utils/request');
 const { Cache } = require('../utils/cache');
-const { InternalError } = require('../utils/http-error');
+const { ServiceUnavailable } = require('../utils/http-error');
 
 const RESPONSE_CACHE = new Cache({
     stdTTL: 60 * 60, // 1 hour
@@ -29,9 +29,8 @@ async function fetchFeed(url) {
 
     const response = await request(url);
 
-    // TODO: Improve error handle of non 200 responses
     if (response.statusCode !== 200) {
-        throw InternalError();
+        throw ServiceUnavailable();
     }
 
     RESPONSE_CACHE.set(url, response.body);
@@ -79,8 +78,6 @@ function parseFeed(content, url) {
                 const item = this.read();
 
                 if (item) {
-                    // TODO - This can maybe be improved in the future, we should return the best matching audio file
-                    // based on it's size and encoding.
                     const enclosure = item.enclosures[0];
 
                     episodes.push({
