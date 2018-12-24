@@ -1,6 +1,15 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    
+    min-height: 100%;
     font-size: 0.9rem;
+}
+
+rcast-spinner {
+    display: block;
+    width: 2rem;
+    height: 2rem;
 }
 
 .podcast {

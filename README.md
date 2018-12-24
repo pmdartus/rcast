@@ -16,6 +16,7 @@
 * The compiler care about what get's imported from LWC or not. It's the job of rollup. `Invalid import. "LigthningElement" is not part of the lwc api.`
 * Clunky error message: `[LWC warning]: Property "podcast" of [object:vm undefined (5)] is set to a non-trackable object, which means changes into that object cannot be observed.`. This error message appears when set a `Response` object to a track property.
 * Debugging application with shadow DOM enabled on an iPhone with safari debugger is painful! The debugger doesn't allow to inspect the native shadow DOM, only the top level element is debuggable. 
+* Validating the HTML attribute name is really painful. For example `<animate>` SVG tag element with `attributeName` attribute is not recognazied by the the compiler. So I am blocked and it would require to update the compiler to make it pass.
 
 ## Credits
 

@@ -3,23 +3,17 @@ import { LightningElement, api, track } from 'lwc';
 export default class PodcastList extends LightningElement {
     @api categoryId;
 
-    @track isLoading = true;
-    @track podcasts = [];
+    @track state = {
+        loading: false,
+        result: null,
+    };
 
     connectedCallback() {
-        if (!this.categoryId) {
-            // eslint-disable-next-line no-console
-            console.warn(`No genreId property has been set`);
-            return;
-        }
+        this.fetchPodcasts();
+    }
 
-        // TODO: Add error handling
-        fetch(`/api/1/top?genreId=${this.categoryId}`)
-            .then(response => response.json())
-            .then(res => {
-                this.isLoading = false;
-                this.podcasts = res.results;
-            });
+    handleLoadRetry() {
+        this.fetchPodcasts();
     }
 
     handlePodcastClick(event) {
@@ -28,8 +22,50 @@ export default class PodcastList extends LightningElement {
 
         this.dispatchEvent(
             new CustomEvent('podcastselected', {
-                detail: { podcastId }
-            })
+                detail: { podcastId },
+            }),
         );
+    }
+
+    async fetchPodcasts() {
+        if (!this.categoryId) {
+            // eslint-disable-next-line no-console
+            throw new TypeError(`No categoryId property has been set`);
+        }
+
+        this.state = {
+            loading: true,
+            result: null,
+        };
+
+        try {
+            const response = await fetch(
+                `/api/1/top?genreId=${this.categoryId}`,
+            );
+            const res = await response.json();
+
+            if (!response.ok) {
+                this.state = {
+                    loading: false,
+                    result: {
+                        error: res.error || 'Error',
+                    },
+                };
+            } else {
+                this.state = {
+                    loading: false,
+                    result: {
+                        data: res.results,
+                    },
+                };
+            }
+        } catch (error) {
+            this.state = {
+                loading: false,
+                result: {
+                    error,
+                },
+            };
+        }
     }
 }

@@ -1,19 +1,28 @@
 <template>
-    <template if:true={isLoading}>
-        Loading...
+    <template if:true={state.loading}>
+        <div class="center">
+            <rcast-spinner></rcast-spinner>
+        </div>
     </template>
 
-    <template if:false={isLoading}>
-
-        <template for:each={podcasts} for:item="podcast">
-            <div class="podcast" key={podcast.id} onclick={handlePodcastClick} data-podcast-id={podcast.id}>
-                <img class="podcast_cover" src={podcast.image} alt={podcast.name}>
-                <div class="podcast_description">
-                    <span class="podcast_name">{podcast.name}</span>
-                    <span class="podcast_author">{podcast.author.name}</span>
-                </div>
+    <template if:false={state.loading}>
+        <template if:true={state.result.error}>
+            <div class="center">
+                Can't load results
+                <button onclick={handleLoadRetry}>Retry</button>
             </div>
         </template>
 
+        <template if:false={state.result.error}>
+                <template for:each={state.result.data} for:item="podcast">
+                    <div class="podcast" key={podcast.id} onclick={handlePodcastClick} data-podcast-id={podcast.id}>
+                        <img class="podcast_cover" src={podcast.image} alt={podcast.name}>
+                        <div class="podcast_description">
+                            <span class="podcast_name">{podcast.name}</span>
+                            <span class="podcast_author">{podcast.author.name}</span>
+                        </div>
+                    </div>
+                </template>
+            </template>
     </template>
 </template>
