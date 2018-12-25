@@ -7,16 +7,12 @@
             <span class="author">{podcast.author.name}</span>
         </div>
     
-        <div role="switch" aria-checked={state.playing} onclick={handlePlayPauseClick}>
-            <template if:true={state.playing}>
-                <svg alt="Pause">
-                    <use xlink:href="/public/svg/icons.svg#icon-pause"></use>
-                </svg>
-            </template>
+        <div class="control-button" role="switch" aria-checked={state.playing} onclick={handlePlayPauseClick}>
             <template if:false={state.playing}>
-                <svg alt="Play">
-                    <use xlink:href="/public/svg/icons.svg#icon-play"></use>
-                </svg>
+                <rcast-icon name="pause"></rcast-icon>
+            </template>
+            <template if:true={state.playing}>
+                <rcast-icon name="play"></rcast-icon>
             </template>
         </div>
     </div>

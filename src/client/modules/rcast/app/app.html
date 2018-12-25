@@ -7,8 +7,6 @@
     <rcast-player-condensed></rcast-player-condensed> -->
     <!-- <rcast-player></rcast-player> -->
 
-    <!-- <rcast-action-bar view-name={viewName} onnavigate={handleNavigate}></rcast-action-bar> -->
-
     <rcast-tabs>
         <rcast-tab tab="podcasts">
             I am PODCASTS
@@ -17,19 +15,19 @@
             I am DISCOVER
         </rcast-tab>
 
-        <div slot="bottom" class="tab-bar" role="tablist">
-            <rcast-tab-button tab="podcasts">
-                <svg alt="podcast">
-                    <use xlink:href="/public/svg/icons.svg#icon-grid"></use>
-                </svg>
-                Podcasts
-            </rcast-tab-button>
-            <rcast-tab-button tab="discover">
-                <svg alt="discover">
-                    <use xlink:href="/public/svg/icons.svg#icon-search"></use>
-                </svg>
-                Discover
-            </rcast-tab-button>
+        <div slot="bottom">
+            <rcast-player-condensed></rcast-player-condensed>
+
+            <div class="tab-bar" role="tablist">
+                <rcast-tab-button tab="podcasts">
+                    <rcast-icon name="grid"></rcast-icon> 
+                    Podcasts
+                </rcast-tab-button>
+                <rcast-tab-button tab="discover">
+                    <rcast-icon name="search"></rcast-icon> 
+                    Discover
+                </rcast-tab-button>
+            </div>
         </div>
     </rcast-tabs>
 </template>
