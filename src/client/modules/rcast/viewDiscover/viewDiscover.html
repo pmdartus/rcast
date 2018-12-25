@@ -1,23 +1,25 @@
 <template>
     <template if:false={selectedCategory}>
         <rcast-header>
-            Categories
+            Discover
         </rcast-header>
 
-        <div class="categories">
-            <div class="header" role="heading">Browse By Category</div>
-            
-            <div role="list">
-                <template for:each={categories} for:item="category">
-                    <div class="category" role="listitem" key={category.id} data-category-id={category.id} onclick={handleGenreClick}>
-                        <svg alt={category.name}>
-                            <use xlink:href={category.iconUrl}></use>
-                        </svg>
-                        {category.name}
-                    </div>
-                </template>
+        <rcast-content>
+            <div class="categories">
+                <div class="header" role="heading">Browse By Category</div>
+                
+                <div role="list">
+                    <template for:each={categories} for:item="category">
+                        <div class="category" role="listitem" key={category.id} data-category-id={category.id} onclick={handleGenreClick}>
+                            <svg alt={category.name}>
+                                <use xlink:href={category.iconUrl}></use>
+                            </svg>
+                            {category.name}
+                        </div>
+                    </template>
+                </div>
             </div>
-        </div>
+        </rcast-content>
     </template>
 
     <template if:true={selectedCategory}>

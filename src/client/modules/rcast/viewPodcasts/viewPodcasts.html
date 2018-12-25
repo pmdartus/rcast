@@ -1,19 +1,20 @@
 <template>
-    <template if:false={selectedPodcastId}>
-        <rcast-header>
-            Podcasts
-        </rcast-header>
-    
-        <div class="grid">
+    <!-- <template if:false={selectedPodcastId}> -->
+    <rcast-header>
+        Podcasts
+    </rcast-header>
+    <rcast-content>
+        <div class="scroll grid">
             <template for:each={podcasts} for:item="podcast">
-                <div key={podcast.id} class="grid-item" onclick={handlePodcastClick} data-podcast-id={podcast.id}>
+                    <div key={podcast.id} class="grid-item" onclick={handlePodcastClick} data-podcast-id={podcast.id}>
                     <img src={podcast.image} alt={podcast.name}>
                 </div>
             </template>
         </div>
-    </template>
+    </rcast-content>
+    <!-- </template> -->
     
-    <template if:true={selectedPodcastId}>
+    <!-- <template if:true={selectedPodcastId}>
         <rcast-view-podcast podcast-id={selectedPodcastId}></rcast-view-podcast>
-    </template>
+    </template> -->
 </template>

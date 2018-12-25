@@ -3,7 +3,14 @@
     height: var(--header-height);
 
     display: flex;
-    flex: 1;
     align-items: center;
+
+    background: var(--background-color);
+    border-bottom: 1px solid #010101;
+}
+
+slot {
+    width: 100%;
+    display: block;
     text-align: center;
 }

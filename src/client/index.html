@@ -2,7 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <!-- Block zoom -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+        <!-- Make status bar transparent -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
         <title>rcast</title>
         <style>
             :root {
@@ -28,17 +33,19 @@
                 color: var(--font-color);
 
                 /* 
-                  Disable element highlight on tap. 
-                  https://medium.com/@owencm/designing-great-uis-for-progressive-web-apps-dd38c1d20f7
+                  Disable element highlight on tap and other non-native behaviors
+                  https://medium.com/appscope/designing-native-like-progressive-web-apps-for-ios-1b3cdda1d0e8
                 */
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-touch-callout: none;
 
                 /* Prevent the elastic scrolling effect when trying to scroll past the page bottom. */
                 overflow: hidden;
             }
         </style>
     </head>
-    <body>
+    <body ontouchstart="">
         <!-- TODO: Better handle unsupported browser. We need to prevent the browser from rendering the app in this case. -->
         <!-- <div id="unsupported-browser" style="display: none;">
             This browser is not supported! 😱
