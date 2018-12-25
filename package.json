@@ -11,8 +11,8 @@
     "start": "node ./src/server/index.js"
   },
   "dependencies": {
-    "@lwc/compiler": "^0.33.16",
-    "@lwc/engine": "^0.33.16",
+    "@lwc/compiler": "^0.33.26",
+    "@lwc/engine": "^0.33.26",
     "compression": "^1.7.3",
     "express": "^4.16.4",
     "feedparser": "^2.2.9",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@lwc/eslint-plugin-lwc": "^0.6.0",
-    "@lwc/rollup-plugin": "^0.33.16",
+    "@lwc/rollup-plugin": "^0.33.26",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.10.0",
     "jest": "^23.6.0",

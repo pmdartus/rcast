@@ -1,18 +1,10 @@
 <template>
-    <!-- <div class="view">
-        <rcast-view-podcasts if:true={isViewPodcastsActive}></rcast-view-podcasts>
-        <rcast-view-discover if:true={isViewDiscoverActive}></rcast-view-discover>
-    </div>
-    
-    <rcast-player-condensed></rcast-player-condensed> -->
-    <!-- <rcast-player></rcast-player> -->
-
     <rcast-tabs>
         <rcast-tab tab="podcasts">
-            I am PODCASTS
+            <rcast-nav root={views.podcasts}></rcast-nav>
         </rcast-tab>
         <rcast-tab tab="discover">
-            I am DISCOVER
+            <rcast-nav root={views.discover}></rcast-nav>
         </rcast-tab>
 
         <div slot="bottom">

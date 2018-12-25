@@ -1,3 +1,17 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, createElement } from 'lwc';
 
-export default class App extends LightningElement {}
+import ViewPodcasts from 'rcast/viewPodcasts';
+import ViewDiscover from 'rcast/viewDiscover';
+
+export default class App extends LightningElement {
+    views = {
+        podcasts: createElement('rcast-view-podcasts', {
+            is: ViewPodcasts,
+            fallback: false,
+        }),
+        discover: createElement('rcast-view-discover', {
+            is: ViewDiscover,
+            fallback: false,
+        }),
+    };
+}

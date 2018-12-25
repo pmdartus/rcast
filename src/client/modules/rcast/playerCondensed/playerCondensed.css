@@ -51,20 +51,27 @@ img {
 }
 
 .control-button {
+    /* Push control to the right. */
+    margin-left: auto;
+
+    /* Setting width and height is not enough, min-width and min-height ensures the button is round. */
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 25px;
+
+    /* Display the icon in the middle of the button */
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-
     background: white;
 }
 
+.control-button:active {
+    background: #c4c4c4;
+}
+
 rcast-icon {
-
-
     display: block;
     width: 30px;
     height: 30px;

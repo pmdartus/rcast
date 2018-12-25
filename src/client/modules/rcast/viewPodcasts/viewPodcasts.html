@@ -1,8 +1,8 @@
 <template>
-    <!-- <template if:false={selectedPodcastId}> -->
     <rcast-header>
         Podcasts
     </rcast-header>
+
     <rcast-content>
         <div class="scroll grid">
             <template for:each={podcasts} for:item="podcast">
@@ -12,9 +12,4 @@
             </template>
         </div>
     </rcast-content>
-    <!-- </template> -->
-    
-    <!-- <template if:true={selectedPodcastId}>
-        <rcast-view-podcast podcast-id={selectedPodcastId}></rcast-view-podcast>
-    </template> -->
 </template>

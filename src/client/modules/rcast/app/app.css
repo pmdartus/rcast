@@ -7,18 +7,6 @@
     flex-direction: column;
 }
 
-.view {
-    /* Make sure the view stretch with the remaining height once the action bar is placed */
-    flex: 1;
-    overflow-y: scroll;
-
-    /* 
-        Add scrolling momentum for the view content to feel more like a native app.
-        https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
-     */
-    -webkit-overflow-scrolling: touch;
-}
-
 .tab-bar {
     background: #010101;
     border-top: 1px solid #494949;

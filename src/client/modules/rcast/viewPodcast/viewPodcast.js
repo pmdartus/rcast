@@ -16,7 +16,17 @@ export default class ViewPodcast extends LightningElement {
         const { podcast } = this;
 
         if (podcast) {
-            this.template.querySelector('.description').innerHTML = podcast.description;
+            this.template.querySelector('.description').innerHTML =
+                podcast.description;
         }
+    }
+
+    handleBack() {
+        this.dispatchEvent(
+            new CustomEvent('navstackop', {
+                bubbles: true,
+                composed: true,
+            }),
+        );
     }
 }
