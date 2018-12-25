@@ -1,0 +1,17 @@
+a {
+    text-decoration: none;
+}
+
+slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: #C4C4C4;
+    fill: #C4C4C4;
+}
+
+:host(.tab-selected) slot {
+    color: #1CA0EA;
+    fill: #1CA0EA;
+}

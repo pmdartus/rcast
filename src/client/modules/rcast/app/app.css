@@ -18,3 +18,19 @@
      */
     -webkit-overflow-scrolling: touch;
 }
+
+.tab-bar {
+    background: #010101;
+    border-top: 1px solid #494949;
+    padding: 3px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+rcast-tab-button svg {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+}
