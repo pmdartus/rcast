@@ -1,0 +1,27 @@
+<template>
+    <div class="head" onclick={handleHeadClick}>
+        <img src={cover} alt={episode.title}>
+
+        <div class="info">
+            <span class="title">{episode.title}</span>
+            <span class="author">{podcast.author.name}</span>
+        </div>
+    
+        <div role="switch" aria-checked={state.playing} onclick={handlePlayPauseClick}>
+            <template if:true={state.playing}>
+                <svg alt="Pause">
+                    <use xlink:href="/public/svg/icons.svg#icon-pause"></use>
+                </svg>
+            </template>
+            <template if:false={state.playing}>
+                <svg alt="Play">
+                    <use xlink:href="/public/svg/icons.svg#icon-play"></use>
+                </svg>
+            </template>
+        </div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-bar_value" style="width: 35%"></div>
+    </div>
+</template>

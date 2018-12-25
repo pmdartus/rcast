@@ -1,0 +1,60 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #494949;
+}
+
+.progress-bar {
+    height: 3px;
+    background: #2E2E2E;
+}
+
+.progress-bar_value {
+    height: 100%;
+    background: #C4C4C4;
+}
+
+.head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 10px;
+    background: #010101;
+}
+
+/* TODO: Move cover to it's own component to properly handle lazyload */
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.info {
+    padding: 0 10px;
+    font-weight: lighter;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.info span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.info .author {
+    color: #C4C4C4;
+}
+
+[role="switch"] {
+    fill: #010101;
+    background: white;
+    
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
