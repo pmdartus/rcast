@@ -1,4 +1,7 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, createElement } from 'lwc';
+
+import ViewPodcast from 'rcast/viewPodcast';
+import { categories } from 'rcast/utils';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;
@@ -16,15 +19,10 @@ export default class PodcastList extends LightningElement {
         this.fetchPodcasts();
     }
 
-    handlePodcastClick(event) {
-        event.stopPropagation();
-        const { podcastId } = event.currentTarget.dataset;
-
-        this.dispatchEvent(
-            new CustomEvent('podcastselected', {
-                detail: { podcastId },
-            }),
-        );
+    get categoryName() {
+        return categories.find(category => {
+            return category.id == this.categoryId;
+        }).name;
     }
 
     async fetchPodcasts() {
@@ -67,5 +65,25 @@ export default class PodcastList extends LightningElement {
                 },
             };
         }
+    }
+
+    handlePodcastClick(event) {
+        const podcastId = parseInt(event.currentTarget.dataset.podcastId, 10);
+
+        const element = createElement('rcast-view-podcast', {
+            is: ViewPodcast,
+            fallback: false,
+        });
+        element.podcastId = podcastId;
+
+        this.dispatchEvent(
+            new CustomEvent('navstackpush', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    element,
+                },
+            }),
+        );
     }
 }

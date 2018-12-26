@@ -1,7 +1,10 @@
 import { LightningElement, track, createElement } from 'lwc';
 import ViewPodcast from 'rcast/viewPodcast';
 
-const PODCAST_IDS = [1150510297, 354668519];
+const PODCAST_IDS = [
+    1150510297,
+    354668519,
+];
 
 export default class ViewPodcasts extends LightningElement {
     @track podcasts = [];
@@ -17,7 +20,7 @@ export default class ViewPodcasts extends LightningElement {
     }
 
     handlePodcastClick(event) {
-        const { podcastId } = event.currentTarget.dataset;
+        const podcastId = parseInt(event.currentTarget.dataset.podcastId, 10);
 
         const element = createElement('rcast-view-podcast', {
             is: ViewPodcast,
