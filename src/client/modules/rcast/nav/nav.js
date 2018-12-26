@@ -14,20 +14,48 @@ export default class Nav extends LightningElement {
         return this.views[0];
     }
 
-    @api push(el) {
+    @api push(nextView) {
         const activeView = this.getActiveView();
-        activeView.classList.add('page-hidden');
 
-        this.views.push(el);
-        this.container.appendChild(el);
+        nextView.classList.add('page-fade-in');
+        
+        this.views.push(nextView);
+        this.container.appendChild(nextView);
+
+        setTimeout(() => {
+            nextView.classList.add('page-active');
+            nextView.classList.remove('page-fade-in');
+
+            activeView.classList.add('page-fade-out');
+            activeView.classList.remove('page-active');
+
+            activeView.addEventListener('transitionend', () => {
+                activeView.classList.add('page-hidden');
+            }, {
+                once: true
+            });
+        });
     }
 
     @api pop() {
-        const removedView = this.views.pop();
-        removedView.parentElement.removeChild(removedView);
+        const activeView = this.views.pop();
 
-        const activeView = this.getActiveView();
-        activeView.classList.remove('page-hidden');
+        const nextView = this.getActiveView();
+        nextView.classList.remove('page-hidden');
+
+        setTimeout(() => {
+            nextView.classList.remove('page-fade-out');
+            nextView.classList.add('page-active');
+
+            activeView.classList.add('page-fade-in');
+            activeView.classList.remove('page-active');
+
+            activeView.addEventListener('transitionend', () => {
+                activeView.remove();
+            }, {
+                once: true
+            });
+        });
     }
 
     getActiveView() {
@@ -40,6 +68,9 @@ export default class Nav extends LightningElement {
 
             const { root } = this;
             if (root) {
+                root.classList.add('page');
+                root.classList.add('page-active');
+
                 this.container.appendChild(root);
             }
         }
@@ -49,6 +80,8 @@ export default class Nav extends LightningElement {
         event.stopPropagation();
 
         const { element } = event.detail;
+        element.classList.add('page');
+
         this.push(element);
     }
 

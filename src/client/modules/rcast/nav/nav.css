@@ -7,6 +7,28 @@
     overflow: hidden;
 }
 
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    transition: transform .3s ease-in-out;
+}
+
+.page-active {
+    transform: translateX(0);
+}
+
+.page-fade-out {
+    transform: translateX(-50vw);
+}
+
+.page-fade-in {
+    transform: translateX(100vw);
+}
+
 .page-hidden {
     display: none;
 }
