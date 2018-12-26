@@ -2,7 +2,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--background-color);
+    background: var(--background-color-lighter);
 }
 
 .grid {
@@ -10,7 +10,7 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.grid-item img {
+.grid-item rcast-cover {
     display: block;
     width: 100%;
 }

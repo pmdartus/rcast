@@ -1,6 +1,6 @@
 <template>
     <div class="head" onclick={handleHeadClick}>
-        <img src={cover} alt={episode.title}>
+        <rcast-cover class="podcast_cover" href={cover} name={episode.title} rounded-corners></rcast-cover>
 
         <div class="info">
             <span class="title">{episode.title}</span>

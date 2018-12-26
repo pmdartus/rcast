@@ -22,7 +22,7 @@
             <template if:false={state.result.error}>
                     <template for:each={state.result.data} for:item="podcast">
                         <div class="podcast" key={podcast.id} onclick={handlePodcastClick} data-podcast-id={podcast.id}>
-                            <img class="podcast_cover" src={podcast.image} alt={podcast.name}>
+                            <rcast-cover class="podcast_cover" href={podcast.image} name={podcast.name} rounded-corners></rcast-cover>
                             <div class="podcast_description">
                                 <span class="podcast_name">{podcast.name}</span>
                                 <span class="podcast_author">{podcast.author.name}</span>

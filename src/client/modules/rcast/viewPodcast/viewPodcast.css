@@ -1,6 +1,6 @@
 :host {
     display: block;
-    background-color: var(--background-color);
+    background: var(--background-color-lighter);
 }
 
 .back {

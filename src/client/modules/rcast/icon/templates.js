@@ -17,6 +17,7 @@ export { default as pause } from './templates/pause.html';
 export { default as pen } from './templates/pen.html';
 export { default as play } from './templates/play.html';
 export { default as rewind } from './templates/rewind.html';
+export { default as rss } from './templates/rss.html';
 export { default as search } from './templates/search.html';
 export { default as settings } from './templates/settings.html';
 export { default as smile } from './templates/smile.html';
