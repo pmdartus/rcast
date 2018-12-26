@@ -19,6 +19,7 @@
 * Validating the HTML attribute name is really painful. For example `<animate>` SVG tag element with `attributeName` attribute is not recognazied by the the compiler. So I am blocked and it would require to update the compiler to make it pass.
 * The following error message is useless: `If property active decorated with @api in [object:vm undefined (2)] is used in the template, the value true set manually may be overridden by the template, consider binding the property only in the template.`
 * Really hard to debug styling with multiple shadow and slots in between.
+* Really bad error message: `Assert Violation: evaluateTemplate() second argument must be an imported template instead of undefined`. This is caused when the render method returns `undefined`. We should improve the error message. We should not throw if the template is `undefined`, this is pretty bad (icon was missing a template). How does it works when we want to lazyload the content of the component?
 
 ## Credits
 

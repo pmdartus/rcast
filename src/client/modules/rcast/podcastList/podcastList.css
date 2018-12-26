@@ -6,6 +6,14 @@
     font-size: 0.9rem;
 }
 
+.back {
+    display: block;
+    fill: white;
+
+    width: 30px;
+    height: 30px;
+}
+
 rcast-spinner {
     display: block;
     width: 2rem;

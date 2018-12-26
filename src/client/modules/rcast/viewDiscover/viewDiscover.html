@@ -1,19 +1,20 @@
 <template>
-    <rcast-header>
-        Discover
-    </rcast-header>
+    <rcast-header> Discover </rcast-header>
 
     <rcast-content>
         <div class="categories">
             <div class="header" role="heading">Browse By Category</div>
-            
+
             <div role="list">
                 <template for:each={categories} for:item="category">
-                    <div class="category" role="listitem" key={category.id} 
-                         data-category-id={category.id} onclick={handleCategoryClick}>
-                        <svg alt={category.name}>
-                            <use xlink:href={category.iconUrl}></use>
-                        </svg>
+                    <div
+                        class="category"
+                        role="listitem"
+                        key={category.id}
+                        data-category-id={category.id}
+                        onclick={handleCategoryClick}
+                    >
+                        <rcast-icon name={category.iconName}></rcast-icon>
                         {category.name}
                     </div>
                 </template>

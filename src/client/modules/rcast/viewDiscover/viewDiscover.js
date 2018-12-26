@@ -3,16 +3,8 @@ import { LightningElement, createElement } from 'lwc';
 import PodcastList from 'rcast/podcastList';
 import { categories } from 'rcast/utils';
 
-const CATEGORIES = categories.map(category => {
-    return {
-        id: category.id,
-        name: category.name,
-        iconUrl: `/public/svg/icons.svg#icon-${category.iconName}`
-    };
-}); 
-
 export default class ViewDiscovery extends LightningElement {
-    categories = CATEGORIES;
+    categories = categories;
 
     handleCategoryClick(event) {
         const categoryId = parseInt(event.currentTarget.dataset.categoryId, 10);

@@ -8,11 +8,12 @@ export default class Icon extends LightningElement {
     render() {
         const { name } = this;
 
-        if (!templates[name]) {
+        if (templates[name]) {
+            return templates[name];
+        } else {
             // eslint-disable-next-line no-console
             console.warn(`Missing template for icon name "${name}"`);
+            return templates.void;
         }
-
-        return templates[name];
     }
 }

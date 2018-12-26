@@ -1,4 +1,5 @@
 export { default as atom } from './templates/atom.html';
+export { default as back } from './templates/back.html';
 export { default as badge } from './templates/badge.html';
 export { default as briefcase } from './templates/briefcase.html';
 export { default as brush } from './templates/brush.html';
@@ -22,3 +23,5 @@ export { default as smile } from './templates/smile.html';
 export { default as soccer } from './templates/soccer.html';
 export { default as tools } from './templates/tools.html';
 export { default as video } from './templates/video.html';
+
+export { default as void } from './templates/void.html';

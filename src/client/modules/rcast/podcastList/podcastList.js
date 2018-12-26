@@ -86,4 +86,13 @@ export default class PodcastList extends LightningElement {
             }),
         );
     }
+
+    handleBack() {
+        this.dispatchEvent(
+            new CustomEvent('navstackop', {
+                bubbles: true,
+                composed: true,
+            }),
+        );
+    }
 }
