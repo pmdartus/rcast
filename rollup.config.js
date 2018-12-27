@@ -3,10 +3,11 @@
 'use strict';
 
 const path = require('path');
+
 const lwc = require('@lwc/rollup-plugin');
 const copy = require('rollup-plugin-copy');
+const alias = require('rollup-plugin-alias');
 const replace = require('rollup-plugin-replace');
-const filesize = require('rollup-plugin-filesize');
 const { terser } = require('rollup-plugin-terser');
 
 const SRC_DIR = path.resolve(__dirname, './src/client');
@@ -27,6 +28,13 @@ module.exports = {
     plugins: [
         lwc({
             rootDir: path.resolve(SRC_DIR, 'modules'),
+
+            // Disabled because the glob on `node_modules/` is really expensive. Doing the `lwc` module resolutation
+            // manually.
+            resolveFromPackages: false, 
+        }),
+        alias({
+            lwc: require.resolve('@lwc/engine/dist/modules/es2017/engine.js'),
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(__ENV__),
@@ -42,6 +50,5 @@ module.exports = {
             ),
         }),
         __PROD__ && terser(),
-        filesize(),
     ].filter(Boolean),
 };
