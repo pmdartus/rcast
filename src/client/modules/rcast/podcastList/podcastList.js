@@ -1,10 +1,16 @@
-import { LightningElement, api, track, createElement } from 'lwc';
+import { LightningElement, api, track, wire, createElement } from 'lwc';
 
 import ViewPodcast from 'rcast/viewPodcast';
+import { getPodcasts } from 'rcast/store';
 import { categories } from 'rcast/utils';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;
+
+    @wire(getPodcasts, { cacategoryId: '$categoryId' })
+    podcastList(...args) {
+        console.log(args);
+    }
 
     @track state = {
         loading: false,
@@ -68,7 +74,7 @@ export default class PodcastList extends LightningElement {
     }
 
     handlePodcastClick(event) {
-        const podcastId = parseInt(event.currentTarget.dataset.podcastId, 10);
+        const podcastId = event.target.podcast.id;
 
         const element = createElement('rcast-view-podcast', {
             is: ViewPodcast,

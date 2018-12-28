@@ -26,6 +26,7 @@
   "devDependencies": {
     "@lwc/eslint-plugin-lwc": "^0.6.0",
     "@lwc/rollup-plugin": "^0.33.26",
+    "@lwc/wire-service": "^0.33.26",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.10.0",
     "jest": "^23.6.0",

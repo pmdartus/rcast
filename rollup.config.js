@@ -35,6 +35,7 @@ module.exports = {
         }),
         alias({
             lwc: require.resolve('@lwc/engine/dist/modules/es2017/engine.js'),
+            '@lwc/wire-service': require.resolve('@lwc/wire-service/dist/modules/es2017/wire.js')
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(__ENV__),

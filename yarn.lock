@@ -620,6 +620,11 @@
     he "^1.1.1"
     parse5-with-errors "^4.0.1"
 
+"@lwc/wire-service@^0.33.26":
+  version "0.33.26"
+  resolved "http://npm.lwcjs.org/@lwc/wire-service/-/wire-service-0.33.26/e1e49675ae3a65bb3cad296fa3750608cff7a3ed.tgz#e1e49675ae3a65bb3cad296fa3750608cff7a3ed"
+  integrity sha512-2kmbJQ0mGgSjt4CEhy+z6lrgqMlqhSHnCDrVdL3eCysT4HE7iw+DkugxBguuso7m+FJFnOaZ//hojJzZ/DuyrA==
+
 "@types/chokidar@^1.7.5":
   version "1.7.5"
   resolved "http://npm.lwcjs.org/@types/chokidar/-/chokidar-1.7.5/1fa78c8803e035bed6d98e6949e514b133b0c9b6.tgz#1fa78c8803e035bed6d98e6949e514b133b0c9b6"

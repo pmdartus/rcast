@@ -1,22 +1,33 @@
 import { LightningElement, track, createElement } from 'lwc';
-import ViewPodcast from 'rcast/viewPodcast';
 
-const PODCAST_IDS = [
-    1150510297,
-    354668519,
-];
+import ViewPodcast from 'rcast/viewPodcast';
+import { subscriptions, getPodcast } from 'rcast/store';
 
 export default class ViewPodcasts extends LightningElement {
     @track podcasts = [];
 
+    handleSubscriptionChange = () => {
+        this.loadPodcasts();
+    };
+
     connectedCallback() {
-        Promise.all(
-            PODCAST_IDS.map(id => {
-                return fetch(`/api/1/podcasts/${id}`).then(res => res.json());
-            }),
-        ).then(podcasts => {
-            this.podcasts = podcasts;
-        });
+        this.loadPodcasts();
+        subscriptions.addEventListener('change', this.handleSubscriptionChange);
+    }
+
+    disconnectedCallback() {
+        subscriptions.removeEventListener(
+            'change',
+            this.handleSubscriptionChange,
+        );
+    }
+
+    async loadPodcasts() {
+        const podcastIds = subscriptions.list();
+
+        this.podcasts = await Promise.all(
+            podcastIds.map(id => getPodcast({ id })),
+        );
     }
 
     handlePodcastClick(event) {

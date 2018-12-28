@@ -21,9 +21,7 @@
 
             <template if:false={state.result.error}>
                     <template for:each={state.result.data} for:item="podcast">
-                        <rcast-podcast-list-item 
-                            key={podcast.id} podcast={podcast} 
-                            data-podcast-id={podcast.id} onclick={handlePodcastClick}>
+                        <rcast-podcast-list-item key={podcast.id} podcast={podcast} onclick={handlePodcastClick}>
                         </rcast-podcast-list-item>
                     </template>
                 </template>

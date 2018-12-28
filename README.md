@@ -5,7 +5,7 @@
     * With the default configuration of the `@lwc/rollup-plugin`, it takes +2 seconds before each rollup invocation to find all the components present in `node_modules` folder for a project with this complexity.
     * `@lwc/module-resolver` package contains the `__test__` folder. But since the `@lwc/modules-resolver` recursively walk the `node_modules` directory, the fixtures modules will be resolved: `fake/module2`, `other-resource`.
 * When the component grows in complexity in term of event handling, it requires a lot of back-and-forth between the template and the component class. I would be great to support single file component.
-* Naming convention is awkward, `progressBar` -> `progress-bar`,...
+* Naming convention is awkward, `progressBar` -> `progress-bar`,... But we get use to it little by little. 
 * Need some documentation around controlled input vs. uncontrolled input: https://reactjs.org/docs/uncontrolled-components.html / https://reactjs.org/docs/forms.html
 * Need to restart watcher to pick-up css. Took me 10 minutes to remember this.
 * Unnecessary DOM node re-creation: `<span>{foo}</span>`, when `foo` is updated the `span` appears to be recreated (the `<span>` blinks in the Chrome devtool). This need to be investigated a bit more.
@@ -21,6 +21,24 @@
 * Really hard to debug styling with multiple shadow and slots in between.
 * Really bad error message: `Assert Violation: evaluateTemplate() second argument must be an imported template instead of undefined`. This is caused when the render method returns `undefined`. We should improve the error message. We should not throw if the template is `undefined`, this is pretty bad (icon was missing a template). How does it works when we want to lazyload the content of the component?
 * When project starts growing rollup start being slow (+3s to recompile). Spend all the time in redoing the glob (`resolveLwcNpmModules`), we should really optimize this. Dropping `rollup-plugin-filesize` and `resolveLwcNpmModules`, drop the compilation time in watch mode to 300ms.
+* It's really strange to have another package to install the `@lwc/wire-service` and import the wire decorator from `lwc`
+* Error message can be improved when an error occurs when evaluating a template. Source map five 
+```
+Uncaught (in promise) TypeError: Cannot read property 'name' of undefined
+    at tmpl$G (spinner.js:9)
+    at evaluateTemplate (engine.js:7144)
+    at invokeComponentRenderMethod (engine.js:7323)
+    at renderComponent (engine.js:7462)
+    at rehydrate (engine.js:8926)
+    at renderVM (engine.js:8827)
+    at insertCustomElmHook (engine.js:6035)
+    at Object.insert (engine.js:6365)
+    at updateDynamicChildren (engine.js:5294)
+    at updateChildrenHook (engine.js:6043)
+```
+* `registerWireService` API is awkward. You pass the register function into it... We should strive for a better API to register/use the wire service along with the engine.
+* The source mapping is completely off when working on a large project.
+* Registering the wire adapter make it really hard to mock and unit test. Why should it be registered in the first place, it yet again some state that the application has to keep track of.
 
 ## Credits
 

@@ -1,15 +1,17 @@
 import { LightningElement, api, track } from 'lwc';
+import { subscriptions, getPodcast } from 'rcast/store';
 
 export default class ViewPodcast extends LightningElement {
     @api podcastId;
-    @track podcast = null;
 
-    connectedCallback() {
-        fetch(`/api/1/podcasts/${this.podcastId}`)
-            .then(response => response.json())
-            .then(res => {
-                this.podcast = res;
-            });
+    @track podcast = null;
+    @track isSubscribed = false;
+
+    async connectedCallback() {
+        const { podcastId } = this;
+
+        this.isSubscribed = subscriptions.list().includes(podcastId);
+        this.podcast = await getPodcast({ id: podcastId });
     }
 
     renderedCallback() {
@@ -21,7 +23,16 @@ export default class ViewPodcast extends LightningElement {
         }
     }
 
-    handleBack() {
+    handleSubscribeClick() {
+        subscriptions.unsubscribe(this.podcastId);
+        this.goBack();
+    }
+
+    handleBackClick() {
+        this.goBack();
+    }
+
+    goBack() {
         this.dispatchEvent(
             new CustomEvent('navstackop', {
                 bubbles: true,

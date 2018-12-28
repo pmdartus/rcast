@@ -1,6 +1,6 @@
 <template>
     <template if:true={podcast}>
-        <rcast-icon class="back" name="back" onclick={handleBack}></rcast-icon>
+        <rcast-icon class="back" name="back" onclick={handleBackClick}></rcast-icon>
 
         <div class="header">
             <img src={podcast.image}>
@@ -8,7 +8,7 @@
                 <div class="header-name">{podcast.name}</div>
                 <div class="header-genre">{podcast.author.name}</div>
 
-                <button class="subscribe">Subscribe</button>
+                <button class="subscribe" onclick={handleSubscribeClick}>Subscribe</button>
             </div>
         </div>
 
