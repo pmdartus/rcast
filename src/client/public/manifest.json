@@ -1,0 +1,31 @@
+{
+    "name": "rcast",
+    "short_name": "rcast",
+    "icons": [
+        {
+            "src": "/public/icons/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "/public/icons/icon-180x180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "/public/icons/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/public/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#242424",
+    "theme_color": "#242424"
+}
