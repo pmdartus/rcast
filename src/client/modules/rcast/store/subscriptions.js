@@ -1,8 +1,7 @@
 const LOCAL_STORAGE_KEY = 'subscriptions';
 
-class Subscriptions extends EventTarget {
+class Subscriptions {
     constructor(podcastIds) {
-        super();
         this._subscriptions = new Set(podcastIds);
     }
 

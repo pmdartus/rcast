@@ -12,14 +12,14 @@ export default class ViewPodcasts extends LightningElement {
 
     connectedCallback() {
         this.loadPodcasts();
-        subscriptions.addEventListener('change', this.handleSubscriptionChange);
+        // subscriptions.addEventListener('change', this.handleSubscriptionChange);
     }
 
     disconnectedCallback() {
-        subscriptions.removeEventListener(
-            'change',
-            this.handleSubscriptionChange,
-        );
+        // subscriptions.removeEventListener(
+        //     'change',
+        //     this.handleSubscriptionChange,
+        // );
     }
 
     async loadPodcasts() {

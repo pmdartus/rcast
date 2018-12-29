@@ -11,14 +11,14 @@ export default class PodcastListItem extends LightningElement {
     };
 
     connectedCallback() {
-        subscriptions.addEventListener('change', this.handleSubscriptionChange);
+        // subscriptions.addEventListener('change', this.handleSubscriptionChange);
     }
 
     disconnectedCallback() {
-        subscriptions.removeEventListener(
-            'change',
-            this.handleSubscriptionChange,
-        );
+        // subscriptions.removeEventListener(
+        //     'change',
+        //     this.handleSubscriptionChange,
+        // );
     }
 
     isSubscribed() {
