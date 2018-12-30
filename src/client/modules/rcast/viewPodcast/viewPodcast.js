@@ -1,5 +1,11 @@
-import { LightningElement, api, track } from 'lwc';
-import { subscriptions, getPodcast } from 'rcast/store';
+import { LightningElement, api, track, wire } from 'lwc';
+import {
+    getPodcast,
+    connectStore,
+    store,
+    subscribe,
+    unsubscribe,
+} from 'rcast/store';
 
 export default class ViewPodcast extends LightningElement {
     @api podcastId;
@@ -9,12 +15,14 @@ export default class ViewPodcast extends LightningElement {
 
     @track isSubscribed = false;
 
+    @wire(connectStore, { store })
+    storeChange({ subscriptions }) {
+        this.isSubscribed = subscriptions.includes(this.podcastId);
+    }
+
     async connectedCallback() {
-        const { podcastId } = this;
+        const podcast = await getPodcast({ id: this.podcastId });
 
-        this.isSubscribed = subscriptions.list().includes(podcastId);
-
-        const podcast = await getPodcast({ id: podcastId });
         this.podcast = podcast;
         this.episodes = podcast.episodes;
     }
@@ -31,15 +39,27 @@ export default class ViewPodcast extends LightningElement {
         return this.podcast && this.podcast.author.name;
     }
 
-    renderedCallback() {
-        const { podcast } = this;
+    get subscriptionLabel() {
+        return this.isSubscribed ? 'unsubscribe' : 'subscribe';
+    }
 
-        if (podcast) {
-            this.template.querySelector('.description').innerHTML =
-                podcast.description;
+    renderedCallback() {
+        if (this.podcast) {
+            this.template.querySelector(
+                '.description',
+            ).innerHTML = this.podcast.description;
         }
     }
 
-    handleSubscribeClick() {
+    handleSubscriptionClick() {
+        const { isSubscribed, podcastId } = this;
+
+        store.dispatch(
+            isSubscribed ? unsubscribe(podcastId) : subscribe(podcastId),
+        );
+
+        if (isSubscribed) {
+            window.history.back();
+        }
     }
 }

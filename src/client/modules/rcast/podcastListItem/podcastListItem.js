@@ -1,24 +1,13 @@
-import { LightningElement, track, api } from 'lwc';
-
-import { subscriptions } from 'rcast/store';
+import { LightningElement, track, api, wire } from 'lwc';
+import { connectStore, store, subscribe } from 'rcast/store';
 
 export default class PodcastListItem extends LightningElement {
     @api podcast;
-    @track subscriptions = subscriptions.list();
+    @track isSubscribed;
 
-    handleSubscriptionChange = () => {
-        this.subscriptions = subscriptions.list();
-    };
-
-    connectedCallback() {
-        // subscriptions.addEventListener('change', this.handleSubscriptionChange);
-    }
-
-    disconnectedCallback() {
-        // subscriptions.removeEventListener(
-        //     'change',
-        //     this.handleSubscriptionChange,
-        // );
+    @wire(connectStore, { store })
+    storeChange({ subscriptions }) {
+        this.isSubscribed = subscriptions.includes(this.podcast.id);
     }
 
     isSubscribed() {
@@ -26,17 +15,20 @@ export default class PodcastListItem extends LightningElement {
         return subscriptions.includes(podcast.id);
     }
 
-    get subscribedIconName() {
-        return this.isSubscribed() ? 'check' : 'plus';
+    get subscriptionIconName() {
+        return this.isSubscribed ? 'check' : 'plus';
     }
 
-    handleSubscribeIconClick(event) {
+    get subscriptionIconClassName() {
+        return this.isSubscribed ? 'subscribed' : '';
+    }
+
+    handleSubscriptionIconClick(event) {
         event.stopPropagation();
 
-        if (this.isSubscribed()) {
-            subscriptions.unsubscribe(this.podcast.id);
-        } else {
-            subscriptions.subscribe(this.podcast.id);
+        const { isSubscribed, podcast } = this;
+        if (!isSubscribed) {
+            store.dispatch(subscribe(podcast.id));
         }
     }
 }

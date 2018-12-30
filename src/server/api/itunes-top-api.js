@@ -50,7 +50,7 @@ function resultEntryToPodcast(entry) {
         // url. For example:
         // https://itunes.apple.com/us/artist/npr/125443881?mt=2&uo=2
         const artistUrl = new URL(entryArtistField.attributes.href);
-        author.id = artistUrl.pathname.split('/').pop();
+        author.id = parseInt(artistUrl.pathname.split('/').pop());
     }
 
     const image = entry['im:image'].find(image => {
@@ -58,7 +58,7 @@ function resultEntryToPodcast(entry) {
     }).label;
 
     return {
-        id: entry.id.attributes['im:id'],
+        id: parseInt(entry.id.attributes['im:id']),
         name: entry['im:name'].label,
         image,
         author,

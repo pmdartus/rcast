@@ -4,5 +4,7 @@
         <span>{podcast.name}</span>
         <span class="author">{podcast.author.name}</span>
     </div>
-    <rcast-icon name={subscribedIconName} onclick={handleSubscribeIconClick}></rcast-icon>
+
+    <rcast-icon name={subscriptionIconName} class={subscriptionIconClassName} onclick={handleSubscriptionIconClick}>
+    </rcast-icon>
 </template>

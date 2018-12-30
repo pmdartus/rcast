@@ -1,33 +1,16 @@
-import { LightningElement, track, createElement } from 'lwc';
-
-import ViewPodcast from 'rcast/viewPodcast';
-import { subscriptions, getPodcast } from 'rcast/store';
+import { LightningElement, track, wire } from 'lwc';
+import { connectStore, store, getPodcast } from 'rcast/store';
 
 export default class ViewPodcasts extends LightningElement {
     @track podcasts = [];
 
-    handleSubscriptionChange = () => {
-        this.loadPodcasts();
-    };
-
-    connectedCallback() {
-        this.loadPodcasts();
-        // subscriptions.addEventListener('change', this.handleSubscriptionChange);
-    }
-
-    disconnectedCallback() {
-        // subscriptions.removeEventListener(
-        //     'change',
-        //     this.handleSubscriptionChange,
-        // );
-    }
-
-    async loadPodcasts() {
-        const podcastIds = subscriptions.list();
-
-        this.podcasts = await Promise.all(
-            podcastIds.map(id => getPodcast({ id })),
-        );
+    @wire(connectStore, { store })
+    stateChange({ subscriptions }) {
+        Promise.all(
+            subscriptions.map(id => getPodcast({ id })),
+        ).then(podcasts => {
+            this.podcasts = podcasts;
+        });
     }
 
     handleMenuClick() {

@@ -9,6 +9,7 @@ const copy = require('rollup-plugin-copy');
 const alias = require('rollup-plugin-alias');
 const replace = require('rollup-plugin-replace');
 const { terser } = require('rollup-plugin-terser');
+const resolve = require('rollup-plugin-node-resolve');
 
 const packageJSON = require('./package.json');
 
@@ -37,8 +38,9 @@ module.exports = {
         }),
         alias({
             lwc: require.resolve('@lwc/engine/dist/modules/es2017/engine.js'),
-            '@lwc/wire-service': require.resolve('@lwc/wire-service/dist/modules/es2017/wire.js'),
-            'navigo': require.resolve('navigo/lib/navigo.es.js')
+        }),
+        resolve({
+            modulesOnly: true,
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(__ENV__),

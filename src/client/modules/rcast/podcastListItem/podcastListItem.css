@@ -40,3 +40,7 @@ rcast-icon {
 
     padding-left: 12px;
 }
+
+rcast-icon.subscribed {
+    fill: #66bb6a;
+}

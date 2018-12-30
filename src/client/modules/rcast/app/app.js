@@ -33,7 +33,7 @@ export default class App extends LightningElement {
             },
             '/podcasts/:id': ({ id }) => {
                 this.setPage('rcast-view-podcast', ViewPodcast, {
-                    podcastId: id,
+                    podcastId: parseInt(id, 10),
                 });
             },
             '/discover': () => {
@@ -41,7 +41,7 @@ export default class App extends LightningElement {
             },
             '/categories/:id': ({ id }) => {
                 this.setPage('rcast-podcast-list', PodcastList, {
-                    categoryId: id,
+                    categoryId: parseInt(id, 10),
                 });
             }
         });

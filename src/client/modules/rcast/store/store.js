@@ -1,35 +1,46 @@
 import { register, ValueChangedEvent } from '@lwc/wire-service';
 
-import Subscriptions from './subscriptions';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
-export function getPodcasts(...args) {
-    console.log(args)
+import * as reducers from './reducers';
+
+export const store = createStore(
+    combineReducers(reducers),
+    applyMiddleware(thunk)
+);
+
+export function connectStore(store) {
+    return store.getState();
 }
 
-export const subscriptions = Subscriptions.load();
-export { getPodcast, getTopPodcasts } from './api';
+register(connectStore, eventTarget => {
+    let store;
+    let subscription;
 
-register(getPodcasts, eventTarget => {
-    let config;
-
-    eventTarget.dispatchEvent(
-        new ValueChangedEvent({
-            data: null,
-            error: null,
-        })
-    );
+    const notifyStateChange = () => {
+        const state = store.getState();
+        eventTarget.dispatchEvent(
+            new ValueChangedEvent(state)
+        );
+    };
 
     eventTarget.addEventListener('connect', () => {
-        console.log('connected');
+        subscription = store.subscribe(notifyStateChange);
+        notifyStateChange();
     });
 
     // TODO: This is never invoked, we need to understand why.
     eventTarget.addEventListener('disconnect', () => {
-        // eslint-disable-next-line no-console
-        console.log('disconnect');
+        if (subscription) {
+            subscription();
+        }
     });
 
-    eventTarget.addEventListener('config', (newConfig) => {
-        config = newConfig;
+    eventTarget.addEventListener('config', config => {
+        store = config.store;
     });
 });
+
+export { subscribe, unsubscribe } from './actions';
+export { getPodcast, getTopPodcasts } from './api';

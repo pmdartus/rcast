@@ -1,15 +1,9 @@
-import { LightningElement, api, track, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 
-import { getPodcasts } from 'rcast/store';
 import { categories } from 'rcast/utils';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;
-
-    @wire(getPodcasts, { cacategoryId: '$categoryId' })
-    podcastList(...args) {
-        console.log(args);
-    }
 
     @track state = {
         loading: false,
