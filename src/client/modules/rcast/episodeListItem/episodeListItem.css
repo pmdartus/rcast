@@ -1,0 +1,62 @@
+:host {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 15px;
+    border-top: 1px solid #e6eff7;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+
+    /* 
+        Make text-overflow work when resizing the parent flexbox.
+        https://css-tricks.com/flexbox-truncated-text/
+    */
+    min-width: 0;
+    
+    padding-right: 15px; 
+}
+
+.info-container > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.release-date, .duration {
+    color: #657786;
+    font-size: 0.700rem;
+}
+
+.release-date {
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+
+    background-color: #657786;
+
+    opacity: 0.6;
+}
+
+.play-button rcast-icon {
+    width: 15px;
+    height: 15px;
+    fill: white;
+}

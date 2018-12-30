@@ -5,13 +5,30 @@ export default class ViewPodcast extends LightningElement {
     @api podcastId;
 
     @track podcast = null;
+    @track episodes = [];
+
     @track isSubscribed = false;
 
     async connectedCallback() {
         const { podcastId } = this;
 
         this.isSubscribed = subscriptions.list().includes(podcastId);
-        this.podcast = await getPodcast({ id: podcastId });
+
+        const podcast = await getPodcast({ id: podcastId });
+        this.podcast = podcast;
+        this.episodes = podcast.episodes;
+    }
+
+    get imageUrl() {
+        return this.podcast && this.podcast.image;
+    }
+
+    get name() {
+        return this.podcast && this.podcast.name;
+    }
+
+    get author() {
+        return this.podcast && this.podcast.author.name;
     }
 
     renderedCallback() {
@@ -24,7 +41,5 @@ export default class ViewPodcast extends LightningElement {
     }
 
     handleSubscribeClick() {
-        subscriptions.unsubscribe(this.podcastId);
-        this.goBack();
     }
 }

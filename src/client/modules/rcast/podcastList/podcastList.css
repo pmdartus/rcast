@@ -1,8 +1,6 @@
 :host {
     display: flex;
     flex-direction: column;
-
-    background: var(--background-color-lighter);
     
     min-height: 100%;
     font-size: 0.9rem;

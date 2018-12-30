@@ -1,27 +1,26 @@
 <template>
-    <template if:true={podcast}>
-        <rcast-back-button></rcast-back-button>
-
-        <div class="header">
-            <img src={podcast.image}>
-            <div class="header-details">
-                <div class="header-name">{podcast.name}</div>
-                <div class="header-genre">{podcast.author.name}</div>
-
-                <button class="subscribe" onclick={handleSubscribeClick}>Subscribe</button>
-            </div>
-        </div>
-
-        <div class="description" lwc:dom="manual"></div>
-
-        <div class="episode-list">
-            <template for:each={podcast.episodes} for:item="episode">
-                <div key={episode.id} class="episode">
-                    {episode.publication_date}
-                    {episode.title}
-                    {episode.duration}
+    <rcast-content>
+            <rcast-back-button></rcast-back-button>
+    
+            <div class="header">
+                <img src={imageUrl}>
+                <div class="header-details">
+                    <div class="header-name">{name}</div>
+                    <div class="header-genre">{author}</div>
+    
+                    <button class="subscribe" onclick={handleSubscribeClick}>Subscribe</button>
                 </div>
-            </template>
-        </div>
-    </template>
+            </div>
+    
+            <div class="description" lwc:dom="manual"></div>
+    
+            <div class="episode-list">
+                <div>{episodes.length} episodes</div>
+
+                <template for:each={episodes} for:item="episode">
+                    <rcast-episode-list-item key={episode.id} episode={episode}>
+                    </rcast-episode-list-item>
+                </template>
+            </div>
+    </rcast-content>
 </template>
