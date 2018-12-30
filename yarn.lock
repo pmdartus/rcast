@@ -4367,6 +4367,11 @@ natural-compare@^1.4.0:
   resolved "http://npm.lwcjs.org/natural-compare/-/natural-compare-1.4.0/4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
+navigo@^7.1.2:
+  version "7.1.2"
+  resolved "http://npm.lwcjs.org/navigo/-/navigo-7.1.2/f543098ae5cbc5763b926742b5047ffb68a187e2.tgz#f543098ae5cbc5763b926742b5047ffb68a187e2"
+  integrity sha512-OlhxHxhLM62X0Sjbkp5wlm1V6GpOIKShFu7dS/fDS3cVqzMHYS880LT5tu6JjGkrSYQbtCNDADmRIP47MoVGlA==
+
 needle@^2.2.1:
   version "2.2.4"
   resolved "http://npm.lwcjs.org/needle/-/needle-2.2.4/51931bff82533b1928b7d1d69e01f1b00ffd2a4e.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"

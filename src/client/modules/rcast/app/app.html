@@ -1,25 +1,19 @@
 <template>
-    <rcast-tabs>
-        <rcast-tab tab="podcasts">
-            <rcast-nav root={views.podcasts}></rcast-nav>
-        </rcast-tab>
-        <rcast-tab tab="discover">
-            <rcast-nav root={views.discover}></rcast-nav>
-        </rcast-tab>
-
-        <div slot="bottom">
-            <rcast-player-condensed></rcast-player-condensed>
-
-            <div class="tab-bar" role="tablist">
-                <rcast-tab-button tab="podcasts">
-                    <rcast-icon name="grid"></rcast-icon> 
-                    Podcasts
-                </rcast-tab-button>
-                <rcast-tab-button tab="discover">
-                    <rcast-icon name="search"></rcast-icon> 
-                    Discover
-                </rcast-tab-button>
-            </div>
+    <rcast-menu>
+        <div class="menu-header">
+            <span class="menu-title">rcast</span>
+            <span class="menu-version">version {releaseVersion} ({releaseDate})</span>
         </div>
-    </rcast-tabs>
+
+        <nav>
+            <template for:each={pages} for:item="page">
+                <a key={page.location} class="menu-item" href={page.location} data-page-name={page.name} onclick={handleMenuItemClick}>
+                    <rcast-icon name={page.iconName}></rcast-icon>
+                    {page.title}
+                </a>
+            </template>
+        </nav>
+    </rcast-menu>
+
+    <div class="container" lwc:dom="manual" onopenmenu={handleOpenMenuEvent} onnavback={handleNavBack}></div>
 </template>

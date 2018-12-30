@@ -1,0 +1,40 @@
+:host {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: none;
+
+    z-index: 100;
+}
+
+:host(.visible) {
+    display: block;
+}
+
+.container {
+    position: absolute;
+    width: 256px;
+    height: 100%;
+
+    background: white;
+
+    overflow: scroll;
+
+    z-index: 120;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: rgba(0, 0, 0, .07);
+
+    z-index: 110;
+}

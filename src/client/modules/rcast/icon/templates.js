@@ -12,6 +12,7 @@ export { default as gamepad } from './templates/gamepad.html';
 export { default as grid } from './templates/grid.html';
 export { default as heart } from './templates/heart.html';
 export { default as home } from './templates/home.html';
+export { default as menu } from './templates/menu.html';
 export { default as music } from './templates/music.html';
 export { default as news } from './templates/news.html';
 export { default as pause } from './templates/pause.html';

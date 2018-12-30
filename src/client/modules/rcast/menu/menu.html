@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <slot name="left"></slot>
         <slot></slot>
-        <slot name="right"></slot>
     </div>
+    <div class="backdrop" onclick={handleBackdropClick}></div>
 </template>

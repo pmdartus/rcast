@@ -10,6 +10,8 @@ const alias = require('rollup-plugin-alias');
 const replace = require('rollup-plugin-replace');
 const { terser } = require('rollup-plugin-terser');
 
+const packageJSON = require('./package.json');
+
 const SRC_DIR = path.resolve(__dirname, './src/client');
 const DIST_DIR = path.resolve(__dirname, './dist');
 
@@ -39,6 +41,8 @@ module.exports = {
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(__ENV__),
+            'process.env.RELEASE_VERSION': JSON.stringify(packageJSON.version),
+            'process.env.RELEASE_DATE': JSON.stringify(new Date().toLocaleDateString('en-US')),
         }),
         copy({
             [path.resolve(SRC_DIR, 'index.html')]: path.resolve(

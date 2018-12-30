@@ -39,6 +39,20 @@ Uncaught (in promise) TypeError: Cannot read property 'name' of undefined
 * `registerWireService` API is awkward. You pass the register function into it... We should strive for a better API to register/use the wire service along with the engine.
 * The source mapping is completely off when working on a large project.
 * Registering the wire adapter make it really hard to mock and unit test. Why should it be registered in the first place, it yet again some state that the application has to keep track of.
+* Shared stylesheet doesn't load as expected in the browser: `<style>@import "../icon.css";</style>` generates:
+```
+Uncaught TypeError: stylesheet is not a function
+    at ArrayReduce.call (index.js:6920)
+    at Array.reduce (<anonymous>)
+    at evaluateCSS (index.js:6919)
+    at evaluateTemplate (index.js:7015)
+    at invokeComponentRenderMethod (index.js:7211)
+    at renderComponent (index.js:7350)
+    at rehydrate (index.js:8787)
+    at renderVM (index.js:8688)
+    at insertCustomElmHook (index.js:5939)
+    at Object.insert (index.js:6269)
+```
 
 ## Credits
 

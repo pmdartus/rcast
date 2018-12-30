@@ -1,4 +1,6 @@
 :host {
+    margin-top: 64px;
+
     flex: 1;
     overflow-y: scroll;
 }

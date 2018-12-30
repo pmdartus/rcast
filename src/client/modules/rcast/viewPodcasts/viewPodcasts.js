@@ -30,6 +30,15 @@ export default class ViewPodcasts extends LightningElement {
         );
     }
 
+    handleMenuClick() {
+        this.dispatchEvent(
+            new CustomEvent('openmenu', {
+                composed: true,
+                bubbles: true,
+            }),
+        );
+    }
+
     handlePodcastClick(event) {
         const podcastId = parseInt(event.currentTarget.dataset.podcastId, 10);
 
