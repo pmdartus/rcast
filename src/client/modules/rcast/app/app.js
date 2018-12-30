@@ -1,55 +1,70 @@
 /* global process */
 
 import { LightningElement, createElement } from 'lwc';
+import Navigo from 'navigo';
 
 import ViewPodcasts from 'rcast/viewPodcasts';
+import ViewPodcast from 'rcast/viewPodcast';
 import ViewDiscover from 'rcast/viewDiscover';
+import PodcastList from 'rcast/podcastList';
 
 export default class App extends LightningElement {
     releaseVersion = process.env.RELEASE_VERSION;
     releaseDate = process.env.RELEASE_DATE;
 
-    pages = [{
+    router = new Navigo(null, false);
+
+    menuItems = [{
         title: 'Podcast',
-        name: 'podcast',
         location: '/podcasts',
         iconName: 'grid',
-        tagName: 'view-podcast',
-        component: ViewPodcasts,
     }, {
         title: 'Discover',
-        name: 'discover',
         location: '/discover',
         iconName: 'search',
-        tagName: 'view-discover',
-        component: ViewDiscover,
     }];
-    currentPage = null;
 
-    connectedCallback() {
-        window.onpopstate = () => {
-            const { name: pageName } = window.history.state;
-            const page = this.pages.find(p => p.name === pageName);
+    constructor() {
+        super();
 
-            this.setPage(page);
-        }
+        this.router.on({
+            '/podcasts': () => {
+                this.setPage('rcast-view-podcast', ViewPodcasts);
+            },
+            '/podcasts/:id': ({ id }) => {
+                this.setPage('rcast-view-podcast', ViewPodcast, {
+                    podcastId: id,
+                });
+            },
+            '/discover': () => {
+                this.setPage('rcast-view-discover', ViewDiscover);
+            },
+            '/categories/:id': ({ id }) => {
+                this.setPage('rcast-podcast-list', PodcastList, {
+                    categoryId: id,
+                });
+            }
+        });
+
+        this.router.on(() => {
+            this.setPage('view-podcast', ViewPodcasts);
+        });
     }
 
     renderedCallback() {
+        // Resolve the current view only after the container has rendered
         if (!this.isRendered) {
             this.isRendered = true;
-            this.setPage(this.pages[0]);
+            this.router.resolve();
         }
     }
 
     handleMenuItemClick(evt) {
         evt.preventDefault();
 
-        const { pageName } = evt.target.dataset;
+        const { href } = evt.target;
 
-        const page = this.pages.find(p => p.name === pageName);
-        this.go(page);
-
+        this.router.navigate(href, true);
         this.template.querySelector('rcast-menu').close();
     }
 
@@ -57,34 +72,25 @@ export default class App extends LightningElement {
         this.template.querySelector('rcast-menu').open();
     }
 
-    go(page) {
-        const { name, title, location } = page;
-        this.setPage(page);
-
-        history.pushState({ name }, title, location);
+    handleNavigateEvent(event) {
+        const { path } = event.detail;
+        this.router.navigate(path);
     }
 
-    setPage(page) {
-        const { tagName, component } = page;
-
-        if (this.currentPage === page) {
-            return;
-        }
-
+    setPage(tagName, component, props = {}) {
         const el = createElement(tagName, {
             is: component,
             fallback: false,
         });
-        el.page = page;
 
+        Object.assign(el, props);
+
+        // Remove previous components from the container if necessary
         const container = this.template.querySelector('.container');
-        
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
 
         container.appendChild(el);
-
-        this.currentPage = page;
     }
 }

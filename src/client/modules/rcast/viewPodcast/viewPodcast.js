@@ -27,17 +27,4 @@ export default class ViewPodcast extends LightningElement {
         subscriptions.unsubscribe(this.podcastId);
         this.goBack();
     }
-
-    handleBackClick() {
-        this.goBack();
-    }
-
-    goBack() {
-        this.dispatchEvent(
-            new CustomEvent('navstackop', {
-                bubbles: true,
-                composed: true,
-            }),
-        );
-    }
 }

@@ -6,14 +6,14 @@
         </div>
 
         <nav>
-            <template for:each={pages} for:item="page">
-                <a key={page.location} class="menu-item" href={page.location} data-page-name={page.name} onclick={handleMenuItemClick}>
-                    <rcast-icon name={page.iconName}></rcast-icon>
-                    {page.title}
+            <template for:each={menuItems} for:item="menuItem">
+                <a key={menuItem.location} class="menu-item" href={menuItem.location} onclick={handleMenuItemClick}>
+                    <rcast-icon name={menuItem.iconName}></rcast-icon>
+                    {menuItem.title}
                 </a>
             </template>
         </nav>
     </rcast-menu>
 
-    <div class="container" lwc:dom="manual" onopenmenu={handleOpenMenuEvent} onnavback={handleNavBack}></div>
+    <div class="container" lwc:dom="manual" onopenmenu={handleOpenMenuEvent} onnavigate={handleNavigateEvent}></div>
 </template>

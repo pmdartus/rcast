@@ -1,6 +1,5 @@
-import { LightningElement, api, track, wire, createElement } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 
-import ViewPodcast from 'rcast/viewPodcast';
 import { getPodcasts } from 'rcast/store';
 import { categories } from 'rcast/utils';
 
@@ -74,30 +73,15 @@ export default class PodcastList extends LightningElement {
     }
 
     handlePodcastClick(event) {
-        const podcastId = event.target.podcast.id;
-
-        const element = createElement('rcast-view-podcast', {
-            is: ViewPodcast,
-            fallback: false,
-        });
-        element.podcastId = podcastId;
+        const { id: podcastId } = event.target.podcast;
 
         this.dispatchEvent(
-            new CustomEvent('navstackpush', {
+            new CustomEvent('navigate', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    element,
+                    path: `podcasts/${podcastId}`,
                 },
-            }),
-        );
-    }
-
-    handleBack() {
-        this.dispatchEvent(
-            new CustomEvent('navstackop', {
-                bubbles: true,
-                composed: true,
             }),
         );
     }

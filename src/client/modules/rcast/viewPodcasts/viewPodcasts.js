@@ -40,21 +40,16 @@ export default class ViewPodcasts extends LightningElement {
     }
 
     handlePodcastClick(event) {
-        const podcastId = parseInt(event.currentTarget.dataset.podcastId, 10);
+        event.preventDefault();
 
-        const element = createElement('rcast-view-podcast', {
-            is: ViewPodcast,
-            fallback: false,
-        });
-        element.podcastId = podcastId;
-
+        const { podcastId } = event.currentTarget.dataset;
         this.dispatchEvent(
-            new CustomEvent('navstackpush', {
-                bubbles: true,
-                composed: true,
+            new CustomEvent('navigate', {
                 detail: {
-                    element,
+                    path: `/podcasts/${podcastId}`
                 },
+                composed: true,
+                bubbles: true,
             }),
         );
     }
