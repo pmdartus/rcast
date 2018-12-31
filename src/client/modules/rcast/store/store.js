@@ -5,9 +5,19 @@ import thunk from 'redux-thunk';
 
 import * as reducers from './reducers';
 
+// TODO: Remove this in production
+const loggerMiddleware = store => next => action => {
+    console.group(action.type);
+    console.info('dispatching', action);
+    let result = next(action);
+    console.log('next state', store.getState());
+    console.groupEnd();
+    return result;
+};
+
 export const store = createStore(
     combineReducers(reducers),
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, loggerMiddleware),
 );
 
 export function connectStore(store) {
@@ -20,9 +30,7 @@ register(connectStore, eventTarget => {
 
     const notifyStateChange = () => {
         const state = store.getState();
-        eventTarget.dispatchEvent(
-            new ValueChangedEvent(state)
-        );
+        eventTarget.dispatchEvent(new ValueChangedEvent(state));
     };
 
     eventTarget.addEventListener('connect', () => {
@@ -42,5 +50,13 @@ register(connectStore, eventTarget => {
     });
 });
 
-export { subscribe, unsubscribe } from './actions';
-export { getPodcast, getTopPodcasts } from './api';
+export {
+    listenEpisode,
+    play,
+    pause,
+    subscribe,
+    unsubscribe,
+    fetchPodcastIfNeeded,
+    fetchTopPodcastsIfNeeded,
+    fetchSubscribedPodcastsIfNeeded,
+} from './actions';

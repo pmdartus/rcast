@@ -1,16 +1,23 @@
 import { LightningElement, track, wire } from 'lwc';
-import { connectStore, store, getPodcast } from 'rcast/store';
+import { connectStore, store, fetchSubscribedPodcastsIfNeeded } from 'rcast/store';
 
 export default class ViewPodcasts extends LightningElement {
+    @track loading = true;
     @track podcasts = [];
 
     @wire(connectStore, { store })
-    stateChange({ subscriptions }) {
-        Promise.all(
-            subscriptions.map(id => getPodcast({ id })),
-        ).then(podcasts => {
-            this.podcasts = podcasts;
-        });
+    stateChange({ podcasts, subscriptions }) {
+        this.loading = subscriptions.some(id => podcasts[id] === undefined || podcasts[id].isFetching);
+
+        if (!this.loading) {
+            this.podcasts = subscriptions.map(id => podcasts[id].data);
+        }
+    }
+
+    connectedCallback() {
+        store.dispatch(
+            fetchSubscribedPodcastsIfNeeded()
+        );
     }
 
     handleMenuClick() {

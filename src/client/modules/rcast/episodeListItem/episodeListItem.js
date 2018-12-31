@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
 import { convertSeconds } from 'rcast/utils';
+import { store, listenEpisode } from 'rcast/store';
 
 const currentYearDateFormatter = new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
@@ -33,5 +34,13 @@ export default class EpisodeListItem extends LightningElement {
     get duration() {
         const { minutes } = convertSeconds(this.episode.duration);
         return `${minutes}m`;
+    }
+
+    handlePlayClick(event) {
+        event.stopPropagation();
+
+        store.dispatch(
+            listenEpisode(this.episode.id)
+        );
     }
 }

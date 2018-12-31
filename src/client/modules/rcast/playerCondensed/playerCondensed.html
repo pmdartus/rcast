@@ -1,17 +1,17 @@
 <template>
     <div class="head" onclick={handleHeadClick}>
-        <rcast-cover class="podcast_cover" href={cover} name={episode.title} rounded-corners></rcast-cover>
+        <rcast-cover class="podcast_cover" href={cover} name={title} rounded-corners></rcast-cover>
 
         <div class="info">
-            <span class="title">{episode.title}</span>
-            <span class="author">{podcast.author.name}</span>
+            <span class="title">{title}</span>
+            <span class="author">{author}</span>
         </div>
     
-        <div class="control-button" role="switch" aria-checked={state.playing} onclick={handlePlayPauseClick}>
-            <template if:false={state.playing}>
+        <div class="control-button" role="switch" aria-checked={isPlaying} onclick={handlePlayPauseClick}>
+            <template if:false={isPlaying}>
                 <rcast-icon name="pause"></rcast-icon>
             </template>
-            <template if:true={state.playing}>
+            <template if:true={isPlaying}>
                 <rcast-icon name="play"></rcast-icon>
             </template>
         </div>

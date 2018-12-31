@@ -5,26 +5,17 @@
     </rcast-header>
 
     <rcast-content>
-        <template if:true={state.loading}>
+        <template if:true={loading}>
             <div class="center">
                 <rcast-spinner></rcast-spinner>
             </div>
         </template>
 
-        <template if:false={state.loading}>
-            <template if:true={state.result.error}>
-                <div class="center">
-                    Can't load results
-                    <button onclick={handleLoadRetry}>Retry</button>
-                </div>
+        <template if:false={loading}>
+            <template for:each={podcasts} for:item="podcast">
+                <rcast-podcast-list-item key={podcast.id} podcast={podcast} onclick={handlePodcastClick}>
+                </rcast-podcast-list-item>
             </template>
-
-            <template if:false={state.result.error}>
-                    <template for:each={state.result.data} for:item="podcast">
-                        <rcast-podcast-list-item key={podcast.id} podcast={podcast} onclick={handlePodcastClick}>
-                        </rcast-podcast-list-item>
-                    </template>
-                </template>
         </template>
     </rcast-content>
 </template>

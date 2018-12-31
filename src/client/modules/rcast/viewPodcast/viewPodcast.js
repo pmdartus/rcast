@@ -1,6 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import {
-    getPodcast,
+    fetchPodcastIfNeeded,
     connectStore,
     store,
     subscribe,
@@ -12,19 +12,25 @@ export default class ViewPodcast extends LightningElement {
 
     @track podcast = null;
     @track episodes = [];
-
     @track isSubscribed = false;
 
     @wire(connectStore, { store })
-    storeChange({ subscriptions }) {
-        this.isSubscribed = subscriptions.includes(this.podcastId);
+    storeChange({ podcasts, subscriptions, episodes }) {
+        const { podcastId } = this;
+
+        this.isSubscribed = subscriptions.includes(podcastId);
+
+        this.podcast = podcasts[podcastId] && podcasts[podcastId].data;
+
+        if (this.podcast && this.podcast.episodes) {
+            this.episodes = this.podcast.episodes.map(id => episodes[id].data);
+        }
     }
 
-    async connectedCallback() {
-        const podcast = await getPodcast({ id: this.podcastId });
-
-        this.podcast = podcast;
-        this.episodes = podcast.episodes;
+    connectedCallback() {
+        store.dispatch(
+            fetchPodcastIfNeeded(this.podcastId)
+        );
     }
 
     get imageUrl() {

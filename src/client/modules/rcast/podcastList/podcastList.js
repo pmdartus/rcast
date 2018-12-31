@@ -1,69 +1,38 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 
 import { categories } from 'rcast/utils';
+import { connectStore, store, fetchTopPodcastsIfNeeded } from 'rcast/store';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;
 
-    @track state = {
-        loading: false,
-        result: null,
-    };
+    @track loading = true;
+    @track podcasts = [];
 
-    connectedCallback() {
-        this.fetchPodcasts();
+    @wire(connectStore, { store })
+    storeChange({ topPodcastsByCategory, podcasts }) {
+        const topPodcasts = topPodcastsByCategory[this.categoryId];
+        
+        if (topPodcasts) {
+            this.loading = topPodcasts.isFetching;
+            this.podcasts = topPodcasts.data.map(id => podcasts[id].data);
+        }
     }
 
-    handleLoadRetry() {
-        this.fetchPodcasts();
+    connectedCallback() {
+        this.fetchTopPodcasts();
+    }
+
+    fetchTopPodcasts() {
+        store.dispatch(
+            fetchTopPodcastsIfNeeded(this.categoryId)
+        );
     }
 
     get categoryName() {
         return categories.find(category => {
             return category.id == this.categoryId;
         }).name;
-    }
-
-    async fetchPodcasts() {
-        if (!this.categoryId) {
-            // eslint-disable-next-line no-console
-            throw new TypeError(`No categoryId property has been set`);
-        }
-
-        this.state = {
-            loading: true,
-            result: null,
-        };
-
-        try {
-            const response = await fetch(
-                `/api/1/top?genreId=${this.categoryId}`,
-            );
-            const res = await response.json();
-
-            if (!response.ok) {
-                this.state = {
-                    loading: false,
-                    result: {
-                        error: res.error || 'Error',
-                    },
-                };
-            } else {
-                this.state = {
-                    loading: false,
-                    result: {
-                        data: res.results,
-                    },
-                };
-            }
-        } catch (error) {
-            this.state = {
-                loading: false,
-                result: {
-                    error,
-                },
-            };
-        }
     }
 
     handlePodcastClick(event) {

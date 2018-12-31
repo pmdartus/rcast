@@ -12,7 +12,7 @@ export default class App extends LightningElement {
     releaseVersion = process.env.RELEASE_VERSION;
     releaseDate = process.env.RELEASE_DATE;
 
-    router = new Navigo(null, false);
+    router = new Navigo(location.origin, false);
 
     menuItems = [{
         title: 'Podcast',
