@@ -1,5 +1,5 @@
 <template>
-    <rcast-menu>
+    <base-menu>
         <div class="menu-header">
             <span class="menu-title">rcast</span>
             <span class="menu-version">version {releaseVersion} ({releaseDate})</span>
@@ -8,14 +8,17 @@
         <nav>
             <template for:each={menuItems} for:item="menuItem">
                 <a key={menuItem.location} class="menu-item" href={menuItem.location} onclick={handleMenuItemClick}>
-                    <rcast-icon name={menuItem.iconName}></rcast-icon>
+                    <base-icon name={menuItem.iconName}></base-icon>
                     {menuItem.title}
                 </a>
             </template>
         </nav>
-    </rcast-menu>
+    </base-menu>
 
-    <div class="container" lwc:dom="manual" onopenmenu={handleOpenMenuEvent} onnavigate={handleNavigateEvent}></div>
-
-    <rcast-player-condensed></rcast-player-condensed>
+    <div class="app">
+        <div class="container" lwc:dom="manual" onopenmenu={handleOpenMenuEvent} onnavigate={handleNavigateEvent}>
+        </div>
+        <component-player-condensed>
+        </component-player-condensed>
+    </div>
 </template>

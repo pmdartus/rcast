@@ -1,0 +1,21 @@
+<template>
+    <base-header>
+        <base-back-button slot="left"></base-back-button>
+        {categoryName}
+    </base-header>
+
+    <base-content>
+        <template if:true={loading}>
+            <div class="center">
+                <base-spinner></base-spinner>
+            </div>
+        </template>
+
+        <template if:false={loading}>
+            <template for:each={podcasts} for:item="podcast">
+                <component-podcast-list-item key={podcast.id} podcast={podcast} onclick={handlePodcastClick}>
+                </component-podcast-list-item>
+            </template>
+        </template>
+    </base-content>
+</template>

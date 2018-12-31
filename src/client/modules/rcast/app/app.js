@@ -3,10 +3,10 @@
 import { LightningElement, createElement } from 'lwc';
 import Navigo from 'navigo';
 
-import ViewPodcasts from 'rcast/viewPodcasts';
-import ViewPodcast from 'rcast/viewPodcast';
-import ViewDiscover from 'rcast/viewDiscover';
-import PodcastList from 'rcast/podcastList';
+import ViewPodcasts from 'view/podcasts';
+import ViewPodcast from 'view/podcast';
+import ViewDiscover from 'view/discover';
+import PodcastList from 'view/category';
 
 export default class App extends LightningElement {
     releaseVersion = process.env.RELEASE_VERSION;

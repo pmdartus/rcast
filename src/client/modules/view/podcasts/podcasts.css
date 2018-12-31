@@ -1,0 +1,15 @@
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-item base-cover {
+    display: block;
+    width: 100%;
+}

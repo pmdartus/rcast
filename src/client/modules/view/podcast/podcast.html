@@ -1,0 +1,28 @@
+<template>
+    <base-content>
+            <base-back-button></base-back-button>
+    
+            <div class="header">
+                <img src={imageUrl}>
+                <div class="header-details">
+                    <div class="header-name">{name}</div>
+                    <div class="header-genre">{author}</div>
+    
+                    <button class="subscription" onclick={handleSubscriptionClick}>
+                        {subscriptionLabel}
+                    </button>
+                </div>
+            </div>
+    
+            <div class="description" lwc:dom="manual"></div>
+    
+            <div class="episode-list">
+                <div>{episodes.length} episodes</div>
+
+                <template for:each={episodes} for:item="episode">
+                    <component-episode-list-item key={episode.id} episode={episode}>
+                    </component-episode-list-item>
+                </template>
+            </div>
+    </base-content>
+</template>
