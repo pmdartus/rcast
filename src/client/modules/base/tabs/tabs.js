@@ -25,8 +25,8 @@ export default class Tabs extends LightningElement {
             this._didRendered = true;
 
             // Register all the tabs
-            this.tabs = [...this.querySelectorAll('rcast-tab')];
-            this.buttons = [...this.querySelectorAll('rcast-tab-button')];
+            this.tabs = [...this.querySelectorAll('base-tab')];
+            this.buttons = [...this.querySelectorAll('base-tab-button')];
 
             // Select the first tab after the initial render
             if (this.tabs.length) {

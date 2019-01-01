@@ -15,9 +15,55 @@ const loggerMiddleware = store => next => action => {
     return result;
 };
 
+const LOCAL_STORAGE_KEY = 'state';
+
+const loadState = () => {
+    try {
+        const serializedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+        if (serializedState) {
+            return JSON.parse(serializedState);
+        }
+    } catch (error) {
+        // Do nothing
+    }
+};
+
+const saveState = state => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
+    } catch (error) {
+        // Do nothing
+    }
+};
+
+const debounce = (fn, duration) => {
+    let timer;
+    return function(...args) {
+        const thisValue = this;
+
+        if (timer) {
+            clearTimeout(timer);
+        }
+
+        setTimeout(() => {
+            fn.apply(thisValue, args);
+            timer = null;
+        }, duration);
+    };
+};
+
 export const store = createStore(
     combineReducers(reducers),
+    loadState(),
     applyMiddleware(thunk, loggerMiddleware),
+);
+
+store.subscribe(
+    debounce(() => {
+        saveState(store.getState());
+    }, 1000),
 );
 
 export function connectStore(store) {

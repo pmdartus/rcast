@@ -29,18 +29,18 @@ export default class App extends LightningElement {
 
         this.router.on({
             '/podcasts': () => {
-                this.setPage('rcast-view-podcast', ViewPodcasts);
+                this.setPage('view-podcasts', ViewPodcasts);
             },
             '/podcasts/:id': ({ id }) => {
-                this.setPage('rcast-view-podcast', ViewPodcast, {
+                this.setPage('view-podcast', ViewPodcast, {
                     podcastId: parseInt(id, 10),
                 });
             },
             '/discover': () => {
-                this.setPage('rcast-view-discover', ViewDiscover);
+                this.setPage('view-discover', ViewDiscover);
             },
             '/categories/:id': ({ id }) => {
-                this.setPage('rcast-podcast-list', PodcastList, {
+                this.setPage('view-category', PodcastList, {
                     categoryId: parseInt(id, 10),
                 });
             }
@@ -65,11 +65,11 @@ export default class App extends LightningElement {
         const { href } = evt.target;
 
         this.router.navigate(href, true);
-        this.template.querySelector('rcast-menu').close();
+        this.template.querySelector('base-menu').close();
     }
 
     handleOpenMenuEvent() {
-        this.template.querySelector('rcast-menu').open();
+        this.template.querySelector('base-menu').open();
     }
 
     handleNavigateEvent(event) {

@@ -34,13 +34,13 @@ base-cover {
     color: #C4C4C4;
 }
 
-rcast-icon {
+base-icon {
     width: 12px;
     fill: #C4C4C4;
 
     padding-left: 12px;
 }
 
-rcast-icon.subscribed {
+base-icon.subscribed {
     fill: #66bb6a;
 }
