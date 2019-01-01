@@ -1,49 +1,73 @@
 :host {
-    display: block;
+    height: 100%;
+    display: flex;
 }
 
-.back {
-    display: block;
-    width: 30px;
-    height: 30px;
-
-    fill: white;
-}
+/* Header */
 
 .header {
-    padding: 0 15px;
+    padding: 0 var(--spacing-medium);
+    margin-top: var(--spacing-medium);
     
     display: flex;
     align-items: center;
 }
 
-.header img {
-    width: 120px;
-    height: 120px;
-    margin-right: 10px;
-    border-radius: 5px;
-    border: 2px #494949 solid;
+.header .cover {
+    width: 90px;
+    margin-right: var(--spacing-medium);
 }
 
-.header-name {
+.header .details {
+    flex: 1;
+}
+
+.detail-name {
     font-size: 1.3rem;
     font-weight: 600;
 }
 
-.header-genre {
-    color: #C4C4C4;
+.detail-genre {
+    opacity: .4;
 }
 
 .subscription {
-    font-size: 1rem;
-    color: #C4C4C4;
-    border: 2px solid #C4C4C4;
+    margin-top: 10px;
+    padding: 0 8px;
+
+    font-size: .9rem;
+    height: 36px;
+    
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    
     background: transparent;
     float: right;
 }
 
+/* Description */
+
 .description {
-    padding: 15px;
-    font-size: 0.9rem;
-    font-weight: lighter;
+    margin-top: var(--spacing-medium);
+    padding: 0 var(--spacing-medium);
+
+    font-size: 0.875rem;
+
+    /* Multi-line text overflow: http://dropshado.ws/post/1015351370/webkit-line-clamp */
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.description.expanded {
+    -webkit-line-clamp: unset;
+}
+
+/* Episode list */
+
+.episode-list {
+    margin-top: var(--spacing-medium);
 }

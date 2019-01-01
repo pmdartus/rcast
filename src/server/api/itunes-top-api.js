@@ -14,8 +14,10 @@ const RESPONSE_CACHE = new Cache({
     stdTTL: 60 * 60 // 1 hour
 });
 
+const LIMIT = 100;
+
 async function top({ genreId, country }) {
-    const url = `https://itunes.apple.com/${country}/rss/toppodcasts/genre=${genreId}/json`;
+    const url = `https://itunes.apple.com/${country}/rss/toppodcasts/limit=${LIMIT}/genre=${genreId}/json`;
     
     const cachedResult = RESPONSE_CACHE.get(url);
     if (cachedResult !== undefined) {

@@ -13,6 +13,7 @@ export default class ViewPodcast extends LightningElement {
     @track podcast = null;
     @track episodes = [];
     @track isSubscribed = false;
+    @track isDescriptionExpanded = false;
 
     @wire(connectStore, { store })
     storeChange({ podcasts, subscriptions, episodes }) {
@@ -33,6 +34,13 @@ export default class ViewPodcast extends LightningElement {
         );
     }
 
+    renderedCallback() {
+        if (this.podcast && this.podcast.description) {
+            const descriptionEl = this.template.querySelector('.description');
+            descriptionEl.innerHTML = this.podcast.description;
+        }
+    }
+
     get imageUrl() {
         return this.podcast && this.podcast.image;
     }
@@ -49,12 +57,8 @@ export default class ViewPodcast extends LightningElement {
         return this.isSubscribed ? 'unsubscribe' : 'subscribe';
     }
 
-    renderedCallback() {
-        if (this.podcast) {
-            this.template.querySelector(
-                '.description',
-            ).innerHTML = this.podcast.description;
-        }
+    get descriptionClassName() {
+        return `description ${this.isDescriptionExpanded && 'expanded'}`;
     }
 
     handleSubscriptionClick() {
@@ -63,9 +67,9 @@ export default class ViewPodcast extends LightningElement {
         store.dispatch(
             isSubscribed ? unsubscribe(podcastId) : subscribe(podcastId),
         );
+    }
 
-        if (isSubscribed) {
-            window.history.back();
-        }
+    handleDescriptionClick() {
+        this.isDescriptionExpanded = true;
     }
 }

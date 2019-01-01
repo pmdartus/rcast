@@ -1,5 +1,5 @@
 :host {
     height: 24px;
     width: 24px;
-    margin-right: 16px;
+    margin-right: var(--spacing-medium);
 }

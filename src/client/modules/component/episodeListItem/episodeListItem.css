@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
 
-    padding: 10px 15px;
+    padding: 10px var(--spacing-medium);
     border-top: 1px solid #e6eff7;
 }
 
@@ -18,7 +18,7 @@
     */
     min-width: 0;
     
-    padding-right: 15px; 
+    padding-right: var(--spacing-medium); 
 }
 
 .info-container > div {
@@ -50,7 +50,8 @@
     height: 25px;
     border-radius: 25px;
 
-    background-color: #657786;
+    background-color: var(--primary-color);
+    color: white;
 
     opacity: 0.6;
 }
@@ -58,5 +59,4 @@
 .play-button base-icon {
     width: 15px;
     height: 15px;
-    fill: white;
 }

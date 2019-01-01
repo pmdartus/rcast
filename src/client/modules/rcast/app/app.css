@@ -42,7 +42,7 @@
 }
 
 .menu-item base-icon {
-    width: 16px;
+    width: var(--spacing-medium);
     margin-right: 9px;
 
     fill: #657786;
