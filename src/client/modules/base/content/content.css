@@ -4,5 +4,5 @@
 }
 
 :host(.with-header) {
-    margin-top: 64px;
+    margin-top: var(--header-height);
 }
