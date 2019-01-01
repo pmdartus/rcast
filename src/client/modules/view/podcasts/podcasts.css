@@ -4,6 +4,30 @@
     flex-direction: column;
 }
 
+/* Zero state */
+
+.no-podcast {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+
+    height: 100%;
+}
+
+.no-podcast .title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    font-weight: 500;
+}
+
+.no-podcast .message {
+    font-size: 0.875rem;
+    opacity: 0.6;
+}
+
+/* Grid view */
+
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

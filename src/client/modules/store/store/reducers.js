@@ -13,7 +13,7 @@ import {
 } from './actions';
 
 export function subscriptions(
-    state = [1446491245, 214089682, 990897842],
+    state = [],
     action,
 ) {
     switch (action.type) {
