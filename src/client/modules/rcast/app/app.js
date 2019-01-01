@@ -93,4 +93,8 @@ export default class App extends LightningElement {
 
         container.appendChild(el);
     }
+
+    get showCondensedPlayer() {
+        return true;
+    }
 }

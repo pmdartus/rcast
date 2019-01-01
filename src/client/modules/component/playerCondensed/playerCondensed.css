@@ -2,40 +2,36 @@
     display: flex;
     flex-direction: column;
 
-    height: 64px;
-    box-sizing: border-box;
+    height: var(--player-condensed-height);
 
-    border-top: 1px solid #494949;
+    margin-top: calc(-1 * var(--player-condensed-height));
+    transform: translateY(var(--player-condensed-height));
+
+    transition-property: margin-top, transform;
+    transition-duration: .2s;
+    transition-timing-function: ease-in-out;
 }
 
 :host(.visible) {
     margin-top: 0;
+    transform: translateY(0);
+
+    box-shadow: 
+        rgba(180, 180, 180, 0.2) 0px -3px 1px -2px, 
+        rgba(180, 180, 180, 0.14) 0px -2px 2px 0px, 
+        rgba(180, 180, 180, 0.12) 0px -1px 5px 0px;
 }
 
-.progress-bar {
-    height: 3px;
-    background: #2e2e2e;
-}
-
-.progress-bar_value {
-    height: 100%;
-    background: #c4c4c4;
-}
+/* Head */
 
 .head {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    padding: 10px;
-}
+    flex: 1;
 
-/* TODO: Move cover to it's own component to properly handle lazyload */
-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    object-fit: cover;
+    padding: 0 16px;
 }
 
 .info {
@@ -57,31 +53,25 @@ img {
     /* Push control to the right. */
     margin-left: auto;
 
-    /* Setting width and height is not enough, min-width and min-height ensures the button is round. */
-    min-width: 50px;
-    min-height: 50px;
-    border-radius: 25px;
-
-    /* Display the icon in the middle of the button */
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: white;
+    color: var(--player-control-color);
 }
 
-.control-button:active {
-    background: #c4c4c4;
-}
-
-base-cover {
+.cover {
     width: 40px;
 }
 
-base-icon {
-    display: block;
-    width: 30px;
-    height: 30px;
+/* Progress bar */
 
-    fill: #010101;
+.progress-bar {
+    height: 3px;
+    background: #e2e2e2;
+}
+
+.progress-bar-value {
+    height: 100%;
+    background: var(--player-control-color);
 }
