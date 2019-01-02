@@ -8,6 +8,7 @@
     background: white;
 
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 
     z-index: 120;
 

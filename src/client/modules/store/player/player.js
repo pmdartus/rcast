@@ -33,6 +33,7 @@ class Player extends EventEmitter {
     }
 
     _init() {
+        let AudioContext = window.AudioContext || window.webkitAudioContext;
         this._audioContext = new AudioContext();
 
         this._audioEl = new Audio();
