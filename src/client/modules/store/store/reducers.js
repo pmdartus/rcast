@@ -177,7 +177,10 @@ export function episodes(state = {}, action) {
                     return {
                         ...acc,
                         [episode.id]: {
-                            data: episode,
+                            data: {
+                                podcastId: action.id,
+                                ...episode,
+                            }
                         }
                     };
                 },

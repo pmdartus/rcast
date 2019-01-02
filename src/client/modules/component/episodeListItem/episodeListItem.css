@@ -28,8 +28,8 @@
 }
 
 .release-date, .duration {
-    color: #657786;
-    font-size: 0.700rem;
+    opacity: 0.7;
+    font-size: 0.7rem;
 }
 
 .release-date {
@@ -52,8 +52,6 @@
 
     background-color: var(--primary-color);
     color: white;
-
-    opacity: 0.6;
 }
 
 .play-button base-icon {

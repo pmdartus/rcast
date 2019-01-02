@@ -35,7 +35,7 @@
 }
 
 .info {
-    padding: 0 10px;
+    padding: 0 var(--spacing-small);
     font-weight: lighter;
     overflow: hidden;
 
@@ -47,6 +47,16 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.info .title {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.info .author {
+    font-size: 0.7rem;
+    opacity: 0.7;
 }
 
 .control-button {
@@ -61,6 +71,7 @@
 }
 
 .cover {
+    min-width: 40px;
     width: 40px;
 }
 

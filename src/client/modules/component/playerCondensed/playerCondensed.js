@@ -8,17 +8,20 @@ export default class PlayerCondensed extends LightningElement {
     @track podcast = null;
 
     @wire(connectStore, { store })
-    storeChange({ player, episodes }) {
+    storeChange({ player, episodes, podcasts }) {
         this.isPlaying = player.isPlaying;
 
         if (player.episode) {
             this.episode = episodes[player.episode].data;
+            this.podcast = podcasts[this.episode.podcastId].data;
+            this.classList.add('visible');
+        } else {
+            this.classList.remove('visible');
         }
     }
 
     get cover() {
-        // TODO: Improve image lookup
-        return this.episode && this.episode.image;
+        return this.podcast && this.podcast.image;
     }
 
     get title() {

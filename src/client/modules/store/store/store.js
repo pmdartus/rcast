@@ -62,7 +62,7 @@ export const store = createStore(
 
 store.subscribe(
     debounce(() => {
-        saveState(store.getState());
+        // saveState(store.getState());
     }, 1000),
 );
 
