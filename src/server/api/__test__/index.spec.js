@@ -136,7 +136,7 @@ describe('GET /api/1/top', () => {
 
     it("should return 503 is iTunes API doesn't responds with a non 200 code", async () => {
         nock('https://itunes.apple.com')
-            .get('/us/rss/toppodcasts/genre=123/json')
+            .get('/us/rss/toppodcasts/limit=100/genre=123/json')
             .query(true)
             .replyWithFile(500, fixturePath('top-podcasts.json'), {
                 'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ describe('GET /api/1/top', () => {
 
     it('should query iTunes API with genreId and us country by default', async () => {
         const mock = nock('https://itunes.apple.com')
-            .get('/us/rss/toppodcasts/genre=123/json')
+            .get('/us/rss/toppodcasts/limit=100/genre=123/json')
             .replyWithFile(200, fixturePath('top-podcasts.json'), {
                 'Content-Type': 'application/json',
             });
@@ -167,7 +167,7 @@ describe('GET /api/1/top', () => {
 
     it('should query iTunes API with genreId and country', async () => {
         const mock = nock('https://itunes.apple.com')
-            .get('/fr/rss/toppodcasts/genre=123/json')
+            .get('/fr/rss/toppodcasts/limit=100/genre=123/json')
             .replyWithFile(200, fixturePath('top-podcasts.json'), {
                 'Content-Type': 'application/json',
             });
@@ -178,7 +178,7 @@ describe('GET /api/1/top', () => {
 
     it('should return a list of the top podcasts', async () => {
         nock('https://itunes.apple.com')
-            .get('/us/rss/toppodcasts/genre=123/json')
+            .get('/us/rss/toppodcasts/limit=100/genre=123/json')
             .replyWithFile(200, fixturePath('top-podcasts.json'), {
                 'Content-Type': 'application/json',
             });
@@ -190,12 +190,12 @@ describe('GET /api/1/top', () => {
         expect(body.count).toBe(50);
         expect(body.results).toHaveLength(50);
         expect(body.results[0]).toEqual({
-            id: '523121474',
+            id: 523121474,
             name: 'TED Radio Hour',
             image:
                 'https://is3-ssl.mzstatic.com/image/thumb/Podcasts118/v4/ef/e2/d4/efe2d4c6-a7cf-0eb4-cd60-a94ec7720f98/mza_1915696984681289998.jpg/170x170bb-85.png',
             author: {
-                id: '125443881',
+                id: 125443881,
                 name: 'NPR',
             },
         });

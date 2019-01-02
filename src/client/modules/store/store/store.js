@@ -7,35 +7,14 @@ import * as reducers from './reducers';
 
 // TODO: Remove this in production
 const loggerMiddleware = store => next => action => {
+    /* eslint-disable no-console */
     console.group(action.type);
     console.info('dispatching', action);
     let result = next(action);
     console.log('next state', store.getState());
     console.groupEnd();
     return result;
-};
-
-const LOCAL_STORAGE_KEY = 'state';
-
-const loadState = () => {
-    try {
-        const serializedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-        if (serializedState) {
-            return JSON.parse(serializedState);
-        }
-    } catch (error) {
-        // Do nothing
-    }
-};
-
-const saveState = state => {
-    try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
-    } catch (error) {
-        // Do nothing
-    }
+    /* eslint-enable no-console */
 };
 
 const debounce = (fn, duration) => {
@@ -56,7 +35,7 @@ const debounce = (fn, duration) => {
 
 export const store = createStore(
     combineReducers(reducers),
-    loadState(),
+    // loadState(),
     applyMiddleware(thunk, loggerMiddleware),
 );
 
