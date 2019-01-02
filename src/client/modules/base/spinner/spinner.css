@@ -3,7 +3,7 @@
     width: 1em;
     height: 1em;
     vertical-align: bottom;
-    fill: var(--font-color);
+    opacity: .3;
 }
 
 div {

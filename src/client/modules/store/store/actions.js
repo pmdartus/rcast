@@ -10,6 +10,7 @@ export const UNSUBSCRIBE_PODCAST = 'UNSUBSCRIBE_PODCAST';
 
 export const PLAY = 'PLAY';
 export const PAUSE = 'PAUSE';
+export const ENDED = 'ENDED';
 export const LISTEN_EPISODE = 'LISTEN_EPISODE';
 
 export const RECORD_TYPE_HIGHLIGHT = 'HIGHLIGHT';
@@ -131,6 +132,10 @@ export function play() {
 
 export function pause() {
     return { type: PAUSE };
+}
+
+export function ended() {
+    return { type: ENDED };
 }
 
 export function listenEpisode(episode) {

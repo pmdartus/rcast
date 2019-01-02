@@ -100,6 +100,7 @@ export {
     listenEpisode,
     play,
     pause,
+    ended,
     subscribe,
     unsubscribe,
     fetchPodcastIfNeeded,

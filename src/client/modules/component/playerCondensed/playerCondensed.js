@@ -1,5 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 
+import player from 'store/player';
 import { connectStore, store, play, pause } from 'store/store';
 
 export default class PlayerCondensed extends LightningElement {
@@ -18,6 +19,8 @@ export default class PlayerCondensed extends LightningElement {
 
     @wire(connectStore, { store })
     storeChange({ player, episodes, podcasts }) {
+        this.isPlaying = player.isPlaying;
+
         const episodeId = player.episode;
 
         if (!episodes[episodeId]) {
@@ -31,28 +34,22 @@ export default class PlayerCondensed extends LightningElement {
             this.episodeId = episodeId;
             this.episode = episode;
             this.podcast = podcast;
-
-            if (!this._audioEl) {
-                this._initAudio();
-            }
-
-            this._audioEl.src = `/proxy/${encodeURI(this.episode.audio.url)}`;
-            if (this.isPlaying) {
-                this._audioEl.play();
-            }
         }
 
         this.setPlayerVisibility();
+    }
 
-        if (this.isPlaying !== player.isPlaying) {
-            this.isPlaying = player.isPlaying;
+    connectedCallback() {
+        player.on('timeupdate', this.handleTimeUpdate);
+    }
 
-            if (this.isPlaying) {
-                this._audioEl.play();
-            } else {
-                this._audioEl.pause();
-            }
-        }
+    disconnectedCallback() {
+        player.off('timeupdate', this.handleTimeUpdate);
+    }
+
+    handleTimeUpdate = () => {
+        const { duration, currentTime } = player;
+        this.progress = Number.isNaN(duration) || currentTime === 0 ? 0 : currentTime / duration;
     }
 
     setPlayerVisibility() {
@@ -80,28 +77,5 @@ export default class PlayerCondensed extends LightningElement {
     handlePlayPauseClick(event) {
         event.stopPropagation();
         store.dispatch(this.isPlaying ? pause() : play());
-    }
-
-    _initAudio() {
-        this._audioContext = new AudioContext();
-        
-        this._audioEl = new Audio();
-        this._audioEl.crossOrigin = 'anonymous';
-
-        this._audioEl.addEventListener('error', () => {
-                const { code, message } = this._audioEl.error;
-                console.error(`Error ${code}: ${message}`);
-        });
-
-        this._audioEl.addEventListener('durationchange', () => {
-            this._duration = this._audioEl.duration;
-        });
-
-        this._audioEl.addEventListener('timeupdate', () => {
-            this.progress = this._audioEl.currentTime / this._duration;
-        });
-
-        const track = this._audioContext.createMediaElementSource(this._audioEl);
-        track.connect(this._audioContext.destination);
     }
 }

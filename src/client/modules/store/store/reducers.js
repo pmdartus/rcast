@@ -10,6 +10,7 @@ import {
     LISTEN_EPISODE,
     RECORD_TYPE_HIGHLIGHT,
     RECORD_TYPE_FULL,
+    ENDED,
 } from './actions';
 
 export function subscriptions(
@@ -43,6 +44,12 @@ export function player(
             };
 
         case PAUSE:
+            return {
+                ...state,
+                isPlaying: false,
+            };
+        
+        case ENDED:
             return {
                 ...state,
                 isPlaying: false,

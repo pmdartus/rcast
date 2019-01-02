@@ -30,7 +30,7 @@ export default class RcastProgressBar extends LightningElement {
     handleWindowResize = () => {
         this.updateSliderBoundingRect();
         this.updatePositions();
-    }
+    };
 
     connectedCallback() {
         window.addEventListener('resize', this.handleWindowResize);
@@ -42,8 +42,12 @@ export default class RcastProgressBar extends LightningElement {
 
     renderedCallback() {
         if (!this.progressValueEl || !this.progressThumbEl) {
-            this.progressValueEl = this.template.querySelector('.progress-bar-value');
-            this.progressThumbEl = this.template.querySelector('.progress-bar-thumb');
+            this.progressValueEl = this.template.querySelector(
+                '.progress-bar-value',
+            );
+            this.progressThumbEl = this.template.querySelector(
+                '.progress-bar-thumb',
+            );
         }
 
         if (!this.progressBarBoundingRect) {
@@ -60,13 +64,15 @@ export default class RcastProgressBar extends LightningElement {
     get pastLabel() {
         return formatTime(this.currentTime);
     }
-    
+
     get remainingLabel() {
         return `-${formatTime(this.duration - this.currentTime)}`;
     }
 
     updateSliderBoundingRect() {
-        this.progressBarBoundingRect = this.template.querySelector('.progress-bar').getBoundingClientRect();
+        this.progressBarBoundingRect = this.template
+            .querySelector('.progress-bar')
+            .getBoundingClientRect();
     }
 
     updatePositions() {
@@ -74,7 +80,9 @@ export default class RcastProgressBar extends LightningElement {
         const value = duration === 0 ? 0 : currentTime / duration;
 
         this.progressValueEl.style.transform = `scaleX(${value})`;
-        this.progressThumbEl.style.transform = `translateX(${value * progressBarBoundingRect.width - (THUMB_SIZE / 2)}px) translateY(${THUMB_SIZE / 2}px)`;
+        this.progressThumbEl.style.transform = `translateX(${value *
+            progressBarBoundingRect.width -
+            THUMB_SIZE / 2}px) translateY(${THUMB_SIZE / 2}px)`;
     }
 
     handleProgressTouchStart() {
@@ -83,12 +91,13 @@ export default class RcastProgressBar extends LightningElement {
 
         this.isControlled = true;
 
-        const touchMove = (evt) => {
+        const touchMove = evt => {
             const touch = evt.touches[0];
             const currentX = touch.pageX;
 
             const sliderX = Math.min(Math.max(currentX, startX), endX);
-            const value = ((startX - sliderX) / (startX - endX)) * this.duration;
+            const value =
+                ((startX - sliderX) / (startX - endX)) * this.duration;
 
             this._currentTime = value;
         };
@@ -98,6 +107,14 @@ export default class RcastProgressBar extends LightningElement {
 
             window.removeEventListener('touchmove', touchMove);
             window.removeEventListener('touchend', touchEnd);
+
+            this.dispatchEvent(
+                new CustomEvent('currenttimechange', {
+                    detail: {
+                        value: this._currentTime,
+                    },
+                }),
+            );
         };
 
         window.addEventListener('touchmove', touchMove);
