@@ -1,6 +1,6 @@
 /* global process */
 
-import { LightningElement, createElement } from 'lwc';
+import { LightningElement, createElement, track } from 'lwc';
 import Navigo from 'navigo';
 
 import ViewPodcasts from 'view/podcasts';
@@ -23,6 +23,8 @@ export default class App extends LightningElement {
         location: '/discover',
         iconName: 'search',
     }];
+
+    @track playerExpanded = false;
 
     constructor() {
         super();
@@ -77,6 +79,10 @@ export default class App extends LightningElement {
         this.router.navigate(path);
     }
 
+    handlePlayerCondensedClick() {
+        this.template.querySelector('component-player').show();
+    }
+
     setPage(tagName, component, props = {}) {
         const el = createElement(tagName, {
             is: component,
@@ -92,9 +98,5 @@ export default class App extends LightningElement {
         }
 
         container.appendChild(el);
-    }
-
-    get showCondensedPlayer() {
-        return true;
     }
 }

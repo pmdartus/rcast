@@ -77,10 +77,6 @@ export default class PlayerCondensed extends LightningElement {
         return `width: ${Math.round(this.progress * 100)}%`;
     }
 
-    handleHeadClick() {
-        console.log('click head');
-    }
-
     handlePlayPauseClick(event) {
         event.stopPropagation();
         store.dispatch(this.isPlaying ? pause() : play());

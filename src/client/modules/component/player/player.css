@@ -1,14 +1,81 @@
-.control-button {
-    border: none;
-    padding: 0;
-    margin: 0;
-    width: 50px;
-    height: 50px;
-    background: none;
+:host {
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    top: 100vh;
+
+    z-index: 200;
+
+    background: white;
+
+    transition: top .2s ease-out;
+}
+
+:host(.visible) {
+    top: 0;
+}
+
+.close-icon {
+    position: absolute;
+    top: var(--spacing-medium);
+    left: var(--spacing-medium);
+
+    width: 35px;
+    height: 35px;
+
+    opacity: .7;
+}
+
+.container {
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 0 var(--spacing-medium);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info .cover {
+    max-width: 70vw;
+    margin: var(--spacing-medium) 0;
+}
+
+.info .title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.info .artist {
+    opacity: 0.7;
 }
 
 .progress-bar {
-    appearance: none;
-    width: 100%;
-    background: transparent;
+    margin: var(--spacing-medium) var(--spacing-small);
+}
+
+.control-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    color: var(--primary-color);
+}
+
+.control-buttons .rewind, .control-buttons .fast-forward {
+    width: 40px;
+    height: 40px;
+}
+
+.control-buttons .play, .control-buttons .pause {
+    width: 60px;
+    height: 60px;
 }

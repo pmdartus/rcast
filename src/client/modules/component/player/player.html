@@ -1,33 +1,30 @@
 <template>
-    <!-- <audio preload="auto" src={mediaUrl}
-        oncanplaythrough={handleAudioCanPlay} ontimeupdate={handleAudioTimeUpdate}
-        onerror={handleAudioError} onended={handleAudioEnded}>
-    </audio> -->
-
-    <img src={coverUrl} alt="cover" width="500" />
-
-    <div>{titleText}</div>
-
-    <rcast-progress-bar duration={state.duration} current-time={state.currentTime}
-        oncurrenttimechange={handleCurrentTimeChange}></rcast-progress-bar>
-
-    <div>
-        <button class="control-button" onclick={handleRewindClick}>
-            <img src="/svg/rewind.svg" alt="Rewind">
-        </button>
-
-        <button class="control-button" role="switch" 
-            aria-checked={state.playing} onclick={handlePlayPauseClick}>
-            <template if:true={state.playing}>
-                <img src="/svg/pause.svg" alt="Pause">
-            </template>
-            <template if:false={state.playing}>
-                <img src="/svg/play.svg" alt="Play">
-            </template>
-        </button>
-
-        <button class="control-button" onclick={handleFastForwardClick}>
-            <img src="/svg/fast-forward.svg" alt="Fast forward">
-        </button>
+    <base-icon class="close-icon" name="down" onclick={handleArrowDownClick}></base-icon>
+    
+    <div class="container">
+        <div class="info">
+            <base-cover class="cover" href={cover} name={title} rounded-corners></base-cover>
+        
+            <div class="title">{title}</div>
+            <div class="author">{author}</div>
+        </div>
+    
+        <component-progress-bar class="progress-bar" duration={state.duration} current-time={state.currentTime}
+            oncurrenttimechange={handleCurrentTimeChange}></component-progress-bar>
+    
+        <div class="control-buttons">
+            <base-icon class="rewind" name="rewind" onclick={handleRewindClick}></base-icon>
+    
+            <div role="switch" aria-checked={isPlaying} onclick={handlePlayPauseClick}>
+                <template if:true={isPlaying}>
+                    <base-icon class="pause" name="pause"></base-icon>
+                </template>
+                <template if:false={isPlaying}>
+                    <base-icon class="play" name="play"></base-icon>
+                </template>
+            </div>
+    
+            <base-icon class="fast-forward" name="fastForward" onclick={handleFastForwardClick}></base-icon>
+        </div>
     </div>
 </template>

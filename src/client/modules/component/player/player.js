@@ -1,22 +1,62 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
+import { connectStore, store } from 'store/store';
 
 const PROGRESS_STEP = 15;
 
 export default class Player extends LightningElement {
-    @api titleText = null;
-    @api mediaUrl = null;
-    @api coverUrl = null;
+    episodeId = null;
+
+    @track episode = null;
+    @track podcast = null;
 
     @track state = {
         playing: false,
         canPlay: false,
-        duration: 0,
+        duration: 100,
         currentTime: 0,
     };
 
-    _audioCtx = new AudioContext();
-    _audioElRef;
+    @wire(connectStore, { store })
+    storeChange({ player, episodes, podcasts }) {
+        const episodeId = player.episode;
 
+        if (!episodes[episodeId]) {
+            return;
+        }
+
+        const episode = episodes[episodeId].data;
+        const podcast = podcasts[episode.podcastId].data;
+
+        if (this.episodeId !== episodeId) {
+            this.episodeId = episodeId;
+            this.episode = episode;
+            this.podcast = podcast;
+        }
+    }
+
+    get cover() {
+        return this.podcast && this.podcast.image;
+    }
+
+    get title() {
+        return this.episode && this.episode.title;
+    }
+
+    get author() {
+        return this.podcast && this.podcast.author.name;
+    }
+
+    @api show() {
+        this.classList.add('visible');
+    }
+
+    hide() {
+        this.classList.remove('visible');
+    }
+
+    handleArrowDownClick() {
+        this.hide();
+    }
 
     handlePlayPauseClick() {
         const { _audioCtx, _audioElRef, state } = this;
@@ -101,15 +141,5 @@ export default class Player extends LightningElement {
 
     handleAudioEnded() {
         this.state.playing = false;
-    }
-
-    renderedCallback() {
-        if (!this._audioElRef) {
-            this._audioElRef = this.template.querySelector('audio');
-
-            this._audioCtx
-                .createMediaElementSource(this._audioElRef)
-                .connect(this._audioCtx.destination);
-        }
     }
 }
