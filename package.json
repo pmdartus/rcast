@@ -7,7 +7,9 @@
     "lint": "eslint src/",
     "test": "jest",
     "clean": "rm -rf dist/",
-    "build": "rollup -c ./rollup.config.js",
+    "build:dev": "rollup -c ./rollup.config.js",
+    "build:prod": "NODE_ENV=production rollup -c ./rollup.config.js",
+    "postinstall": "yarn build:prod",
     "start": "node ./src/server/index.js"
   },
   "dependencies": {
