@@ -2,22 +2,23 @@
 
 const path = require('path');
 
-const morgan = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
-const request = require('request');
 const compression = require('compression');
 
 const apiRouter = require('./api');
+const proxyHandler = require('./proxy');
+const { __ENV__ } = require('./config');
 
-const __ENV__ = process.env.NODE_ENV || 'development';
+const { loggerMiddleware, errorLoggerMiddleware } = require('./utils/logger');
+
 const DIST_DIR = path.resolve(__dirname, '../../dist');
 
 const app = express();
 
-// Logger, disabled for testing.
+// Request logger
 if (__ENV__ !== 'test') {
-    app.use(morgan(__ENV__ ? 'dev' : 'common'));
+    app.use(loggerMiddleware);
 }
 
 // Disable certain HTTP headers.
@@ -32,10 +33,7 @@ app.use('/public', express.static(publicDir));
 
 // Since some of the podcast enclosed URL doesn't provide CORS headers, we use this endpoint as a proxy to get around
 // the same origin policy.
-app.get('/proxy/*', (req, res) => {
-    const streamUrl = decodeURIComponent(req.params[0]);
-    request(streamUrl).pipe(res);
-});
+app.get('/proxy/*', proxyHandler);
 
 // Match API requests
 app.use('/api/1', apiRouter);
@@ -44,5 +42,10 @@ app.use('/api/1', apiRouter);
 app.use('*', (req, res) => {
     res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
+
+// Error logger
+if (__ENV__ !== 'test') {
+    app.use(errorLoggerMiddleware);
+}
 
 module.exports = app;
