@@ -4,7 +4,7 @@ export default class TabButton extends LightningElement {
     @api tab;
 
     _active = false;
-    
+
     @api
     set active(val) {
         this._active = val;

@@ -2,7 +2,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    
+
     font-size: 0.9rem;
 }
 
@@ -55,5 +55,5 @@ base-spinner {
 }
 
 .podcast_author {
-    color: #C4C4C4;
+    color: #c4c4c4;
 }

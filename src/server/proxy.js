@@ -14,7 +14,7 @@ module.exports = function proxyHandler(req, res, next) {
         ...REQUEST_CONFIG,
 
         // Forward headers to enable partial file download for streaming
-        headers: req.headers, 
+        headers: req.headers,
     };
 
     const handleError = err => {
@@ -30,4 +30,4 @@ module.exports = function proxyHandler(req, res, next) {
     request(streamUrl, requestConfig)
         .on('error', handleError)
         .pipe(res);
-}
+};

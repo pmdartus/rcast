@@ -58,17 +58,11 @@ function parseFeed(content, url) {
             podcast = {
                 name: meta.title,
                 subtitle: getOrNul(meta, 'itunes:subtitle', '#'),
-                description:
-                    getOrNul(meta, 'itunes:description', '#') ||
-                    getOrNul(meta, 'description'),
+                description: getOrNul(meta, 'itunes:description', '#') || getOrNul(meta, 'description'),
                 author: getOrNul(meta, 'itunes:author', '#'),
-                language:
-                    getOrNul(meta, 'rss:language', '#') ||
-                    getOrNul(meta, 'language'),
+                language: getOrNul(meta, 'rss:language', '#') || getOrNul(meta, 'language'),
                 link: getOrNul(meta, 'rss:link', '#') || getOrNul(meta, 'link'),
-                image:
-                    getOrNul(meta, 'itunes:image', '#') ||
-                    getOrNul(meta, 'image', 'url'),
+                image: getOrNul(meta, 'itunes:image', '#') || getOrNul(meta, 'image', 'url'),
                 categories: getOrNul(meta, 'categories') || [],
             };
         });
@@ -83,23 +77,13 @@ function parseFeed(content, url) {
                     episodes.push({
                         id: getOrNul(item, 'guid'),
                         title: getOrNul(item, 'title'),
-                        description: sanitizeHTML(
-                            getOrNul(item, 'description') ||
-                                getOrNul(item, 'summary') ||
-                                '',
-                        ),
+                        description: sanitizeHTML(getOrNul(item, 'description') || getOrNul(item, 'summary') || ''),
                         publication_date:
-                            getOrNul(item, 'pubDate') ||
-                            getOrNul(item, 'pubdate') ||
-                            getOrNul(item, 'date'),
+                            getOrNul(item, 'pubDate') || getOrNul(item, 'pubdate') || getOrNul(item, 'date'),
                         duration: durationToSecond(
-                            getOrNul(item, 'itunes:duration', '#') ||
-                                getOrNul(item, 'duration') ||
-                                '0',
+                            getOrNul(item, 'itunes:duration', '#') || getOrNul(item, 'duration') || '0',
                         ),
-                        image:
-                            getOrNul(item, 'itunes:image', '#') ||
-                            getOrNul(item, 'image', 'url'),
+                        image: getOrNul(item, 'itunes:image', '#') || getOrNul(item, 'image', 'url'),
                         audio: {
                             url: getOrNul(enclosure, 'url'),
                             type: getOrNul(enclosure, 'type'),
@@ -160,11 +144,7 @@ function durationToSecond(str) {
             throw new Error(`Unknown duration format for ${str}`);
         }
 
-        return (
-            parseInt(hours, 10) * 3600 +
-            parseInt(minutes, 10) * 60 +
-            parseInt(seconds, 10)
-        );
+        return parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60 + parseInt(seconds, 10);
     }
     if (str.includes('.')) {
         const [minutes, seconds] = str.split('.');

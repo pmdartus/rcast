@@ -13,10 +13,7 @@ import {
     ENDED,
 } from './actions';
 
-export function subscriptions(
-    state = [],
-    action,
-) {
+export function subscriptions(state = [], action) {
     switch (action.type) {
         case SUBSCRIBE_PODCAST:
             return [...state, action.id];
@@ -48,7 +45,7 @@ export function player(
                 ...state,
                 isPlaying: false,
             };
-        
+
         case ENDED:
             return {
                 ...state,
@@ -165,10 +162,7 @@ export function topPodcastsByCategory(state = {}, action) {
         case RECEIVE_TOP_PODCASTS:
             return {
                 ...state,
-                [action.categoryId]: topPodcastByCategory(
-                    state[action.categoryId],
-                    action,
-                ),
+                [action.categoryId]: topPodcastByCategory(state[action.categoryId], action),
             };
 
         default:
@@ -187,8 +181,8 @@ export function episodes(state = {}, action) {
                             data: {
                                 podcastId: action.id,
                                 ...episode,
-                            }
-                        }
+                            },
+                        },
                     };
                 },
                 {

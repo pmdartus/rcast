@@ -8,7 +8,7 @@ export default class MenuButton extends LightningElement {
                 bubbles: true,
             }),
         );
-    }
+    };
 
     connectedCallback() {
         this.addEventListener('click', this.handleClick);

@@ -19,5 +19,5 @@ function _flushAllCaches() {
 
 module.exports = {
     Cache,
-    _flushAllCaches
-}
+    _flushAllCaches,
+};

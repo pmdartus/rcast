@@ -27,9 +27,9 @@ function testReplyError(code) {
             .replyWithError({
                 code,
             });
-    
+
         const { status } = await request(api).get(proxifyUrl('http://foo.com/bar'));
-    
+
         expect(status).toBe(503);
     });
 }

@@ -395,13 +395,7 @@
             "contentAdvisoryRating": "Clean",
             "artworkUrl600": "https://is1-ssl.mzstatic.com/image/thumb/Music62/v4/49/e7/c4/49e7c434-f436-e44f-2037-10aeef160a53/source/600x600bb.jpg",
             "genreIds": ["1448", "26", "1318", "1307", "1420"],
-            "genres": [
-                "Tech News",
-                "Podcasts",
-                "Technology",
-                "Health",
-                "Self-Help"
-            ]
+            "genres": ["Tech News", "Podcasts", "Technology", "Health", "Self-Help"]
         },
         {
             "wrapperType": "track",

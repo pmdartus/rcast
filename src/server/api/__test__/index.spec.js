@@ -7,8 +7,7 @@ const request = require('supertest');
 const api = require('../../server');
 const { _flushAllCaches } = require('../../utils/cache');
 
-const fixturePath = filename =>
-    path.resolve(__dirname, `./fixtures/${filename}`);
+const fixturePath = filename => path.resolve(__dirname, `./fixtures/${filename}`);
 
 afterEach(() => {
     _flushAllCaches();
@@ -47,9 +46,7 @@ describe('GET /api/1/search', () => {
             .replyWithFile(500, fixturePath('search-empty.json'), {
                 'Content-Type': 'application/json',
             });
-        const { status, body } = await request(api).get(
-            '/api/1/search?term=apple',
-        );
+        const { status, body } = await request(api).get('/api/1/search?term=apple');
 
         expect(status).toBe(503);
         expect(body).toEqual({
@@ -82,9 +79,7 @@ describe('GET /api/1/search', () => {
             .replyWithFile(200, fixturePath('search-empty.json'), {
                 'Content-Type': 'application/json',
             });
-        const { status, body } = await request(api).get(
-            '/api/1/search?term=apple',
-        );
+        const { status, body } = await request(api).get('/api/1/search?term=apple');
 
         expect(status).toBe(200);
         expect(body).toEqual({
@@ -100,9 +95,7 @@ describe('GET /api/1/search', () => {
             .replyWithFile(200, fixturePath('search-apple.json'), {
                 'Content-Type': 'application/json',
             });
-        const { status, body } = await request(api).get(
-            '/api/1/search?term=apple',
-        );
+        const { status, body } = await request(api).get('/api/1/search?term=apple');
 
         expect(status).toBe(200);
         expect(body.results).toHaveLength(50);
@@ -111,8 +104,7 @@ describe('GET /api/1/search', () => {
             name: 'Apple Keynotes',
             image:
                 'https://is4-ssl.mzstatic.com/image/thumb/Music62/v4/3a/05/2c/3a052c9b-2241-5d8c-0b2e-a32b190d6cce/source/100x100bb.jpg',
-            feedUrl:
-                'http://podcasts.apple.com/apple_keynotes/apple_keynotes.xml',
+            feedUrl: 'http://podcasts.apple.com/apple_keynotes/apple_keynotes.xml',
             author: {
                 id: 706424103,
                 name: 'Apple',
@@ -141,9 +133,7 @@ describe('GET /api/1/top', () => {
             .replyWithFile(500, fixturePath('top-podcasts.json'), {
                 'Content-Type': 'application/json',
             });
-        const { status, body } = await request(api).get(
-            '/api/1/top?genreId=123',
-        );
+        const { status, body } = await request(api).get('/api/1/top?genreId=123');
 
         expect(status).toBe(503);
         expect(body).toEqual({
@@ -182,9 +172,7 @@ describe('GET /api/1/top', () => {
             .replyWithFile(200, fixturePath('top-podcasts.json'), {
                 'Content-Type': 'application/json',
             });
-        const { status, body } = await request(api).get(
-            '/api/1/top?genreId=123',
-        );
+        const { status, body } = await request(api).get('/api/1/top?genreId=123');
 
         expect(status).toBe(200);
         expect(body.count).toBe(50);
@@ -270,16 +258,14 @@ describe('GET /podcasts/:id', () => {
             },
             language: 'en-us',
             link: 'http://www.apple.com/',
-            image:
-                'http://podcasts.apple.com/apple_keynotes/images/0326_apple_keynote_logo.png',
+            image: 'http://podcasts.apple.com/apple_keynotes/images/0326_apple_keynote_logo.png',
             categories: ['Technology', 'Tech News/Tech News'],
             episodes: expect.any(Array),
         });
 
         expect(body.episodes).toHaveLength(3);
         expect(body.episodes[0]).toEqual({
-            id:
-                'http://podcasts.apple.com/apple_keynotes/2018/october2018_sd.m4v',
+            id: 'http://podcasts.apple.com/apple_keynotes/2018/october2018_sd.m4v',
             title: 'Apple Special Event, October 2018',
             description:
                 'See Apple CEO Tim Cook and team introduce the new Mac mini, MacBook Air, iPad Pro with all-screen design, and second-generation Apple Pencil.',
@@ -289,8 +275,7 @@ describe('GET /podcasts/:id', () => {
             audio: {
                 length: '875337117',
                 type: 'video/x-m4v',
-                url:
-                    'http://podcasts.apple.com/apple_keynotes/2018/october2018_sd.m4v',
+                url: 'http://podcasts.apple.com/apple_keynotes/2018/october2018_sd.m4v',
             },
         });
     });

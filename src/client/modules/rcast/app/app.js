@@ -14,15 +14,18 @@ export default class App extends LightningElement {
 
     router = new Navigo(location.origin, false);
 
-    menuItems = [{
-        title: 'Podcast',
-        location: '/podcasts',
-        iconName: 'grid',
-    }, {
-        title: 'Discover',
-        location: '/discover',
-        iconName: 'search',
-    }];
+    menuItems = [
+        {
+            title: 'Podcast',
+            location: '/podcasts',
+            iconName: 'grid',
+        },
+        {
+            title: 'Discover',
+            location: '/discover',
+            iconName: 'search',
+        },
+    ];
 
     @track playerExpanded = false;
 
@@ -45,7 +48,7 @@ export default class App extends LightningElement {
                 this.setPage('view-category', PodcastList, {
                     categoryId: parseInt(id, 10),
                 });
-            }
+            },
         });
 
         this.router.on(() => {

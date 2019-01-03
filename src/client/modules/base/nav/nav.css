@@ -14,7 +14,7 @@
     right: 0;
     bottom: 0;
 
-    transition: transform .3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 }
 
 .page-active {

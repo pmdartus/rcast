@@ -12,7 +12,7 @@ export default class PodcastList extends LightningElement {
     @wire(connectStore, { store })
     storeChange({ topPodcastsByCategory, podcasts }) {
         const topPodcasts = topPodcastsByCategory[this.categoryId];
-        
+
         if (topPodcasts) {
             this.loading = topPodcasts.isFetching;
             this.podcasts = topPodcasts.data.map(id => podcasts[id].data);
@@ -24,9 +24,7 @@ export default class PodcastList extends LightningElement {
     }
 
     fetchTopPodcasts() {
-        store.dispatch(
-            fetchTopPodcastsIfNeeded(this.categoryId)
-        );
+        store.dispatch(fetchTopPodcastsIfNeeded(this.categoryId));
     }
 
     get categoryName() {

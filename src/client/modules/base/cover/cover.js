@@ -6,9 +6,7 @@ export default class Cover extends LightningElement {
     @api roundedCorners = false;
 
     get imgClassName() {
-        return [this.roundedCorners && 'rounded-corners']
-            .filter(Boolean)
-            .join(' ');
+        return [this.roundedCorners && 'rounded-corners'].filter(Boolean).join(' ');
     }
 
     handleImageLoad(event) {

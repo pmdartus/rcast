@@ -34,7 +34,7 @@ class ServiceUnavailable extends HTTPError {
 
 module.exports = {
     HTTPError,
-    
+
     BadRequest,
     NotFound,
 

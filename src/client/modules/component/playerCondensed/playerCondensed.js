@@ -50,12 +50,10 @@ export default class PlayerCondensed extends LightningElement {
     handleTimeUpdate = () => {
         const { duration, currentTime } = player;
         this.progress = Number.isNaN(duration) || currentTime === 0 ? 0 : currentTime / duration;
-    }
+    };
 
     setPlayerVisibility() {
-        this.episode ? 
-            this.classList.add('visible') :
-            this.classList.remove('visible');
+        this.episode ? this.classList.add('visible') : this.classList.remove('visible');
     }
 
     get cover() {

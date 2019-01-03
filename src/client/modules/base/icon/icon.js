@@ -5,7 +5,7 @@ import sharedStylesheet from './icon.css';
 
 Object.values(templates).forEach(tmpl => {
     tmpl.stylesheets = sharedStylesheet;
-})
+});
 
 export default class Icon extends LightningElement {
     @api name;

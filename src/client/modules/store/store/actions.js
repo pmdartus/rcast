@@ -46,10 +46,7 @@ function fetchPodcast(podcast) {
 
 function shouldFetchPodcast(state, podcast) {
     // TODO: Add proper cache invalidation and refetching
-    if (
-        !state.podcasts[podcast] ||
-        state.podcasts[podcast].type !== RECORD_TYPE_FULL
-    ) {
+    if (!state.podcasts[podcast] || state.podcasts[podcast].type !== RECORD_TYPE_FULL) {
         return true;
     }
 }
@@ -75,7 +72,7 @@ function receiveTopPodcasts(categoryId, data) {
         categoryId,
         data,
         receivedAt: Date.now(),
-    }
+    };
 }
 
 function fetchTopPodcasts(categoryId) {

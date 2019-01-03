@@ -9,7 +9,7 @@
 
     background: white;
 
-    transition: top .2s ease-out;
+    transition: top 0.2s ease-out;
 }
 
 :host(.visible) {
@@ -24,12 +24,12 @@
     width: 35px;
     height: 35px;
 
-    opacity: .7;
+    opacity: 0.7;
 }
 
 .container {
     height: 100vh;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,12 +70,14 @@
     color: var(--primary-color);
 }
 
-.control-buttons .rewind, .control-buttons .fast-forward {
+.control-buttons .rewind,
+.control-buttons .fast-forward {
     width: 40px;
     height: 40px;
 }
 
-.control-buttons .play, .control-buttons .pause {
+.control-buttons .play,
+.control-buttons .pause {
     width: 60px;
     height: 60px;
 }

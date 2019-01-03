@@ -8,7 +8,7 @@
 .header {
     padding: 0 var(--spacing-medium);
     margin-top: var(--spacing-medium);
-    
+
     display: flex;
     align-items: center;
 }
@@ -28,20 +28,20 @@
 }
 
 .detail-genre {
-    opacity: .4;
+    opacity: 0.4;
 }
 
 .subscription {
     margin-top: 10px;
     padding: 0 8px;
 
-    font-size: .9rem;
+    font-size: 0.9rem;
     height: 36px;
-    
+
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
     border-radius: 5px;
-    
+
     background: transparent;
     float: right;
 }
@@ -55,7 +55,7 @@
     font-size: 0.875rem;
 
     /* Multi-line text overflow: http://dropshado.ws/post/1015351370/webkit-line-clamp */
-    overflow : hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;

@@ -2,10 +2,10 @@ import { LightningElement, api } from 'lwc';
 
 export default class Tab extends LightningElement {
     @api tab;
-    
+
     _active = false;
 
-    @api 
+    @api
     get active() {
         return this._active;
     }

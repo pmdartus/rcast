@@ -25,7 +25,7 @@ export default class EpisodeListItem extends LightningElement {
     get releaseDate() {
         const releaseDate = new Date(this.episode.publication_date);
 
-        const isCurrentYear = (new Date()).getFullYear() === releaseDate.getFullYear();
+        const isCurrentYear = new Date().getFullYear() === releaseDate.getFullYear();
         const dateFormatter = isCurrentYear ? currentYearDateFormatter : previousYearsDateFormatter;
 
         return dateFormatter.format(releaseDate);
@@ -39,8 +39,6 @@ export default class EpisodeListItem extends LightningElement {
     handlePlayClick(event) {
         event.stopPropagation();
 
-        store.dispatch(
-            listenEpisode(this.episode.id)
-        );
+        store.dispatch(listenEpisode(this.episode.id));
     }
 }

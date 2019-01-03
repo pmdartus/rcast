@@ -59,9 +59,7 @@ class Player extends EventEmitter {
             store.dispatch(ended());
         });
 
-        const track = this._audioContext.createMediaElementSource(
-            this._audioEl,
-        );
+        const track = this._audioContext.createMediaElementSource(this._audioEl);
         track.connect(this._audioContext.destination);
     }
 

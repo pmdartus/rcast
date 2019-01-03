@@ -1,0 +1,4 @@
+dist/
+
+# Ignore template files since prettier break the template syntax with reformatting
+.html

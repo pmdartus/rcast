@@ -3,7 +3,7 @@ import { LightningElement, api } from 'lwc';
 export default class Menu extends LightningElement {
     _visible;
 
-    @api 
+    @api
     get visible() {
         return this._visible;
     }
@@ -13,9 +13,7 @@ export default class Menu extends LightningElement {
 
     setVisibility(value) {
         this._visible = value;
-        value ?
-            this.classList.add('visible') :
-            this.classList.remove('visible');
+        value ? this.classList.add('visible') : this.classList.remove('visible');
     }
 
     @api open() {

@@ -1,4 +1,4 @@
-'use strict'; 
+'use strict';
 
 /**
  * More details:
@@ -11,14 +11,14 @@ const { Cache } = require('../utils/cache');
 const { ServiceUnavailable } = require('../utils/http-error');
 
 const RESPONSE_CACHE = new Cache({
-    stdTTL: 60 * 60 // 1 hour
+    stdTTL: 60 * 60, // 1 hour
 });
 
 const LIMIT = 100;
 
 async function top({ genreId, country }) {
     const url = `https://itunes.apple.com/${country}/rss/toppodcasts/limit=${LIMIT}/genre=${genreId}/json`;
-    
+
     const cachedResult = RESPONSE_CACHE.get(url);
     if (cachedResult !== undefined) {
         return cachedResult;

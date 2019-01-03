@@ -18,19 +18,22 @@ function logRequest(uri, response) {
 
 module.exports = function(uri) {
     return new Promise((resolve, reject) => {
-        request({
-            uri,
+        request(
+            {
+                uri,
 
-            // Enable timing for logging purposes
-            time: true,
-        }, (error, response) => {
-            logRequest(uri, response);
+                // Enable timing for logging purposes
+                time: true,
+            },
+            (error, response) => {
+                logRequest(uri, response);
 
-            if (error) {
-                return reject(error);
-            }
+                if (error) {
+                    return reject(error);
+                }
 
-            return resolve(response);
-        });
-    })
-}
+                return resolve(response);
+            },
+        );
+    });
+};

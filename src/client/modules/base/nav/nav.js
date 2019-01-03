@@ -4,11 +4,9 @@ export default class Nav extends LightningElement {
     views = [];
     container;
 
-    @api 
+    @api
     set root(el) {
-        this.views = [
-            el
-        ];
+        this.views = [el];
     }
     get root() {
         return this.views[0];
@@ -18,7 +16,7 @@ export default class Nav extends LightningElement {
         const activeView = this.getActiveView();
 
         nextView.classList.add('page-fade-in');
-        
+
         this.views.push(nextView);
         this.container.appendChild(nextView);
 
@@ -29,11 +27,15 @@ export default class Nav extends LightningElement {
             activeView.classList.add('page-fade-out');
             activeView.classList.remove('page-active');
 
-            activeView.addEventListener('transitionend', () => {
-                activeView.classList.add('page-hidden');
-            }, {
-                once: true
-            });
+            activeView.addEventListener(
+                'transitionend',
+                () => {
+                    activeView.classList.add('page-hidden');
+                },
+                {
+                    once: true,
+                },
+            );
         });
     }
 
@@ -50,11 +52,15 @@ export default class Nav extends LightningElement {
             activeView.classList.add('page-fade-in');
             activeView.classList.remove('page-active');
 
-            activeView.addEventListener('transitionend', () => {
-                activeView.remove();
-            }, {
-                once: true
-            });
+            activeView.addEventListener(
+                'transitionend',
+                () => {
+                    activeView.remove();
+                },
+                {
+                    once: true,
+                },
+            );
         });
     }
 

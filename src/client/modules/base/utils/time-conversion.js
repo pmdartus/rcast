@@ -4,6 +4,6 @@ export function convertSeconds(seconds) {
 
     return {
         minutes,
-        seconds: remainder
-    }
+        seconds: remainder,
+    };
 }

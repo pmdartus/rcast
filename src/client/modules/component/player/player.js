@@ -45,7 +45,7 @@ export default class Player extends LightningElement {
     handleTimeUpdate = () => {
         this.duration = player.duration;
         this.currentTime = player.currentTime;
-    }
+    };
 
     get cover() {
         return this.podcast && this.podcast.image;
@@ -84,7 +84,9 @@ export default class Player extends LightningElement {
     }
 
     handleCurrentTimeChange(evt) {
-        const { detail: { value } } = evt;
+        const {
+            detail: { value },
+        } = evt;
         player.currentTime = value;
     }
 }

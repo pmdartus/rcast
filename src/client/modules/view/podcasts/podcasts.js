@@ -15,9 +15,7 @@ export default class ViewPodcasts extends LightningElement {
     }
 
     connectedCallback() {
-        store.dispatch(
-            fetchSubscribedPodcastsIfNeeded()
-        );
+        store.dispatch(fetchSubscribedPodcastsIfNeeded());
     }
 
     handleMenuClick() {
@@ -36,7 +34,7 @@ export default class ViewPodcasts extends LightningElement {
         this.dispatchEvent(
             new CustomEvent('navigate', {
                 detail: {
-                    path: `/podcasts/${podcastId}`
+                    path: `/podcasts/${podcastId}`,
                 },
                 composed: true,
                 bubbles: true,

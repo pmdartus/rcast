@@ -5,7 +5,7 @@
 
 const DEFAULT_VALUES = {
     emitDelay: 10,
-    strictMode: false
+    strictMode: false,
 };
 
 /**
@@ -22,7 +22,6 @@ const DEFAULT_VALUES = {
  * @property {string[]} events
  */
 export default class EventEmitter {
-
     /**
      * @constructor
      * @param {{}}      [opts]
@@ -62,15 +61,17 @@ export default class EventEmitter {
         }
 
         if (this.events.indexOf(type) === -1) {
-            this._listeners[type] = [{
-                once: once,
-                fn: listener
-            }];
+            this._listeners[type] = [
+                {
+                    once: once,
+                    fn: listener,
+                },
+            ];
             this.events.push(type);
         } else {
             this._listeners[type].push({
                 once: once,
-                fn: listener
+                fn: listener,
             });
         }
     }
@@ -115,15 +116,15 @@ export default class EventEmitter {
                      * @param {EventEmitterListenerFunc} fn
                      * @param {number} idx
                      */
-                    function (fn, idx) {
+                    function(fn, idx) {
                         if (fn.fn === listenerFunc) {
                             removedEvents.unshift(idx);
                         }
-                    }
+                    },
                 );
 
-                removedEvents.forEach(function (idx) {
-                    typeListeners.splice(idx,1);
+                removedEvents.forEach(function(idx) {
+                    typeListeners.splice(idx, 1);
                 });
 
                 if (!typeListeners.length) {
@@ -152,14 +153,14 @@ export default class EventEmitter {
         }
 
         let removableListeners = [];
-        typeListeners.forEach(function (eeListener, idx) {
+        typeListeners.forEach(function(eeListener, idx) {
             eeListener.fn.apply(null, eventArguments);
             if (eeListener.once) {
                 removableListeners.unshift(idx);
             }
         });
 
-        removableListeners.forEach(function (idx) {
+        removableListeners.forEach(function(idx) {
             typeListeners.splice(idx, 1);
         });
     }
@@ -172,9 +173,8 @@ export default class EventEmitter {
     emit(type, ...eventArgs) {
         if (this._emitDelay) {
             setTimeout(() => {
-                    this._applyEvents(type, eventArgs)
-                }, this._emitDelay
-            );
+                this._applyEvents(type, eventArgs);
+            }, this._emitDelay);
         } else {
             this._applyEvents(type, eventArgs);
         }
@@ -196,5 +196,4 @@ export default class EventEmitter {
         this._listeners = {};
         this.events = [];
     }
-    
 }
