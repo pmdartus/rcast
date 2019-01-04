@@ -2,6 +2,7 @@
 
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 
 const cpy = require('cpy');
@@ -20,24 +21,42 @@ const DIST_DIR = path.resolve(__dirname, '../dist');
 const __ENV__ = process.env.NODE_ENV || 'development';
 const __PROD__ = __ENV__ === 'production';
 
+function buildHTML(bundle) {
+    let htmlContent = fs.readFileSync(path.resolve(SRC_DIR, 'index.html'), 'utf-8');
+
+    const mainImports = bundle['main.js'];
+
+    htmlContent = htmlContent.replace(
+        '{{HEADER}}',
+        mainImports.dynamicImports.map(moduleName => `<link rel="modulepreload" href="/js/${moduleName}">`).join('\n'),
+    );
+    htmlContent = htmlContent.replace(
+        '{{FOOTER}}',
+        [
+            `<script type="module" src="/js/main.js"></script>`,
+            ...mainImports.imports.map(moduleName => `<script type="module" src="/js/${moduleName}"></script>`),
+        ].join('\n')
+    );
+
+    fs.writeFileSync(path.resolve(DIST_DIR, 'index.html'), htmlContent);
+}
+
 function assetsPlugin() {
     return {
-        async generateBundle() {
+        async generateBundle(_options, bundle) {
             await cpy('**', DIST_DIR, {
                 cwd: path.resolve(SRC_DIR, 'assets'),
-                parents: true
+                parents: true,
             });
-        }
-    }
+            await buildHTML(bundle);
+        },
+    };
 }
 
 module.exports = {
-    input: [
-        path.resolve(SRC_DIR, 'main.js'),
-        path.resolve(SRC_DIR, 'sw.js'),
-    ],
+    input: [path.resolve(SRC_DIR, 'main.js'), path.resolve(SRC_DIR, 'sw.js')],
 
-    // Instead of creating an optimal set of chunks, we minize the number of chunks. 
+    // Instead of creating an optimal set of chunks, we minize the number of chunks.
     // Value setup manually based on experiment.
     chunkGroupingSize: 500 * 1000,
     experimentalOptimizeChunks: true,
@@ -54,7 +73,7 @@ module.exports = {
 
             // Disabled because the glob on `node_modules/` is really expensive. Doing the `lwc` module resolutation
             // manually.
-            resolveFromPackages: false, 
+            resolveFromPackages: false,
         }),
         alias({
             lwc: require.resolve('@lwc/engine/dist/modules/es2017/engine.js'),
