@@ -4,8 +4,9 @@
 
 const path = require('path');
 
+const cpy = require('cpy');
+
 const lwc = require('@lwc/rollup-plugin');
-const copy = require('rollup-plugin-copy');
 const alias = require('rollup-plugin-alias');
 const replace = require('rollup-plugin-replace');
 const { terser } = require('rollup-plugin-terser');
@@ -19,11 +20,30 @@ const DIST_DIR = path.resolve(__dirname, './dist');
 const __ENV__ = process.env.NODE_ENV || 'development';
 const __PROD__ = __ENV__ === 'production';
 
+function assetsPlugin() {
+    return {
+        async generateBundle() {
+            await cpy('index.html', DIST_DIR, {
+                cwd: path.resolve(SRC_DIR),
+            });
+            await cpy('public/**', DIST_DIR, {
+                cwd: path.resolve(SRC_DIR),
+                parents: true
+            });
+        }
+    }
+}
+
 module.exports = {
     input: path.resolve(SRC_DIR, 'index.js'),
 
+    // Instead of creating an optimal set of chunks, we minize the number of chunks. 
+    // Value setup manually based on experiment.
+    chunkGroupingSize: 500 * 1000,
+    experimentalOptimizeChunks: true,
+
     output: {
-        file: path.resolve(DIST_DIR, 'public/index.js'),
+        dir: path.resolve(DIST_DIR, 'public'),
         format: 'es',
         sourcemap: true,
     },
@@ -47,16 +67,7 @@ module.exports = {
             'process.env.RELEASE_VERSION': JSON.stringify(packageJSON.version),
             'process.env.RELEASE_DATE': JSON.stringify(new Date().toLocaleDateString('en-US')),
         }),
-        copy({
-            [path.resolve(SRC_DIR, 'index.html')]: path.resolve(
-                DIST_DIR,
-                'index.html',
-            ),
-            [path.resolve(SRC_DIR, 'public/')]: path.resolve(
-                DIST_DIR,
-                'public/',
-            ),
-        }),
         __PROD__ && terser(),
+        assetsPlugin(),
     ].filter(Boolean),
 };

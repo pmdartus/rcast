@@ -3,11 +3,6 @@
 import { LightningElement, createElement, track } from 'lwc';
 import Navigo from 'navigo';
 
-import ViewPodcasts from 'view/podcasts';
-import ViewPodcast from 'view/podcast';
-import ViewDiscover from 'view/discover';
-import PodcastList from 'view/category';
-
 export default class App extends LightningElement {
     releaseVersion = process.env.RELEASE_VERSION;
     releaseDate = process.env.RELEASE_DATE;
@@ -33,25 +28,30 @@ export default class App extends LightningElement {
         super();
 
         this.router.on({
-            '/podcasts': () => {
+            '/podcasts': async () => {
+                const { default: ViewPodcasts } = await import('view/podcasts');
                 this.setPage('view-podcasts', ViewPodcasts);
             },
-            '/podcasts/:id': ({ id }) => {
+            '/podcasts/:id': async ({ id }) => {
+                const { default: ViewPodcast } = await import('view/podcast');
                 this.setPage('view-podcast', ViewPodcast, {
                     podcastId: parseInt(id, 10),
                 });
             },
-            '/discover': () => {
+            '/discover': async () => {
+                const { default: ViewDiscover } = await import('view/discover');
                 this.setPage('view-discover', ViewDiscover);
             },
-            '/categories/:id': ({ id }) => {
+            '/categories/:id': async ({ id }) => {
+                const { default: PodcastList } = await import('view/category');
                 this.setPage('view-category', PodcastList, {
                     categoryId: parseInt(id, 10),
                 });
             },
         });
 
-        this.router.on(() => {
+        this.router.on(async () => {
+            const { default: ViewPodcasts } = await import('view/podcasts');
             this.setPage('view-podcast', ViewPodcasts);
         });
     }

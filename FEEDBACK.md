@@ -53,3 +53,4 @@ Uncaught TypeError: stylesheet is not a function
     at insertCustomElmHook (index.js:5939)
     at Object.insert (index.js:6269)
 ```
+* Invoking `createElement` with undefined `is` results in the following error: `Cannot convert undefined or null to object`
