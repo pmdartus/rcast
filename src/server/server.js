@@ -27,9 +27,8 @@ app.use(helmet());
 // GZip all the responses.
 app.use(compression());
 
-// Match static files requests
-const publicDir = path.resolve(DIST_DIR, 'public');
-app.use('/public', express.static(publicDir));
+// Match all the request to serve static assets
+app.use(express.static(DIST_DIR));
 
 // Since some of the podcast enclosed URL doesn't provide CORS headers, we use this endpoint as a proxy to get around
 // the same origin policy.
@@ -38,7 +37,7 @@ app.get('/proxy/*', proxyHandler);
 // Match API requests
 app.use('/api/1', apiRouter);
 
-// Match all the other requests
+// Match all the other requests and return the HTML entry
 app.use('*', (req, res) => {
     res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });

@@ -1,5 +1,6 @@
 :host {
     /* Make the app container takes 100% of the viewport */
+    display: block;
     height: 100%;
     width: 100%;
 }

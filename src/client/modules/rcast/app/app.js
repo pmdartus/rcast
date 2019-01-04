@@ -50,10 +50,12 @@ export default class App extends LightningElement {
             },
         });
 
-        this.router.on(async () => {
-            const { default: ViewPodcasts } = await import('view/podcasts');
-            this.setPage('view-podcast', ViewPodcasts);
-        });
+        const navigateToDefault = () => {
+            this.router.navigate('/podcasts');
+        };
+
+        this.router.notFound(navigateToDefault);
+        this.router.on(navigateToDefault);
     }
 
     renderedCallback() {

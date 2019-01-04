@@ -12,10 +12,10 @@ const replace = require('rollup-plugin-replace');
 const { terser } = require('rollup-plugin-terser');
 const resolve = require('rollup-plugin-node-resolve');
 
-const packageJSON = require('./package.json');
+const packageJSON = require('../package.json');
 
-const SRC_DIR = path.resolve(__dirname, './src/client');
-const DIST_DIR = path.resolve(__dirname, './dist');
+const SRC_DIR = path.resolve(__dirname, '../src/client');
+const DIST_DIR = path.resolve(__dirname, '../dist');
 
 const __ENV__ = process.env.NODE_ENV || 'development';
 const __PROD__ = __ENV__ === 'production';
@@ -23,11 +23,8 @@ const __PROD__ = __ENV__ === 'production';
 function assetsPlugin() {
     return {
         async generateBundle() {
-            await cpy('index.html', DIST_DIR, {
-                cwd: path.resolve(SRC_DIR),
-            });
-            await cpy('public/**', DIST_DIR, {
-                cwd: path.resolve(SRC_DIR),
+            await cpy('**', DIST_DIR, {
+                cwd: path.resolve(SRC_DIR, 'assets'),
                 parents: true
             });
         }
@@ -35,7 +32,10 @@ function assetsPlugin() {
 }
 
 module.exports = {
-    input: path.resolve(SRC_DIR, 'index.js'),
+    input: [
+        path.resolve(SRC_DIR, 'main.js'),
+        path.resolve(SRC_DIR, 'sw.js'),
+    ],
 
     // Instead of creating an optimal set of chunks, we minize the number of chunks. 
     // Value setup manually based on experiment.
@@ -43,7 +43,7 @@ module.exports = {
     experimentalOptimizeChunks: true,
 
     output: {
-        dir: path.resolve(DIST_DIR, 'public'),
+        dir: path.resolve(DIST_DIR, 'js'),
         format: 'es',
         sourcemap: true,
     },
