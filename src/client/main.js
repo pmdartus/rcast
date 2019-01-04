@@ -45,10 +45,6 @@ function unsupportedErrorMessage(availableFeature) {
 }
 
 function init() {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/js/sw.js');
-    });
-
     registerWireService(register);
 
     document.body.appendChild(
