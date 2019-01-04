@@ -9,7 +9,7 @@
     "test": "jest",
     "clean": "rm -rf dist/",
     "build": "rollup -c ./scripts/rollup.config.js",
-    "generate-sw": "node node ./scripts/generate-sw.js",
+    "generate-sw": "node ./scripts/generate-sw.js",
     "postinstall": "yarn clean && yarn build && yarn generate-sw",
     "start": "node ./src/server/index.js"
   },
