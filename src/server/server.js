@@ -4,6 +4,7 @@ const path = require('path');
 
 const helmet = require('helmet');
 const express = require('express');
+const sslify = require('express-sslify');
 const compression = require('compression');
 
 const apiRouter = require('./api');
@@ -21,8 +22,13 @@ if (__ENV__ !== 'test') {
     app.use(loggerMiddleware);
 }
 
-// Disable certain HTTP headers.
-app.use(helmet());
+if (__ENV__ !== 'test') {
+    // Disable certain HTTP headers.
+    app.use(helmet());
+
+    // Forward HTTP traffic to HTTPS
+    app.use(sslify.HTTPS({ trustProtoHeader: true }));
+}
 
 // GZip all the responses.
 app.use(compression());

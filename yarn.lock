@@ -2648,6 +2648,11 @@ expect@^23.6.0:
     jest-message-util "^23.4.0"
     jest-regex-util "^23.3.0"
 
+express-sslify@^1.2.0:
+  version "1.2.0"
+  resolved "http://npm.lwcjs.org/express-sslify/-/express-sslify-1.2.0/30e84bceed1557eb187672bbe1430a0a2a100d9c.tgz#30e84bceed1557eb187672bbe1430a0a2a100d9c"
+  integrity sha1-MOhLzu0VV+sYdnK74UMKCioQDZw=
+
 express-winston@^3.0.1:
   version "3.0.1"
   resolved "http://npm.lwcjs.org/express-winston/-/express-winston-3.0.1/ea152584cee70a97640b24113aa149cd7afe3608.tgz#ea152584cee70a97640b24113aa149cd7afe3608"

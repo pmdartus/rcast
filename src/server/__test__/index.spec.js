@@ -18,10 +18,10 @@ testReturnHTMLEntry('/index.html');
 testReturnHTMLEntry('/podcasts');
 
 it('responds with a static asset if present', async () => {
-    const { status, header } = await request(api).get('/js/main.js');
+    const { status, header } = await request(api).get('/manifest.json');
 
     expect(status).toBe(200);
-    expect(header['content-type']).toContain('application/javascript');
+    expect(header['content-type']).toContain('application/json');
 });
 
 it('gzips the response if supported', async () => {
