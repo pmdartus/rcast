@@ -22,11 +22,12 @@ if (__ENV__ !== 'test') {
     app.use(loggerMiddleware);
 }
 
-if (__ENV__ !== 'test') {
-    // Disable certain HTTP headers.
-    app.use(helmet());
+// Disable certain HTTP headers.
+app.use(helmet());
 
-    // Forward HTTP traffic to HTTPS
+if (__ENV__ === 'production') {
+    // Forward HTTP traffic to HTTPS. Service worker requires SSL to be enabled.
+    // On localhost this is not required.
     app.use(sslify.HTTPS({ trustProtoHeader: true }));
 }
 

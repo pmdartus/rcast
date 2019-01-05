@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 'use strict';
 
 const path = require('path');
@@ -5,31 +7,48 @@ const workboxBuild = require('workbox-build');
 
 const { DIST_DIR } = require('./shared');
 
-workboxBuild.generateSW({
-    // Generate service worker at the root
-    swDest: path.resolve(DIST_DIR, 'sw.js'),
+const swDest = path.resolve(DIST_DIR, 'sw.js');
 
-    // Find all the artifact to prefetch
-    globDirectory: DIST_DIR,
-    globPatterns: ['**/*.{html,js,json}'],
+workboxBuild
+    .generateSW({
+        // Generate service worker at the root
+        swDest,
 
-    // Use the common application shell for all the pages.
-    navigateFallback: '/index.html',
+        // Find all the artifact to prefetch
+        globDirectory: DIST_DIR,
+        globPatterns: ['**/*.{html,js,json}'],
 
-    runtimeCaching: [
-        {
-            urlPattern: /api/,
-            handler: 'networkFirst',
-            options: {
-                cacheName: 'api-cache',
+        // Use the common application shell for all the pages.
+        navigateFallback: '/index.html',
+
+        runtimeCaching: [
+            {
+                // Api request caching
+                urlPattern: /api/,
+                handler: 'networkFirst',
+                options: {
+                    cacheName: 'api-cache',
+                },
             },
-        },
-        {
-            urlPattern: new RegExp('^https://.+.mzstatic.com/image/'),
-            handler: 'staleWhileRevalidate',
-            options: {
-                cacheName: 'image-cache',
+            {
+                // Podcast cover images stored on apple CDN
+                urlPattern: new RegExp('^https://.+.mzstatic.com/image/'),
+                handler: 'staleWhileRevalidate',
+                options: {
+                    cacheName: 'image-cache',
+                },
             },
-        },
-    ],
-});
+        ],
+    })
+    .then(({ count, size, warnings }) => {
+        for (const warning of warnings) {
+            console.warn(`[⚠️ WARNING] ${warning}`);
+        }
+
+        console.log(`Generated service worker at ${swDest}`);
+        console.log(`    - entries: ${count}`);
+        console.log(`    - size: ${Math.round(size / 1000)} kb`);
+    })
+    .catch(err => {
+        console.error(err);
+    });
