@@ -1,5 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
-import { fetchPodcastIfNeeded, connectStore, store, subscribe, unsubscribe } from 'store/store';
+
+import { connectStore, store } from 'store/store';
+import { fetchPodcastIfNeeded, subscribe, unsubscribe } from 'store/actions';
 
 export default class ViewPodcast extends LightningElement {
     @api podcastId;
@@ -56,7 +58,14 @@ export default class ViewPodcast extends LightningElement {
     handleSubscriptionClick() {
         const { isSubscribed, podcastId } = this;
 
-        store.dispatch(isSubscribed ? unsubscribe(podcastId) : subscribe(podcastId));
+        if (isSubscribed) {
+            if (window.confirm('Are you sure you want to unsubscribe?')) {
+                store.dispatch(unsubscribe(podcastId));
+                history.back();
+            }
+        } else {
+            store.dispatch(subscribe(podcastId));
+        }
     }
 
     handleDescriptionClick() {

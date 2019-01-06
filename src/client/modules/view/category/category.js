@@ -1,7 +1,9 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
 import { categories } from 'base/utils';
-import { connectStore, store, fetchTopPodcastsIfNeeded } from 'store/store';
+
+import { connectStore, store } from 'store/store';
+import { fetchTopPodcastsIfNeeded } from 'store/actions';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;
@@ -10,12 +12,12 @@ export default class PodcastList extends LightningElement {
     @track podcasts = [];
 
     @wire(connectStore, { store })
-    storeChange({ topPodcastsByCategory, podcasts }) {
+    storeChange({ topPodcastsByCategory }) {
         const topPodcasts = topPodcastsByCategory[this.categoryId];
 
         if (topPodcasts) {
             this.loading = topPodcasts.isFetching;
-            this.podcasts = topPodcasts.data.map(id => podcasts[id].data);
+            this.podcasts = topPodcasts.data;
         }
     }
 
@@ -34,7 +36,7 @@ export default class PodcastList extends LightningElement {
     }
 
     handlePodcastClick(event) {
-        const { id: podcastId } = event.target.podcast;
+        const { podcastId } = event.target;
 
         this.dispatchEvent(
             new CustomEvent('navigate', {

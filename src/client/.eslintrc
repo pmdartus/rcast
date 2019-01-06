@@ -11,6 +11,10 @@
         "browser": true
     },
 
+    "globals": {
+        "process": true
+    },
+
     "rules": {
         "@lwc/lwc/no-deprecated": "error",
         "@lwc/lwc/valid-api": "error",

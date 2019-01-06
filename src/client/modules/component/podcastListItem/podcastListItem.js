@@ -1,18 +1,20 @@
 import { LightningElement, track, api, wire } from 'lwc';
-import { connectStore, store, subscribe } from 'store/store';
+
+import { connectStore, store } from 'store/store';
+import { subscribe } from 'store/actions';
 
 export default class PodcastListItem extends LightningElement {
-    @api podcast;
+    @api podcastId;
+
+    @track podcast;
     @track isSubscribed;
 
     @wire(connectStore, { store })
-    storeChange({ subscriptions }) {
-        this.isSubscribed = subscriptions.includes(this.podcast.id);
-    }
+    storeChange({ podcasts, subscriptions }) {
+        const { podcastId } = this;
 
-    isSubscribed() {
-        const { subscriptions, podcast } = this;
-        return subscriptions.includes(podcast.id);
+        this.podcast = podcasts[podcastId].data;
+        this.isSubscribed = subscriptions.includes(podcastId);
     }
 
     get subscriptionIconName() {

@@ -1,7 +1,8 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
 import player from 'store/player';
-import { connectStore, store, play, pause } from 'store/store';
+import { connectStore, store } from 'store/store';
+import { play, pause } from 'store/actions';
 
 const STEP_DURATION = 15;
 

@@ -1,7 +1,8 @@
 import { LightningElement, api } from 'lwc';
 
 import { convertSeconds } from 'base/utils';
-import { store, listenEpisode } from 'store/store';
+import { store } from 'store/store';
+import { listenEpisode } from 'store/actions';
 
 const currentYearDateFormatter = new Intl.DateTimeFormat('en-US', {
     day: 'numeric',

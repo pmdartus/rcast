@@ -11,12 +11,12 @@ import {
     RECORD_TYPE_HIGHLIGHT,
     RECORD_TYPE_FULL,
     ENDED,
-} from './actions';
+} from 'store/shared';
 
 export function subscriptions(state = [], action) {
     switch (action.type) {
         case SUBSCRIBE_PODCAST:
-            return [...state, action.id];
+            return state.includes(action.id) ? state : [...state, action.id];
 
         case UNSUBSCRIBE_PODCAST:
             return state.filter(podcastId => podcastId !== action.id);

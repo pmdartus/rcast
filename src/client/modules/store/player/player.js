@@ -1,4 +1,5 @@
-import { store, ended } from 'store/store';
+import { store } from 'store/store';
+import { ended } from 'store/actions';
 
 import EventEmitter from './event-emitter';
 

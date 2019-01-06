@@ -12,8 +12,8 @@
         </template>
 
         <template if:false={loading}>
-            <template for:each={podcasts} for:item="podcast">
-                <component-podcast-list-item key={podcast.id} podcast={podcast} onclick={handlePodcastClick}>
+            <template for:each={podcasts} for:item="podcastId">
+                <component-podcast-list-item key={podcastId} podcast-id={podcastId} onclick={handlePodcastClick}>
                 </component-podcast-list-item>
             </template>
         </template>
