@@ -3,7 +3,6 @@
 const path = require('path');
 
 const lwc = require('@lwc/rollup-plugin');
-const alias = require('rollup-plugin-alias');
 const replace = require('rollup-plugin-replace');
 const { terser } = require('rollup-plugin-terser');
 const resolve = require('rollup-plugin-node-resolve');
@@ -37,13 +36,6 @@ module.exports = {
     plugins: [
         lwc({
             rootDir: path.resolve(SRC_DIR, 'modules'),
-
-            // Disabled because the glob on `node_modules/` is really expensive. Doing the `lwc` module resolutation
-            // manually.
-            resolveFromPackages: false,
-        }),
-        alias({
-            lwc: require.resolve('@lwc/engine/dist/modules/es2017/engine.js'),
         }),
         resolve({
             modulesOnly: true,

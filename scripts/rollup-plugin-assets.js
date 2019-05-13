@@ -15,7 +15,9 @@ function buildHTML(bundle) {
 
     htmlContent = htmlContent.replace(
         '{{HEADER}}',
-        mainChunk.dynamicImports.map(moduleName => `<link rel="modulepreload" href="/js/${moduleName}">`).join('\n'),
+        mainChunk.dynamicImports
+            .map(moduleName => `<link rel="prefetch" href="/js/${moduleName}" as="script">`)
+            .join('\n'),
     );
     htmlContent = htmlContent.replace(
         '{{FOOTER}}',
