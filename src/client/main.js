@@ -1,5 +1,5 @@
 import { createElement, register } from 'lwc';
-import { registerWireService } from '@lwc/wire-service';
+import { registerWireService } from 'wire-service';
 
 import App from 'rcast/app';
 

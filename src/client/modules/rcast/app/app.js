@@ -29,21 +29,29 @@ export default class App extends LightningElement {
 
         this.router.on({
             '/podcasts': async () => {
-                const { default: ViewPodcasts } = await import('view/podcasts');
+                const {
+                    default: ViewPodcasts,
+                } = await import(/* webpackChunkName: "view-podcasts", webpackPreload: true */ 'view/podcasts');
                 this.setPage('view-podcasts', ViewPodcasts);
             },
             '/podcasts/:id': async ({ id }) => {
-                const { default: ViewPodcast } = await import('view/podcast');
+                const {
+                    default: ViewPodcast,
+                } = await import(/* webpackChunkName: "view-podcast", webpackPreload: true */ 'view/podcast');
                 this.setPage('view-podcast', ViewPodcast, {
                     podcastId: parseInt(id, 10),
                 });
             },
             '/discover': async () => {
-                const { default: ViewDiscover } = await import('view/discover');
+                const {
+                    default: ViewDiscover,
+                } = await import(/* webpackChunkName: "view-discover", webpackPreload: true */ 'view/discover');
                 this.setPage('view-discover', ViewDiscover);
             },
             '/categories/:id': async ({ id }) => {
-                const { default: PodcastList } = await import('view/category');
+                const {
+                    default: PodcastList,
+                } = await import(/* webpackChunkName: "view-category", webpackPreload: true */ 'view/category');
                 this.setPage('view-category', PodcastList, {
                     categoryId: parseInt(id, 10),
                 });
