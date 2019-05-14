@@ -4,6 +4,21 @@
     flex-direction: column;
 }
 
+/* Spinner */
+
+.center {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+base-spinner {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+}
+
 /* Zero state */
 
 .no-podcast {
