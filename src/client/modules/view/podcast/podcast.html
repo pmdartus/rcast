@@ -18,12 +18,11 @@
             </div>
         </div>
 
-        <div class={descriptionClassName} onclick={handleDescriptionClick} lwc:dom="manual"></div> 
+        <div class={descriptionClassName} onclick={handleDescriptionClick} lwc:dom="manual"></div>
 
         <div class="episode-list">
             <template for:each={episodes} for:item="episode">
-                <component-episode-list-item key={episode.id} episode={episode}>
-                </component-episode-list-item>
+                <component-episode-list-item key={episode.id} episode={episode}> </component-episode-list-item>
             </template>
         </div>
     </base-content>

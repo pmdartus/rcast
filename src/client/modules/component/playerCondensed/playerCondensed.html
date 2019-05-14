@@ -2,13 +2,13 @@
     <div class="head">
         <template if:true={episode}>
             <base-cover class="cover" href={cover} name={title} rounded-corners></base-cover>
-    
+
             <div class="info">
                 <span class="title">{title}</span>
                 <span class="author">{author}</span>
             </div>
         </template>
-    
+
         <div class="control-button" role="switch" aria-checked={isPlaying} onclick={handlePlayPauseClick}>
             <template if:true={isPlaying}>
                 <base-icon name="pause"></base-icon>

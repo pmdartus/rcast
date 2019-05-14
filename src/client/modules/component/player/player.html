@@ -1,22 +1,26 @@
 <template>
     <base-icon class="close-icon" name="down" onclick={handleArrowDownClick}></base-icon>
-    
+
     <div class="container">
         <div class="info">
             <template if:true={podcast}>
                 <base-cover class="cover" href={cover} name={title} rounded-corners></base-cover>
-            
+
                 <div class="title">{title}</div>
                 <div class="author">{author}</div>
             </template>
         </div>
-    
-        <component-progress-bar class="progress-bar" duration={duration} current-time={currentTime}
-            oncurrenttimechange={handleCurrentTimeChange}></component-progress-bar>
-    
+
+        <component-progress-bar
+            class="progress-bar"
+            duration={duration}
+            current-time={currentTime}
+            oncurrenttimechange={handleCurrentTimeChange}
+        ></component-progress-bar>
+
         <div class="control-buttons">
             <base-icon class="rewind" name="rewind" onclick={handleRewindClick}></base-icon>
-    
+
             <div role="switch" aria-checked={isPlaying} onclick={handlePlayPauseClick}>
                 <template if:true={isPlaying}>
                     <base-icon class="pause" name="pause"></base-icon>
@@ -25,7 +29,7 @@
                     <base-icon class="play" name="play"></base-icon>
                 </template>
             </div>
-    
+
             <base-icon class="fast-forward" name="fastForward" onclick={handleFastForwardClick}></base-icon>
         </div>
     </div>

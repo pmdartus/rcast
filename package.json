@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "format": "prettier --write '{src,scripts}/**/*.{js,css,json}'",
+    "format": "prettier --write '{src,scripts}/**/*.{js,css,json,html}'",
     "lint": "eslint src/ scripts/",
     "test": "jest",
     "build:dev": "webpack --config=./scripts/webpack.dev.js",
@@ -57,7 +57,13 @@
     "printWidth": 120,
     "tabWidth": 4,
     "trailingComma": "all",
-    "singleQuote": true
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "**/*.html",
+        "options": { "parser": "lwc" }
+      }
+    ]
   },
   "husky": {
     "hooks": {
