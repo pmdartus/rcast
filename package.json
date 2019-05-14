@@ -10,7 +10,6 @@
     "build:dev": "webpack --config=./scripts/webpack.dev.js",
     "build:prod": "webpack --config=./scripts/webpack.prod.js",
     "build:watch": "webpack-dev-server --config=./scripts/webpack.dev.js",
-    "generate-sw": "node ./scripts/generate-sw.js",
     "postinstall": "yarn build:prod",
     "start": "node ./src/server/index.js"
   },
