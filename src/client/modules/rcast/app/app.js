@@ -29,29 +29,21 @@ export default class App extends LightningElement {
 
         this.router.on({
             '/podcasts': async () => {
-                const {
-                    default: ViewPodcasts,
-                } = await import(/* webpackChunkName: "view-podcasts", webpackPreload: true */ 'view/podcasts');
+                const { default: ViewPodcasts } = await import(/* webpackChunkName: "view-podcasts" */ 'view/podcasts');
                 this.setPage('view-podcasts', ViewPodcasts);
             },
             '/podcasts/:id': async ({ id }) => {
-                const {
-                    default: ViewPodcast,
-                } = await import(/* webpackChunkName: "view-podcast", webpackPreload: true */ 'view/podcast');
+                const { default: ViewPodcast } = await import(/* webpackChunkName: "view-podcast" */ 'view/podcast');
                 this.setPage('view-podcast', ViewPodcast, {
                     podcastId: parseInt(id, 10),
                 });
             },
             '/discover': async () => {
-                const {
-                    default: ViewDiscover,
-                } = await import(/* webpackChunkName: "view-discover", webpackPreload: true */ 'view/discover');
+                const { default: ViewDiscover } = await import(/* webpackChunkName: "view-discover" */ 'view/discover');
                 this.setPage('view-discover', ViewDiscover);
             },
             '/categories/:id': async ({ id }) => {
-                const {
-                    default: PodcastList,
-                } = await import(/* webpackChunkName: "view-category", webpackPreload: true */ 'view/category');
+                const { default: PodcastList } = await import(/* webpackChunkName: "view-category" */ 'view/category');
                 this.setPage('view-category', PodcastList, {
                     categoryId: parseInt(id, 10),
                 });
