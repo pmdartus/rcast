@@ -18,7 +18,6 @@ register(connectStore, eventTarget => {
         notifyStateChange();
     });
 
-    // TODO: This is never invoked, we need to understand why.
     eventTarget.addEventListener('disconnect', () => {
         if (subscription) {
             subscription();
