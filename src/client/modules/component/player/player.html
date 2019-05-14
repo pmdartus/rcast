@@ -3,10 +3,12 @@
     
     <div class="container">
         <div class="info">
-            <base-cover class="cover" href={cover} name={title} rounded-corners></base-cover>
-        
-            <div class="title">{title}</div>
-            <div class="author">{author}</div>
+            <template if:true={podcast}>
+                <base-cover class="cover" href={cover} name={title} rounded-corners></base-cover>
+            
+                <div class="title">{title}</div>
+                <div class="author">{author}</div>
+            </template>
         </div>
     
         <component-progress-bar class="progress-bar" duration={duration} current-time={currentTime}

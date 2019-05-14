@@ -6,13 +6,11 @@
         <title>rcast</title>
         <meta name="description" content="Listen and manage your podcast in a lightweight application" />
 
-        {{HEADER}}
-
         <!-- Add manifest for add to home screen -->
         <link rel="manifest" href="/manifest.json" />
 
         <!-- Block zoom -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
         <!-- Branding -->
         <meta name="theme-color" content="#06a9dd" />
@@ -155,13 +153,13 @@
                 'This application requires a more recent version of your browser';
         </script>
 
-        {{FOOTER}}
-        <script>
+        <!-- TODO: Re-enable service worker -->
+        <!-- <script>
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/sw.js');
                 });
             }
-        </script>
+        </script> -->
     </body>
 </html>

@@ -1,5 +1,5 @@
 import { createElement, register } from 'lwc';
-import { registerWireService } from '@lwc/wire-service';
+import { registerWireService } from 'wire-service';
 
 import App from 'rcast/app';
 
@@ -13,19 +13,10 @@ if (isCompatibleBrowser) {
 }
 
 function detectFeatures() {
-    let dynamicImportSupported = false;
-    try {
-        Function('import("")');
-        dynamicImportSupported = true;
-    } catch (err) {
-        // no catch
-    }
-
     return {
         ['Web Audio API']: 'AudioContext' in window || 'webkitAudioContext' in window,
         ['Service Worker']: 'serviceWorker' in navigator,
         ['fetch']: 'fetch' in window,
-        ['dynamic import']: dynamicImportSupported,
     };
 }
 

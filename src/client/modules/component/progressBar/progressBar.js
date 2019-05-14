@@ -20,6 +20,8 @@ export default class RcastProgressBar extends LightningElement {
     progressValueEl = null;
     progressThumbEl = null;
 
+    _isRendered = false;
+
     @api
     set currentTime(value) {
         if (!this.isControlled) {
@@ -41,6 +43,11 @@ export default class RcastProgressBar extends LightningElement {
     }
 
     renderedCallback() {
+        if (!this._isRendered) {
+            const thumb = this.template.querySelector('.progress-bar-thumb');
+            thumb.addEventListener('touchstart', () => this.handleProgressTouchStart, { passive: true });
+        }
+
         if (!this.progressValueEl || !this.progressThumbEl) {
             this.progressValueEl = this.template.querySelector('.progress-bar-value');
             this.progressThumbEl = this.template.querySelector('.progress-bar-thumb');
