@@ -2197,7 +2197,7 @@ commander@^2.19.0:
   resolved "http://npm.lwcjs.org/commander/-/commander-2.20.0/d58bb2b5c1ee8f87b0d340027e9e94e222c5a422.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
   integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
 
-common-tags@^1.4.0, common-tags@^1.8.0:
+common-tags@^1.8.0:
   version "1.8.0"
   resolved "http://npm.lwcjs.org/common-tags/-/common-tags-1.8.0/8e3153e542d4a39e9b10554434afaaf98956a937.tgz#8e3153e542d4a39e9b10554434afaaf98956a937"
   integrity sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==
@@ -3977,11 +3977,6 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoek@4.x.x:
-  version "4.2.1"
-  resolved "http://npm.lwcjs.org/hoek/-/hoek-4.2.1/9634502aa12c445dd5a7c5734b572bb8738aacbb.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
-  integrity sha512-QLg82fGkfnJ/4iy1xZ81/9SIJiq1NGFUMGs6ParyjBZr6jW2Ufj/snDqTHixNlHdPNwN2RLVD0Pi3igeK9+JfA==
-
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "http://npm.lwcjs.org/home-or-tmp/-/home-or-tmp-2.0.0/e36c3f2d2cae7d746a857e38d18d5f32a7882db8.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -4614,13 +4609,6 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   resolved "http://npm.lwcjs.org/isarray/-/isarray-1.0.0/bb935d48582cba168c06834957a54a3e07124f11.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
-isemail@3.x.x:
-  version "3.2.0"
-  resolved "http://npm.lwcjs.org/isemail/-/isemail-3.2.0/59310a021931a9fb06bbb51e155ce0b3f236832c.tgz#59310a021931a9fb06bbb51e155ce0b3f236832c"
-  integrity sha512-zKqkK+O+dGqevc93KNsbZ/TqTUFd46MwWjYOoMrjIMZ51eU7DtQG3Wmd9SQQT7i7RVnuTPEiYEWHU3MSbxC1Tg==
-  dependencies:
-    punycode "2.x.x"
-
 isexe@^2.0.0:
   version "2.0.0"
   resolved "http://npm.lwcjs.org/isexe/-/isexe-2.0.0/e8fbf374dc556ff8947a10dcb0572d633f2cfa10.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
@@ -5029,15 +5017,6 @@ jest@^23.6.0:
   dependencies:
     import-local "^1.0.0"
     jest-cli "^23.6.0"
-
-joi@^11.1.1:
-  version "11.4.0"
-  resolved "http://npm.lwcjs.org/joi/-/joi-11.4.0/f674897537b625e9ac3d0b7e1604c828ad913ccb.tgz#f674897537b625e9ac3d0b7e1604c828ad913ccb"
-  integrity sha512-O7Uw+w/zEWgbL6OcHbyACKSj0PkQeUgmehdoXVSxt92QFCq4+1390Rwh5moI2K/OgC7D8RHRZqHZxT2husMJHA==
-  dependencies:
-    hoek "4.x.x"
-    isemail "3.x.x"
-    topo "2.x.x"
 
 js-base64@^2.1.9:
   version "2.4.9"
@@ -6872,11 +6851,6 @@ prettier@^1.15.3:
   resolved "http://npm.lwcjs.org/prettier/-/prettier-1.15.3/1feaac5bdd181237b54dbe65d874e02a1472786a.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
   integrity sha512-gAU9AGAPMaKb3NNSUUuhhFAS7SCO4ALTN4nRIn6PJ075Qd28Yn2Ig2ahEJWdJwJmlEBTUfC7mMUSFy8MwsOCfg==
 
-pretty-bytes@^4.0.2:
-  version "4.0.2"
-  resolved "http://npm.lwcjs.org/pretty-bytes/-/pretty-bytes-4.0.2/b2bf82e7350d65c6c33aa95aaa5a4f6327f61cd9.tgz#b2bf82e7350d65c6c33aa95aaa5a4f6327f61cd9"
-  integrity sha1-sr+C5zUNZcbDOqlaqlpPYyf2HNk=
-
 pretty-bytes@^5.1.0:
   version "5.2.0"
   resolved "http://npm.lwcjs.org/pretty-bytes/-/pretty-bytes-5.2.0/96c92c6e95a0b35059253fb33c03e260d40f5a1f.tgz#96c92c6e95a0b35059253fb33c03e260d40f5a1f"
@@ -7006,15 +6980,15 @@ punycode@1.3.2:
   resolved "http://npm.lwcjs.org/punycode/-/punycode-1.3.2/9653a036fb7c1ee42342f2325cceefea3926c48d.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
   integrity sha1-llOgNvt8HuQjQvIyXM7v6jkmxI0=
 
-punycode@2.x.x, punycode@^2.1.0, punycode@^2.1.1:
-  version "2.1.1"
-  resolved "http://npm.lwcjs.org/punycode/-/punycode-2.1.1/b58b010ac40c22c5657616c8d2c2c02c7bf479ec.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
-  integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
-
 punycode@^1.2.4, punycode@^1.4.1:
   version "1.4.1"
   resolved "http://npm.lwcjs.org/punycode/-/punycode-1.4.1/c0d5a63b2718800ad8e1eb0fa5269c84dd41845e.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
   integrity sha1-wNWmOycYgArY4esPpSachN1BhF4=
+
+punycode@^2.1.0, punycode@^2.1.1:
+  version "2.1.1"
+  resolved "http://npm.lwcjs.org/punycode/-/punycode-2.1.1/b58b010ac40c22c5657616c8d2c2c02c7bf479ec.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
+  integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 q@^1.1.2:
   version "1.5.1"
@@ -8298,13 +8272,6 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-topo@2.x.x:
-  version "2.0.2"
-  resolved "http://npm.lwcjs.org/topo/-/topo-2.0.2/cd5615752539057c0dc0491a621c3bc6fbe1d182.tgz#cd5615752539057c0dc0491a621c3bc6fbe1d182"
-  integrity sha1-zVYVdSU5BXwNwEkaYhw7xvvh0YI=
-  dependencies:
-    hoek "4.x.x"
-
 tough-cookie@>=2.3.3, tough-cookie@^2.3.4:
   version "2.5.0"
   resolved "http://npm.lwcjs.org/tough-cookie/-/tough-cookie-2.5.0/cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2.tgz#cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2"
@@ -8793,13 +8760,6 @@ wordwrap@~1.0.0:
   resolved "http://npm.lwcjs.org/wordwrap/-/wordwrap-1.0.0/27584810891456a4171c8d0226441ade90cbcaeb.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-workbox-background-sync@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-background-sync/-/workbox-background-sync-3.6.3/6609a0fac9eda336a7c52e6aa227ba2ae532ad94.tgz#6609a0fac9eda336a7c52e6aa227ba2ae532ad94"
-  integrity sha512-ypLo0B6dces4gSpaslmDg5wuoUWrHHVJfFWwl1udvSylLdXvnrfhFfriCS42SNEe5lsZtcNZF27W/SMzBlva7Q==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-background-sync@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-background-sync/-/workbox-background-sync-4.3.1/26821b9bf16e9e37fd1d640289edddc08afd1950.tgz#26821b9bf16e9e37fd1d640289edddc08afd1950"
@@ -8807,47 +8767,12 @@ workbox-background-sync@^4.3.1:
   dependencies:
     workbox-core "^4.3.1"
 
-workbox-broadcast-cache-update@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-broadcast-cache-update/-/workbox-broadcast-cache-update-3.6.3/3f5dff22ada8c93e397fb38c1dc100606a7b92da.tgz#3f5dff22ada8c93e397fb38c1dc100606a7b92da"
-  integrity sha512-pJl4lbClQcvp0SyTiEw0zLSsVYE1RDlCPtpKnpMjxFtu8lCFTAEuVyzxp9w7GF4/b3P4h5nyQ+q7V9mIR7YzGg==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-broadcast-update@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-broadcast-update/-/workbox-broadcast-update-4.3.1/e2c0280b149e3a504983b757606ad041f332c35b.tgz#e2c0280b149e3a504983b757606ad041f332c35b"
   integrity sha512-MTSfgzIljpKLTBPROo4IpKjESD86pPFlZwlvVG32Kb70hW+aob4Jxpblud8EhNb1/L5m43DUM4q7C+W6eQMMbA==
   dependencies:
     workbox-core "^4.3.1"
-
-workbox-build@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-build/-/workbox-build-3.6.3/77110f9f52dc5d82fa6c1c384c6f5e2225adcbd8.tgz#77110f9f52dc5d82fa6c1c384c6f5e2225adcbd8"
-  integrity sha512-w0clZ/pVjL8VXy6GfthefxpEXs0T8uiRuopZSFVQ8ovfbH6c6kUpEh6DcYwm/Y6dyWPiCucdyAZotgjz+nRz8g==
-  dependencies:
-    babel-runtime "^6.26.0"
-    common-tags "^1.4.0"
-    fs-extra "^4.0.2"
-    glob "^7.1.2"
-    joi "^11.1.1"
-    lodash.template "^4.4.0"
-    pretty-bytes "^4.0.2"
-    stringify-object "^3.2.2"
-    strip-comments "^1.0.2"
-    workbox-background-sync "^3.6.3"
-    workbox-broadcast-cache-update "^3.6.3"
-    workbox-cache-expiration "^3.6.3"
-    workbox-cacheable-response "^3.6.3"
-    workbox-core "^3.6.3"
-    workbox-google-analytics "^3.6.3"
-    workbox-navigation-preload "^3.6.3"
-    workbox-precaching "^3.6.3"
-    workbox-range-requests "^3.6.3"
-    workbox-routing "^3.6.3"
-    workbox-strategies "^3.6.3"
-    workbox-streams "^3.6.3"
-    workbox-sw "^3.6.3"
 
 workbox-build@^4.3.1:
   version "4.3.1"
@@ -8878,31 +8803,12 @@ workbox-build@^4.3.1:
     workbox-sw "^4.3.1"
     workbox-window "^4.3.1"
 
-workbox-cache-expiration@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-cache-expiration/-/workbox-cache-expiration-3.6.3/4819697254a72098a13f94b594325a28a1e90372.tgz#4819697254a72098a13f94b594325a28a1e90372"
-  integrity sha512-+ECNph/6doYx89oopO/UolYdDmQtGUgo8KCgluwBF/RieyA1ZOFKfrSiNjztxOrGJoyBB7raTIOlEEwZ1LaHoA==
-  dependencies:
-    workbox-core "^3.6.3"
-
-workbox-cacheable-response@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-cacheable-response/-/workbox-cacheable-response-3.6.3/869f1a68fce9063f6869ddbf7fa0a2e0a868b3aa.tgz#869f1a68fce9063f6869ddbf7fa0a2e0a868b3aa"
-  integrity sha512-QpmbGA9SLcA7fklBLm06C4zFg577Dt8u3QgLM0eMnnbaVv3rhm4vbmDpBkyTqvgK/Ly8MBDQzlXDtUCswQwqqg==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-cacheable-response@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-cacheable-response/-/workbox-cacheable-response-4.3.1/f53e079179c095a3f19e5313b284975c91428c91.tgz#f53e079179c095a3f19e5313b284975c91428c91"
   integrity sha512-Rp5qlzm6z8IOvnQNkCdO9qrDgDpoPNguovs0H8C+wswLuPgSzSp9p2afb5maUt9R1uTIwOXrVQMmPfPypv+npw==
   dependencies:
     workbox-core "^4.3.1"
-
-workbox-core@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-core/-/workbox-core-3.6.3/69abba70a4f3f2a5c059295a6f3b7c62bd00e15c.tgz#69abba70a4f3f2a5c059295a6f3b7c62bd00e15c"
-  integrity sha512-cx9cx0nscPkIWs8Pt98HGrS9/aORuUcSkWjG25GqNWdvD/pSe7/5Oh3BKs0fC+rUshCiyLbxW54q0hA+GqZeSQ==
 
 workbox-core@^4.3.1:
   version "4.3.1"
@@ -8916,16 +8822,6 @@ workbox-expiration@^4.3.1:
   dependencies:
     workbox-core "^4.3.1"
 
-workbox-google-analytics@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-google-analytics/-/workbox-google-analytics-3.6.3/99df2a3d70d6e91961e18a6752bac12e91fbf727.tgz#99df2a3d70d6e91961e18a6752bac12e91fbf727"
-  integrity sha512-RQBUo/6SXtIaQTRFj4RQZ9e1gAl7D8oS5S+Hi173Kk70/BgJjzPwXpC5A249Jv5YfkCOLMQCeF9A27BiD0b0ig==
-  dependencies:
-    workbox-background-sync "^3.6.3"
-    workbox-core "^3.6.3"
-    workbox-routing "^3.6.3"
-    workbox-strategies "^3.6.3"
-
 workbox-google-analytics@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-google-analytics/-/workbox-google-analytics-4.3.1/9eda0183b103890b5c256e6f4ea15a1f1548519a.tgz#9eda0183b103890b5c256e6f4ea15a1f1548519a"
@@ -8936,26 +8832,12 @@ workbox-google-analytics@^4.3.1:
     workbox-routing "^4.3.1"
     workbox-strategies "^4.3.1"
 
-workbox-navigation-preload@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-navigation-preload/-/workbox-navigation-preload-3.6.3/a2c34eb7c17e7485b795125091215f757b3c4964.tgz#a2c34eb7c17e7485b795125091215f757b3c4964"
-  integrity sha512-dd26xTX16DUu0i+MhqZK/jQXgfIitu0yATM4jhRXEmpMqQ4MxEeNvl2CgjDMOHBnCVMax+CFZQWwxMx/X/PqCw==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-navigation-preload@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-navigation-preload/-/workbox-navigation-preload-4.3.1/29c8e4db5843803b34cd96dc155f9ebd9afa453d.tgz#29c8e4db5843803b34cd96dc155f9ebd9afa453d"
   integrity sha512-K076n3oFHYp16/C+F8CwrRqD25GitA6Rkd6+qAmLmMv1QHPI2jfDwYqrytOfKfYq42bYtW8Pr21ejZX7GvALOw==
   dependencies:
     workbox-core "^4.3.1"
-
-workbox-precaching@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-precaching/-/workbox-precaching-3.6.3/5341515e9d5872c58ede026a31e19bafafa4e1c1.tgz#5341515e9d5872c58ede026a31e19bafafa4e1c1"
-  integrity sha512-aBqT66BuMFviPTW6IpccZZHzpA8xzvZU2OM1AdhmSlYDXOJyb1+Z6blVD7z2Q8VNtV1UVwQIdImIX+hH3C3PIw==
-  dependencies:
-    workbox-core "^3.6.3"
 
 workbox-precaching@^4.3.1:
   version "4.3.1"
@@ -8964,26 +8846,12 @@ workbox-precaching@^4.3.1:
   dependencies:
     workbox-core "^4.3.1"
 
-workbox-range-requests@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-range-requests/-/workbox-range-requests-3.6.3/3cc21cba31f2dd8c43c52a196bcc8f6cdbcde803.tgz#3cc21cba31f2dd8c43c52a196bcc8f6cdbcde803"
-  integrity sha512-R+yLWQy7D9aRF9yJ3QzwYnGFnGDhMUij4jVBUVtkl67oaVoP1ymZ81AfCmfZro2kpPRI+vmNMfxxW531cqdx8A==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-range-requests@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-range-requests/-/workbox-range-requests-4.3.1/f8a470188922145cbf0c09a9a2d5e35645244e74.tgz#f8a470188922145cbf0c09a9a2d5e35645244e74"
   integrity sha512-S+HhL9+iTFypJZ/yQSl/x2Bf5pWnbXdd3j57xnb0V60FW1LVn9LRZkPtneODklzYuFZv7qK6riZ5BNyc0R0jZA==
   dependencies:
     workbox-core "^4.3.1"
-
-workbox-routing@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-routing/-/workbox-routing-3.6.3/659cd8f9274986cfa98fda0d050de6422075acf7.tgz#659cd8f9274986cfa98fda0d050de6422075acf7"
-  integrity sha512-bX20i95OKXXQovXhFOViOK63HYmXvsIwZXKWbSpVeKToxMrp0G/6LZXnhg82ijj/S5yhKNRf9LeGDzaqxzAwMQ==
-  dependencies:
-    workbox-core "^3.6.3"
 
 workbox-routing@^4.3.1:
   version "4.3.1"
@@ -8992,13 +8860,6 @@ workbox-routing@^4.3.1:
   dependencies:
     workbox-core "^4.3.1"
 
-workbox-strategies@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-strategies/-/workbox-strategies-3.6.3/11a0dc249a7bc23d3465ec1322d28fa6643d64a0.tgz#11a0dc249a7bc23d3465ec1322d28fa6643d64a0"
-  integrity sha512-Pg5eulqeKet2y8j73Yw6xTgLdElktcWExGkzDVCGqfV9JCvnGuEpz5eVsCIK70+k4oJcBCin9qEg3g3CwEIH3g==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-strategies@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-strategies/-/workbox-strategies-4.3.1/d2be03c4ef214c115e1ab29c9c759c9fe3e9e646.tgz#d2be03c4ef214c115e1ab29c9c759c9fe3e9e646"
@@ -9006,24 +8867,12 @@ workbox-strategies@^4.3.1:
   dependencies:
     workbox-core "^4.3.1"
 
-workbox-streams@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-streams/-/workbox-streams-3.6.3/beaea5d5b230239836cc327b07d471aa6101955a.tgz#beaea5d5b230239836cc327b07d471aa6101955a"
-  integrity sha512-rqDuS4duj+3aZUYI1LsrD2t9hHOjwPqnUIfrXSOxSVjVn83W2MisDF2Bj+dFUZv4GalL9xqErcFW++9gH+Z27w==
-  dependencies:
-    workbox-core "^3.6.3"
-
 workbox-streams@^4.3.1:
   version "4.3.1"
   resolved "http://npm.lwcjs.org/workbox-streams/-/workbox-streams-4.3.1/0b57da70e982572de09c8742dd0cb40a6b7c2cc3.tgz#0b57da70e982572de09c8742dd0cb40a6b7c2cc3"
   integrity sha512-4Kisis1f/y0ihf4l3u/+ndMkJkIT4/6UOacU3A4BwZSAC9pQ9vSvJpIi/WFGQRH/uPXvuVjF5c2RfIPQFSS2uA==
   dependencies:
     workbox-core "^4.3.1"
-
-workbox-sw@^3.6.3:
-  version "3.6.3"
-  resolved "http://npm.lwcjs.org/workbox-sw/-/workbox-sw-3.6.3/278ea4c1831b92bbe2d420da8399176c4b2789ff.tgz#278ea4c1831b92bbe2d420da8399176c4b2789ff"
-  integrity sha512-IQOUi+RLhvYCiv80RP23KBW/NTtIvzvjex28B8NW1jOm+iV4VIu3VXKXTA6er5/wjjuhmtB28qEAUqADLAyOSg==
 
 workbox-sw@^4.3.1:
   version "4.3.1"
