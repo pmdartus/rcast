@@ -75,7 +75,7 @@
       "eslint --fix",
       "git add"
     ],
-    "{src,scripts}/**/*.{js,json,css}": [
+    "{src,scripts}/**/*.{js,json,css,html}": [
       "prettier --write",
       "git add"
     ]
