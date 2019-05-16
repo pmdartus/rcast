@@ -31,8 +31,13 @@ module.exports = {
 
         // Add LWC plugin from module compilation
         new LWCWebpackPlugin({
-            directory: path.resolve(SRC_DIR, './modules'),
-            namespace: ['base', 'rcast', 'view'],
+            namespace: {
+                base: path.resolve(SRC_DIR, './modules', 'base'),
+                rcast: path.resolve(SRC_DIR, './modules', 'rcast'),
+                view: path.resolve(SRC_DIR, './modules', 'view'),
+                component: path.resolve(SRC_DIR, './modules', 'component'),
+                store: path.resolve(SRC_DIR, './modules', 'store'),
+            },
         }),
 
         // Set environment variables
