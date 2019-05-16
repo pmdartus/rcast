@@ -1,13 +1,15 @@
-## rcast
+# rcast
 
 PWA podcast player written with Lightning Web Components.
 
 ## Getting started
 
-```
+```sh
 yarn install
 yarn start
 ```
+
+## Commands
 
 ```sh
 yarn                # install dependencies and build the application
