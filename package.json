@@ -30,6 +30,7 @@
     "@lwc/compiler": "next",
     "@lwc/engine": "next",
     "@lwc/eslint-plugin-lwc": "^0.6.0",
+    "@lwc/jest-preset": "^0.37.4-220.2",
     "@lwc/rollup-plugin": "next",
     "@lwc/wire-service": "next",
     "babel-eslint": "^10.0.1",
