@@ -1,18 +1,6 @@
 import { LightningElement, api } from 'lwc';
 
-const COVER_INTERSECTION_OBSERVER = new IntersectionObserver(
-    entries => {
-        for (const entry of entries) {
-            if (entry.isIntersecting) {
-                entry.target._load();
-            }
-        }
-    },
-    {
-        root: document.body,
-        rootMargin: '100%',
-    },
-);
+let COVER_INTERSECTION_OBSERVER = undefined;
 
 export default class Cover extends LightningElement {
     @api href;
@@ -38,6 +26,21 @@ export default class Cover extends LightningElement {
     }
 
     connectedCallback() {
+        if (COVER_INTERSECTION_OBSERVER === undefined) {
+            COVER_INTERSECTION_OBSERVER = new IntersectionObserver(
+                entries => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting) {
+                            entry.target._load();
+                        }
+                    }
+                },
+                {
+                    root: document.body,
+                    rootMargin: '100%',
+                },
+            );
+        }
         COVER_INTERSECTION_OBSERVER.observe(this.template.host);
     }
 

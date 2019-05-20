@@ -10,8 +10,7 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 // const workboxWebpackPlugin = require('workbox-webpack-plugin');
 
 const packageJSON = require('../package.json');
-const LWCWebpackPlugin = require('./lwc-webpack-plugin');
-const LWCWebpackResolver = require('./lwc-webpack-resolver');
+const LWCWebpackPlugin = require('lwc-webpack-plugin');
 
 const { SRC_DIR, DIST_DIR } = require('./shared');
 
@@ -32,8 +31,13 @@ module.exports = {
 
         // Add LWC plugin from module compilation
         new LWCWebpackPlugin({
-            directory: path.resolve(SRC_DIR, './modules'),
-            extension: '.js',
+            namespace: {
+                base: path.resolve(SRC_DIR, './modules', 'base'),
+                rcast: path.resolve(SRC_DIR, './modules', 'rcast'),
+                view: path.resolve(SRC_DIR, './modules', 'view'),
+                component: path.resolve(SRC_DIR, './modules', 'component'),
+                store: path.resolve(SRC_DIR, './modules', 'store'),
+            },
         }),
 
         // Set environment variables
@@ -76,21 +80,6 @@ module.exports = {
         //     navigateFallback: '/index.html'
         // })
     ],
-
-    resolve: {
-        // Specify known package aliases
-        alias: {
-            lwc: '@lwc/engine',
-            'wire-service': '@lwc/wire-service',
-        },
-
-        plugins: [
-            // Register resolver to resolve LWC modules
-            new LWCWebpackResolver({
-                directory: path.resolve(SRC_DIR, './modules'),
-            }),
-        ],
-    },
 
     optimization: {
         // Default chunk splitting heuristic
