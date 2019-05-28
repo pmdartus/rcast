@@ -906,6 +906,11 @@
     postcss-selector-parser "6.0.2"
     postcss-value-parser "3.3.1"
 
+"@lwc/synthetic-shadow@1.0.0-alpha.0":
+  version "1.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@lwc/synthetic-shadow/-/synthetic-shadow-1.0.0-alpha.0.tgz#b863d8dfae32050682d89f7f2312f157dc25409b"
+  integrity sha512-L5d3Zu5K+5w4ZFiIfb5mSd/yiePa+bhKjkgMg+ZXz7V3eSHSGkGjR1X5Vcn7c+tITn2Kovv4nvVqj7DGGb9+ug==
+
 "@lwc/template-compiler@0.37.4":
   version "0.37.4"
   resolved "https://registry.yarnpkg.com/@lwc/template-compiler/-/template-compiler-0.37.4.tgz#8ffb4788eac32228ddb207e08cf274162bc769e9"

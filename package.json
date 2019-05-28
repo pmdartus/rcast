@@ -32,6 +32,7 @@
     "@lwc/eslint-plugin-lwc": "^0.6.0",
     "@lwc/jest-preset": "1.0.0-alpha.0",
     "@lwc/rollup-plugin": "1.0.0-alpha.0",
+    "@lwc/synthetic-shadow": "1.0.0-alpha.0",
     "@lwc/wire-service": "1.0.0-alpha.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
