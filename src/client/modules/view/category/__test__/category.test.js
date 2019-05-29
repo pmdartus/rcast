@@ -1,5 +1,5 @@
 import { createElement } from 'lwc';
-import Category from './../category';
+import Category from '../category.js';
 
 describe('Category', () => {
     it('should render an image tag', () => {
