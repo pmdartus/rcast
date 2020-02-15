@@ -1,8 +1,8 @@
 import {
-    REQUEST_PODCAST,
-    RECEIVE_PODCAST,
-    REQUEST_TOP_PODCASTS,
-    RECEIVE_TOP_PODCASTS,
+    REQUEST_SHOW,
+    RECEIVE_SHOW,
+    REQUEST_CATEGORY,
+    RECEIVE_CATEGORY,
     SUBSCRIBE_PODCAST,
     UNSUBSCRIBE_PODCAST,
     PLAY,
@@ -12,88 +12,92 @@ import {
     RECORD_TYPE_FULL,
 } from 'store/shared';
 
-function requestPodcast(podcast) {
+const API_BASE = `https://api.spreaker.com/v2/`;
+const LIST_SIZE = 25;
+
+function requestShow(podcast) {
     return {
-        type: REQUEST_PODCAST,
+        type: REQUEST_SHOW,
         id: podcast,
     };
 }
 
-function receivePodcast(podcast, data) {
+function receiveShow(podcast, data) {
     return {
-        type: RECEIVE_PODCAST,
+        type: RECEIVE_SHOW,
         id: podcast,
         data,
         receivedAt: Date.now(),
     };
 }
 
-function fetchPodcast(podcast) {
+function fetchShow(showId) {
     return async dispatch => {
-        dispatch(requestPodcast(podcast));
+        dispatch(requestShow(showId));
 
         // TODO: Add proper error handling
-        const response = await fetch(`/api/1/podcasts/${podcast}`);
+        const response = await fetch(`${API_BASE}/shows/${showId}`);
         const data = await response.json();
 
-        dispatch(receivePodcast(podcast, data));
+        dispatch(receiveShow(showId, data));
     };
 }
 
-function shouldFetchPodcast(state, podcast) {
+function shouldFetchShow(state, showId) {
     // TODO: Add proper cache invalidation and refetching
-    if (!state.podcasts[podcast] || state.podcasts[podcast].type !== RECORD_TYPE_FULL) {
+    if (!state.podcasts[showId] || state.podcasts[showId].type !== RECORD_TYPE_FULL) {
         return true;
     }
 }
 
-export function fetchPodcastIfNeeded(id) {
+export function fetchShowIfNeeded(id) {
     return (dispatch, getState) => {
-        if (shouldFetchPodcast(getState(), id)) {
-            dispatch(fetchPodcast(id));
+        if (shouldFetchShow(getState(), id)) {
+            dispatch(fetchShow(id));
         }
     };
 }
 
-function requestTopPodcasts(categoryId) {
+function requestCategory(categoryId) {
     return {
-        type: REQUEST_TOP_PODCASTS,
+        type: REQUEST_CATEGORY,
         categoryId,
     };
 }
 
-function receiveTopPodcasts(categoryId, data) {
+function receiveCategory(categoryId, data) {
     return {
-        type: RECEIVE_TOP_PODCASTS,
+        type: RECEIVE_CATEGORY,
         categoryId,
         data,
         receivedAt: Date.now(),
     };
 }
 
-function fetchTopPodcasts(categoryId) {
+function fetchCategory(categoryId) {
     return async dispatch => {
-        dispatch(requestTopPodcasts(categoryId));
+        dispatch(requestCategory(categoryId));
 
         // TODO: Add proper error handling
-        const response = await fetch(`/api/1/top?genreId=${categoryId}`);
+        const response = await fetch(`${API_BASE}/explore/categories/${categoryId}/items?limit=${LIST_SIZE}`);
         const data = await response.json();
-
-        dispatch(receiveTopPodcasts(categoryId, data));
+        
+        const shows = data.response.items;
+        dispatch(receiveCategory(categoryId, shows));
     };
 }
 
-function shouldFetchTopPodcasts(state, categoryId) {
+function shouldFetchCategory(state, categoryId) {
     // TODO: Add proper cache invalidation and refetching
     if (!state.topPodcastsByCategory[categoryId]) {
         return true;
     }
 }
 
-export function fetchTopPodcastsIfNeeded(categoryId) {
+export function fetchCategoryIfNeeded(categoryId) {
     return (dispatch, getState) => {
-        if (shouldFetchTopPodcasts(getState(), categoryId)) {
-            dispatch(fetchTopPodcasts(categoryId));
+        if (shouldFetchCategory(getState(), categoryId)) {
+            dispatch(fetchCategory(categoryId));
         }
     };
 }
@@ -104,8 +108,8 @@ export function fetchSubscribedPodcastsIfNeeded() {
 
         for (const id of state.subscriptions) {
             // TODO: Avoid copy/paste
-            if (shouldFetchPodcast(getState(), id)) {
-                dispatch(fetchPodcast(id));
+            if (shouldFetchShow(getState(), id)) {
+                dispatch(fetchShow(id));
             }
         }
     };

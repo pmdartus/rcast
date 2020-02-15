@@ -13,11 +13,10 @@
                     <div
                         class="category"
                         role="listitem"
-                        key={category.id}
-                        data-category-id={category.id}
+                        key={category.category_id}
+                        data-category-id={category.category_id}
                         onclick={handleCategoryClick}
                     >
-                        <base-icon name={category.iconName}></base-icon>
                         {category.name}
                     </div>
                 </template>

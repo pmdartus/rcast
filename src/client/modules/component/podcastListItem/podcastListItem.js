@@ -30,7 +30,7 @@ export default class PodcastListItem extends LightningElement {
 
         const { isSubscribed, podcast } = this;
         if (!isSubscribed) {
-            store.dispatch(subscribe(podcast.id));
+            store.dispatch(subscribe(podcast.show_id));
         }
     }
 }

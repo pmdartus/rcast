@@ -1,8 +1,8 @@
 import {
-    REQUEST_PODCAST,
-    RECEIVE_PODCAST,
-    REQUEST_TOP_PODCASTS,
-    RECEIVE_TOP_PODCASTS,
+    REQUEST_SHOW,
+    RECEIVE_SHOW,
+    REQUEST_CATEGORY,
+    RECEIVE_CATEGORY,
     SUBSCRIBE_PODCAST,
     UNSUBSCRIBE_PODCAST,
     PLAY,
@@ -71,10 +71,10 @@ function podcast(
     action,
 ) {
     switch (action.type) {
-        case REQUEST_PODCAST:
+        case REQUEST_SHOW:
             return { ...state, isFetching: true };
 
-        case RECEIVE_PODCAST: {
+        case RECEIVE_SHOW: {
             const data = {
                 ...action.data,
                 episodes: action.data.episodes.map(episode => episode.id),
@@ -96,23 +96,23 @@ function podcast(
 
 export function podcasts(state = {}, action) {
     switch (action.type) {
-        case REQUEST_PODCAST:
-        case RECEIVE_PODCAST:
+        case REQUEST_SHOW:
+        case RECEIVE_SHOW:
             return {
                 ...state,
                 [action.id]: podcast(state[action.id], action),
             };
 
-        case RECEIVE_TOP_PODCASTS:
-            return action.data.results.reduce(
-                (acc, podcast) => {
-                    if (!acc[podcast.id]) {
+        case RECEIVE_CATEGORY:
+            return action.data.reduce(
+                (acc, show) => {
+                    if (!acc[show.show_id]) {
                         return {
                             ...acc,
-                            [podcast.id]: {
+                            [show.show_id]: {
                                 isFetching: false,
                                 type: RECORD_TYPE_HIGHLIGHT,
-                                data: podcast,
+                                data: show,
                             },
                         };
                     }
@@ -129,7 +129,7 @@ export function podcasts(state = {}, action) {
     }
 }
 
-function topPodcastByCategory(
+function showsByCategory(
     state = {
         isFetching: false,
         lastUpdated: null,
@@ -138,17 +138,17 @@ function topPodcastByCategory(
     action,
 ) {
     switch (action.type) {
-        case REQUEST_TOP_PODCASTS:
+        case REQUEST_CATEGORY:
             return {
                 ...state,
                 isFetching: true,
             };
 
-        case RECEIVE_TOP_PODCASTS:
+        case RECEIVE_CATEGORY:
             return {
                 isFetching: false,
                 lastUpdated: action.receivedAt,
-                data: action.data.results.map(podcast => podcast.id),
+                data: action.data.map(show => show.show_id),
             };
 
         default:
@@ -158,11 +158,11 @@ function topPodcastByCategory(
 
 export function topPodcastsByCategory(state = {}, action) {
     switch (action.type) {
-        case REQUEST_TOP_PODCASTS:
-        case RECEIVE_TOP_PODCASTS:
+        case REQUEST_CATEGORY:
+        case RECEIVE_CATEGORY:
             return {
                 ...state,
-                [action.categoryId]: topPodcastByCategory(state[action.categoryId], action),
+                [action.categoryId]: showsByCategory(state[action.categoryId], action),
             };
 
         default:
@@ -172,7 +172,7 @@ export function topPodcastsByCategory(state = {}, action) {
 
 export function episodes(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_PODCAST:
+        case RECEIVE_SHOW:
             return action.data.episodes.reduce(
                 (acc, episode) => {
                     return {

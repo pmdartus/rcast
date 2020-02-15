@@ -3,7 +3,7 @@ import { LightningElement, api, track, wire } from 'lwc';
 import { categories } from 'base/utils';
 
 import { connectStore, store } from 'store/store';
-import { fetchTopPodcastsIfNeeded } from 'store/actions';
+import { fetchCategoryIfNeeded } from 'store/actions';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;
@@ -26,12 +26,12 @@ export default class PodcastList extends LightningElement {
     }
 
     fetchTopPodcasts() {
-        store.dispatch(fetchTopPodcastsIfNeeded(this.categoryId));
+        store.dispatch(fetchCategoryIfNeeded(this.categoryId));
     }
 
     get categoryName() {
         return categories.find(category => {
-            return category.id == this.categoryId;
+            return category.category_id == this.categoryId;
         }).name;
     }
 

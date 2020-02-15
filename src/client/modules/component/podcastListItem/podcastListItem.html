@@ -1,8 +1,8 @@
 <template>
-    <base-cover href={podcast.image} name={podcast.name} rounded-corners></base-cover>
+    <base-cover href={podcast.image_url} name={podcast.title} rounded-corners></base-cover>
     <div class="description">
-        <span>{podcast.name}</span>
-        <span class="author">{podcast.author.name}</span>
+        <span>{podcast.title}</span>
+        <!-- <span class="author">{podcast.author.name}</span> -->
     </div>
 
     <base-icon name={subscriptionIconName} class={subscriptionIconClassName} onclick={handleSubscriptionIconClick}>

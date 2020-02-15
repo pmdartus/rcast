@@ -1,7 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
 import { connectStore, store } from 'store/store';
-import { fetchPodcastIfNeeded, subscribe, unsubscribe } from 'store/actions';
+import { fetchShowIfNeeded, subscribe, unsubscribe } from 'store/actions';
 
 export default class ViewPodcast extends LightningElement {
     @api podcastId;
@@ -25,7 +25,7 @@ export default class ViewPodcast extends LightningElement {
     }
 
     connectedCallback() {
-        store.dispatch(fetchPodcastIfNeeded(this.podcastId));
+        store.dispatch(fetchShowIfNeeded(this.podcastId));
     }
 
     renderedCallback() {
