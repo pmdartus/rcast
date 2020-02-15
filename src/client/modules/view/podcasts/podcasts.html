@@ -21,7 +21,12 @@
 
             <div class="scroll grid">
                 <template for:each={podcasts} for:item="podcast">
-                    <div key={podcast.show_id} class="grid-item" onclick={handlePodcastClick} data-podcast-id={podcast.show_id}>
+                    <div
+                        key={podcast.show_id}
+                        class="grid-item"
+                        onclick={handlePodcastClick}
+                        data-podcast-id={podcast.show_id}
+                    >
                         <base-cover href={podcast.image_original_url} name={podcast.title}></base-cover>
                     </div>
                 </template>

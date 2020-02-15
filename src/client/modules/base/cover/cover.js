@@ -24,7 +24,7 @@ export default class Cover extends LightningElement {
     _inViewport = false;
     _href = null;
 
-    @api 
+    @api
     get href() {
         return this._href;
     }
@@ -53,7 +53,7 @@ export default class Cover extends LightningElement {
     }
 
     handleLoad() {
-        // Wait until the image is in the viewport and the image URL is set before rendering the 
+        // Wait until the image is in the viewport and the image URL is set before rendering the
         // image.
         if (!this._inViewport && !this._href) {
             return;

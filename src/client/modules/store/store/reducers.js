@@ -83,7 +83,7 @@ function podcast(
                 data: {
                     ...action.data.show,
                     episodes: action.data.episodes.map(episode => episode.episode_id),
-                }
+                },
             };
         }
 

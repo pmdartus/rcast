@@ -3,10 +3,6 @@ import { ended } from 'store/actions';
 
 import EventEmitter from './event-emitter';
 
-function getUrlProxy(url) {
-    return `/proxy/${encodeURI(url)}`;
-}
-
 class Player extends EventEmitter {
     currentSrc;
     isPlaying = false;
@@ -21,7 +17,7 @@ class Player extends EventEmitter {
 
         if (src) {
             this.currentSrc = src;
-            this._audioEl.src = getUrlProxy(src);
+            this._audioEl.src = `https://cors-anywhere.herokuapp.com/${src}`;
         }
 
         this.isPlaying = true;
@@ -85,8 +81,8 @@ store.subscribe(() => {
     } = store.getState();
 
     const currentEpisode = episode && episodes[episode].data;
-    if (currentEpisode && currentEpisode.audio.url !== player.currentSrc) {
-        player.play(currentEpisode.audio.url);
+    if (currentEpisode && currentEpisode.playback_url !== player.currentSrc) {
+        player.play(currentEpisode.playback_url);
     }
 
     if (player.isPlaying !== isPlaying) {

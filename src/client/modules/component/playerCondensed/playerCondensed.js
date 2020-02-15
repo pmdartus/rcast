@@ -29,7 +29,7 @@ export default class PlayerCondensed extends LightningElement {
         }
 
         const episode = episodes[episodeId].data;
-        const podcast = podcasts[episode.podcastId].data;
+        const podcast = podcasts[episode.show_id].data;
 
         if (this.episodeId !== episodeId) {
             this.episodeId = episodeId;

@@ -43,6 +43,6 @@ export default class EpisodeListItem extends LightningElement {
     handlePlayClick(event) {
         event.stopPropagation();
 
-        store.dispatch(listenEpisode(this.episode.id));
+        store.dispatch(listenEpisode(this.episode.episode_id));
     }
 }
