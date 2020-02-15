@@ -1,8 +1,8 @@
 import { LightningElement, api } from 'lwc';
 
-import { convertSeconds } from 'base/utils';
 import { store } from 'store/store';
 import { listenEpisode } from 'store/actions';
+import { convertMilliseconds } from 'base/utils';
 
 const currentYearDateFormatter = new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
@@ -16,6 +16,13 @@ const previousYearsDateFormatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
 });
 
+function formatReleaseDate(date) {
+    const isCurrentYear = new Date().getFullYear() === date.getFullYear();
+    const dateFormatter = isCurrentYear ? currentYearDateFormatter : previousYearsDateFormatter;
+
+    return dateFormatter.format(date);
+}
+
 export default class EpisodeListItem extends LightningElement {
     @api episode;
 
@@ -24,16 +31,12 @@ export default class EpisodeListItem extends LightningElement {
     }
 
     get releaseDate() {
-        const releaseDate = new Date(this.episode.publication_date);
-
-        const isCurrentYear = new Date().getFullYear() === releaseDate.getFullYear();
-        const dateFormatter = isCurrentYear ? currentYearDateFormatter : previousYearsDateFormatter;
-
-        return dateFormatter.format(releaseDate);
+        const releaseDate = new Date(this.episode.published_at);
+        return formatReleaseDate(releaseDate);
     }
 
     get duration() {
-        const { minutes } = convertSeconds(this.episode.duration);
+        const { minutes } = convertMilliseconds(this.episode.duration);
         return `${minutes}m`;
     }
 

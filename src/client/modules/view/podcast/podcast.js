@@ -36,15 +36,15 @@ export default class ViewPodcast extends LightningElement {
     }
 
     get imageUrl() {
-        return this.podcast && this.podcast.image;
+        return this.podcast && this.podcast.image_url;
     }
 
     get name() {
-        return this.podcast && this.podcast.name;
+        return this.podcast && this.podcast.title;
     }
 
     get author() {
-        return this.podcast && this.podcast.author.name;
+        return this.podcast && this.podcast.author && this.podcast.author.fullname;
     }
 
     get subscriptionLabel() {

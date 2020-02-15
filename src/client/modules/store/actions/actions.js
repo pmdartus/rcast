@@ -12,7 +12,7 @@ import {
     RECORD_TYPE_FULL,
 } from 'store/shared';
 
-const API_BASE = `https://api.spreaker.com/v2/`;
+const API_BASE = `https://api.spreaker.com/v2`;
 const LIST_SIZE = 25;
 
 function requestShow(podcast) {
@@ -36,10 +36,19 @@ function fetchShow(showId) {
         dispatch(requestShow(showId));
 
         // TODO: Add proper error handling
-        const response = await fetch(`${API_BASE}/shows/${showId}`);
-        const data = await response.json();
+        const responses = await Promise.all([
+            fetch(`${API_BASE}/shows/${showId}`),
+            fetch(`${API_BASE}/shows/${showId}/episodes?limit=${LIST_SIZE}`),
+        ]);
 
-        dispatch(receiveShow(showId, data));
+        const [showResponse, episodeResponse] = await Promise.all(responses.map(res => res.json()));
+
+        dispatch(
+            receiveShow(showId, {
+                show: showResponse.response.show,
+                episodes: episodeResponse.response.items,
+            }),
+        );
     };
 }
 
@@ -50,10 +59,12 @@ function shouldFetchShow(state, showId) {
     }
 }
 
-export function fetchShowIfNeeded(id) {
+export function fetchShowIfNeeded(showId) {
     return (dispatch, getState) => {
-        if (shouldFetchShow(getState(), id)) {
-            dispatch(fetchShow(id));
+        const state = getState();
+
+        if (shouldFetchShow(state, showId)) {
+            dispatch(fetchShow(showId));
         }
     };
 }
@@ -81,7 +92,7 @@ function fetchCategory(categoryId) {
         // TODO: Add proper error handling
         const response = await fetch(`${API_BASE}/explore/categories/${categoryId}/items?limit=${LIST_SIZE}`);
         const data = await response.json();
-        
+
         const shows = data.response.items;
         dispatch(receiveCategory(categoryId, shows));
     };

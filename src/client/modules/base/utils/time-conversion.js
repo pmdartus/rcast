@@ -1,6 +1,6 @@
-export function convertSeconds(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainder = Math.floor(seconds % 60);
+export function convertMilliseconds(ms) {
+    const minutes = Math.floor(ms / (60 * 1000));
+    const remainder = Math.floor(ms % (60 * 1000));
 
     return {
         minutes,

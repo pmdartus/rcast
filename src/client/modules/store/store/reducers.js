@@ -75,17 +75,15 @@ function podcast(
             return { ...state, isFetching: true };
 
         case RECEIVE_SHOW: {
-            const data = {
-                ...action.data,
-                episodes: action.data.episodes.map(episode => episode.id),
-            };
-
             return {
                 ...state,
                 isFetching: false,
                 lastUpdated: action.receivedAt,
                 type: RECORD_TYPE_FULL,
-                data,
+                data: {
+                    ...action.data.show,
+                    episodes: action.data.episodes.map(episode => episode.episode_id),
+                }
             };
         }
 
@@ -177,11 +175,8 @@ export function episodes(state = {}, action) {
                 (acc, episode) => {
                     return {
                         ...acc,
-                        [episode.id]: {
-                            data: {
-                                podcastId: action.id,
-                                ...episode,
-                            },
+                        [episode.episode_id]: {
+                            data: episode,
                         },
                     };
                 },
