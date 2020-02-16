@@ -13,9 +13,12 @@ module.exports = () => ({
         const moduleEntry = Object.values(bundle).find(entry => entry.type === 'chunk' && entry.isEntry);
         const modulesToPreload = Object.values(bundle).filter(entry => entry.type === 'chunk' && !entry.isEntry);
 
-        source = source.replace('{{MODULE_ENTRY}}', `<script type="module" src="/${moduleEntry.fileName}"></script>`);
         source = source.replace(
-            '{{MODULES_PRELOAD}}',
+            '<!-- MODULE_ENTRY -->',
+            `<script type="module" src="/${moduleEntry.fileName}"></script>`,
+        );
+        source = source.replace(
+            '<!-- MODULES_PRELOAD -->',
             modulesToPreload.map(chunk => `<link rel="modulepreload" href="/${chunk.fileName}">`).join('\n'),
         );
 
