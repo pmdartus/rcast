@@ -1,4 +1,4 @@
-import { register, ValueChangedEvent } from '@lwc/wire-service';
+import { register, ValueChangedEvent } from 'wire-service';
 
 export function connectStore(store) {
     return store.getState();
