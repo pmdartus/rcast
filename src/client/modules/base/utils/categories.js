@@ -1,6 +1,6 @@
 // TODO: Migrate this to an actual API call
 // https://api.spreaker.com/v2/show-categories
-export default [
+export const categories = [
     { category_id: 92, name: 'Arts', permalink: 'arts', level: 1 },
     { category_id: 99, name: 'Business', permalink: 'business', level: 1 },
     { category_id: 106, name: 'Comedy', permalink: 'comedy', level: 1 },
@@ -113,3 +113,25 @@ export default [
     // { category_id: 200, name: 'Film Reviews', permalink: 'tv-film-film-reviews', level: 2 },
     // { category_id: 201, name: 'TV Reviews', permalink: 'tv-film-tv-reviews', level: 2 },
 ];
+
+export const iconMapping = {
+    'arts': 'brush',
+    'business': 'briefcase',
+    'comedy': 'smile',
+    'education': 'pen',
+    // 'fiction': '',
+    // 'government': '',
+    'health-fitness': 'heart',
+    // 'history': '',
+    // 'kids-family': '',
+    'leisure': 'gamepad',
+    'music': 'music',
+    'news': 'news',
+    'religion-spirituality': 'cross',
+    'science': 'atom',
+    'society-culture': 'chart',
+    'sports': 'soccer',
+    'technology': 'computer',
+    'true-crime': 'badge',
+    'tv-film': 'video',
+}

@@ -49,7 +49,7 @@ export default class Player extends LightningElement {
     };
 
     get cover() {
-        return this.podcast && this.podcast.image;
+        return this.podcast && this.podcast.image_original_url;
     }
 
     get title() {
@@ -57,7 +57,7 @@ export default class Player extends LightningElement {
     }
 
     get author() {
-        return this.podcast && this.podcast.author.name;
+        return this.podcast && this.podcast.author.fullname;
     }
 
     @api show() {
