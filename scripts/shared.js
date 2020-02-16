@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, '../src/client');
+const SRC_DIR = path.resolve(__dirname, '../src');
 const DIST_DIR = path.resolve(__dirname, '../dist');
 
 const __ENV__ = process.env.NODE_ENV || 'development';
