@@ -5,6 +5,7 @@ const replace = require('@rollup/plugin-replace');
 const { terser } = require('rollup-plugin-terser');
 const resolve = require('@rollup/plugin-node-resolve');
 
+const html = require('./plugin-html');
 const cleanup = require('./plugin-cleanup');
 const copyAssets = require('./plugin-copy-assets');
 
@@ -14,12 +15,16 @@ const __PROD__ = process.env.NODE_ENV === 'production';
 
 module.exports = {
     input: 'src/main.js',
+
     output: {
         dir: 'dist',
         format: 'esm',
+        sourcemap: true,
     },
+
     plugins: [
         cleanup(),
+        html(),
         copyAssets(),
         resolve(),
         lwc({
