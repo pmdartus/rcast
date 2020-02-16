@@ -31,14 +31,14 @@ export default class EventEmitter {
     constructor(opts = DEFAULT_VALUES) {
         let emitDelay, strictMode;
 
-        if (opts.hasOwnProperty('emitDelay')) {
+        if ('emitDelay' in opts) {
             emitDelay = opts.emitDelay;
         } else {
             emitDelay = DEFAULT_VALUES.emitDelay;
         }
         this._emitDelay = emitDelay;
 
-        if (opts.hasOwnProperty('strictMode')) {
+        if ('strictMode' in opts) {
             strictMode = opts.strictMode;
         } else {
             strictMode = DEFAULT_VALUES.strictMode;

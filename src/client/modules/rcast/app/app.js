@@ -1,5 +1,3 @@
-/* global process */
-
 import { LightningElement, createElement, track } from 'lwc';
 import Navigo from 'navigo';
 

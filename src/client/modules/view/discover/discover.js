@@ -9,8 +9,8 @@ export default class ViewDiscovery extends LightningElement {
 
             return {
                 ...category,
-                icon_name: iconMapping[permalink]
-            }
+                icon_name: iconMapping[permalink],
+            };
         });
     }
 

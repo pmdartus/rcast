@@ -8,7 +8,6 @@ export function convertSeconds(seconds) {
     };
 }
 
-
 export function convertMilliseconds(milliseconds) {
     return convertSeconds(milliseconds / 1000);
 }
