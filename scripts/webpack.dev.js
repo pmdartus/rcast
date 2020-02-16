@@ -15,4 +15,9 @@ module.exports = merge(common, {
             },
         }),
     ],
+
+    devServer: {
+        index: 'index.html',
+        historyApiFallback: true,
+    },
 });

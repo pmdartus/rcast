@@ -1,0 +1,27 @@
+<template>
+    <base-header>
+        <base-menu-button></base-menu-button>
+        Discover
+    </base-header>
+
+    <base-content class="with-header">
+        <div class="categories">
+            <div class="header" role="heading">Browse By Category</div>
+
+            <div role="list">
+                <template for:each={categories} for:item="category">
+                    <div
+                        class="category"
+                        role="listitem"
+                        key={category.category_id}
+                        data-category-id={category.category_id}
+                        onclick={handleCategoryClick}
+                    >
+                        <base-icon name={category.icon_name}></base-icon>
+                        {category.name}
+                    </div>
+                </template>
+            </div>
+        </div>
+    </base-content>
+</template>

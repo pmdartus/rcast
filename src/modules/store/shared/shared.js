@@ -1,0 +1,17 @@
+export const REQUEST_SHOW = 'REQUEST_SHOW';
+export const RECEIVE_EPISODES = 'RECEIVE_EPISODES';
+export const RECEIVE_SHOW = 'RECEIVE_SHOW';
+
+export const REQUEST_CATEGORY = 'REQUEST_CATEGORY';
+export const RECEIVE_CATEGORY = 'RECEIVE_CATEGORY';
+
+export const SUBSCRIBE_PODCAST = 'SUBSCRIBE_PODCAST';
+export const UNSUBSCRIBE_PODCAST = 'UNSUBSCRIBE_PODCAST';
+
+export const PLAY = 'PLAY';
+export const PAUSE = 'PAUSE';
+export const ENDED = 'ENDED';
+export const LISTEN_EPISODE = 'LISTEN_EPISODE';
+
+export const RECORD_TYPE_HIGHLIGHT = 'HIGHLIGHT';
+export const RECORD_TYPE_FULL = 'FULL';

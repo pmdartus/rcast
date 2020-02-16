@@ -1,0 +1,29 @@
+<template>
+    <base-header>
+        <base-back-button slot="left"></base-back-button>
+        {name}
+    </base-header>
+
+    <base-content class="with-header">
+        <div class="header">
+            <base-cover class="cover" href={imageUrl} name={name} rounded-corners></base-cover>
+
+            <div class="details">
+                <div class="detail-name">{name}</div>
+                <div class="detail-genre">{author}</div>
+
+                <button class="subscription" onclick={handleSubscriptionClick}>
+                    {subscriptionLabel}
+                </button>
+            </div>
+        </div>
+
+        <div class={descriptionClassName} onclick={handleDescriptionClick} lwc:dom="manual"></div>
+
+        <div class="episode-list">
+            <template for:each={episodes} for:item="episode">
+                <component-episode-list-item key={episode.episode_id} episode={episode}> </component-episode-list-item>
+            </template>
+        </div>
+    </base-content>
+</template>
