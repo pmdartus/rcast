@@ -8,7 +8,7 @@
     "lint": "eslint src/ scripts/",
     "dev": "rollup --config ./scripts/rollup.config.js --watch",
     "build": "rollup --config ./scripts/rollup.config.js --environment NODE_ENV:production",
-    "start": "serve --single dist/"
+    "start": "serve --single --config ../scripts/serve.config.json dist/"
   },
   "dependencies": {
     "serve": "^11.3.0"

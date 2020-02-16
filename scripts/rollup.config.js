@@ -18,8 +18,15 @@ module.exports = {
 
     output: {
         dir: 'dist',
+        entryFileNames: 'entry-[name]-[hash].js',
         format: 'esm',
         sourcemap: true,
+    },
+
+    manualChunks(id) {
+        if (id.includes('node_modules')) {
+            return 'vendor';
+        }
     },
 
     plugins: [
