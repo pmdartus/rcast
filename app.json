@@ -1,0 +1,5 @@
+{
+    "name": "rcast-lwc",
+    "description": "PWA podcast player written with Lightning Web Components.",
+    "repository": "https://github.com/pmdartus/rcast"
+}

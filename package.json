@@ -6,8 +6,9 @@
   "scripts": {
     "format": "prettier --write '{src,scripts}/**/*.{js,css,json,html}'",
     "lint": "eslint src/ scripts/",
-    "start": "webpack-dev-server --config=./scripts/webpack.dev.js",
-    "build": "webpack --config=./scripts/webpack.prod.js"
+    "dev": "webpack-dev-server --config=./scripts/webpack.dev.js",
+    "build": "webpack --config=./scripts/webpack.prod.js",
+    "start": "serve --single dist/"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -63,5 +64,8 @@
     "{src,scripts}/**/*.{js,json,css,html}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "serve": "^11.3.0"
   }
 }
