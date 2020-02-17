@@ -8,10 +8,10 @@ const resolve = require('@rollup/plugin-node-resolve');
 const html = require('./plugin-html');
 const cleanup = require('./plugin-cleanup');
 const copyAssets = require('./plugin-copy-assets');
+const serviceWorker = require('./plugin-service-worker');
 
+const { __PROD__ } = require('./shared');
 const packageJSON = require('../package.json');
-
-const __PROD__ = process.env.NODE_ENV === 'production';
 
 module.exports = {
     input: 'src/main.js',
@@ -42,6 +42,7 @@ module.exports = {
             'process.env.RELEASE_VERSION': JSON.stringify(packageJSON.version),
             'process.env.RELEASE_DATE': JSON.stringify(new Date().toLocaleDateString('en-US')),
         }),
+        serviceWorker(),
         __PROD__ && terser(),
     ],
 };

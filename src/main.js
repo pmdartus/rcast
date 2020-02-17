@@ -9,7 +9,22 @@ const isCompatibleBrowser = Object.keys(availableFeature).some(feature => !avail
 if (isCompatibleBrowser) {
     unsupportedErrorMessage(availableFeature);
 } else {
-    init();
+    registerWireService(register);
+
+    document.body.appendChild(
+        createElement('rcast-app', {
+            is: App,
+            fallback: false,
+        }),
+    );
+
+    if ('serviceWorker' in navigator) {
+        // Register service worker after page load event to avoid delaying critical requests for the
+        // initial page load.
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js');
+        });
+    }
 }
 
 function detectFeatures() {
@@ -33,15 +48,4 @@ function unsupportedErrorMessage(availableFeature) {
     message += `</ul>`;
 
     outdated.querySelector('.unsupported_message').innerHTML = message;
-}
-
-function init() {
-    registerWireService(register);
-
-    document.body.appendChild(
-        createElement('rcast-app', {
-            is: App,
-            fallback: false,
-        }),
-    );
 }

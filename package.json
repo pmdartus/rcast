@@ -29,7 +29,8 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "rollup": "^1.31.1",
-    "rollup-plugin-terser": "^5.2.0"
+    "rollup-plugin-terser": "^5.2.0",
+    "workbox-build": "^5.0.0"
   },
   "prettier": {
     "printWidth": 120,
