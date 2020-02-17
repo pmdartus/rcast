@@ -11,20 +11,27 @@ const { __PROD__ } = require('./shared');
 
 module.exports = () => ({
     name: 'service-worker',
+    buildStart() {
+        this.addWatchFile('src/sw.js');
+    },
     async writeBundle() {
         const manifest = await workbox.getManifest({
             globDirectory: 'dist/',
-            globPatterns: ['**/*.{html,js}'],
+            globPatterns: ['*.{html,js,json}', 'icons/*.png'],
         });
 
         for (const warning of manifest.warnings) {
             this.warn(warning);
         }
 
-        // Correct the gathered manifest URLs.
+        // Correct manifest information:
+        //  - add the `/` to make URL relative to the root
+        //  - remove revision from javascript file because the file name already have their revision encoded in their
+        //    filename.
         manifest.manifestEntries = manifest.manifestEntries.map(entry => ({
             ...entry,
             url: `/${entry.url}`,
+            revision: entry.url.endsWith('.js') ? null : entry.revision,
         }));
 
         const bundle = await rollup({
