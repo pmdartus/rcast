@@ -1,10 +1,13 @@
 <template>
+    <base-cover href={episode.image_url} name={episode.title} rounded-corners></base-cover>
+
     <div class="info-container">
         <div class="release-date">{releaseDate}</div>
-        <div class="title">{title}</div>
+        <div class="title">{episode.title}</div>
         <div class="duration">{duration}</div>
     </div>
-    <div>
+
+    <div class="play-container">
         <div class="play-button" onclick={handlePlayClick}>
             <base-icon name="play"></base-icon>
         </div>

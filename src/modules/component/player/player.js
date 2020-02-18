@@ -49,7 +49,7 @@ export default class Player extends LightningElement {
     };
 
     get cover() {
-        return this.podcast && this.podcast.image_original_url;
+        return this.episode && this.episode.image_original_url;
     }
 
     get title() {

@@ -26,10 +26,6 @@ function formatReleaseDate(date) {
 export default class EpisodeListItem extends LightningElement {
     @api episode;
 
-    get title() {
-        return this.episode.title;
-    }
-
     get releaseDate() {
         const releaseDate = new Date(this.episode.published_at);
         return formatReleaseDate(releaseDate);
