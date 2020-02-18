@@ -10,9 +10,13 @@ import {
     PLAY,
     PAUSE,
     ENDED,
+    DOWNLOAD_EPISODE_PROGRESS,
+    DOWNLOAD_EPISODE_DONE,
+    DOWNLOAD_EPISODE_ERROR,
     LISTEN_EPISODE,
     RECORD_TYPE_FULL,
 } from 'store/shared';
+import { getNoCorsUrl } from 'base/utils';
 
 const API_BASE = `https://api.spreaker.com/v2`;
 const LIST_SIZE = 25;
@@ -155,7 +159,7 @@ export function fetchSubscribedPodcastsIfNeeded() {
     return (dispatch, getState) => {
         const state = getState();
 
-        for (const id of state.subscriptions) {
+        for (const id of state.info.subscriptions) {
             // TODO: Avoid copy/paste
             if (shouldFetchShow(getState(), id)) {
                 dispatch(fetchShow(id));
@@ -184,6 +188,62 @@ export function ended() {
     return { type: ENDED };
 }
 
-export function listenEpisode(episode) {
-    return { type: LISTEN_EPISODE, id: episode };
+export function listenEpisode(episodeId) {
+    return { type: LISTEN_EPISODE, id: episodeId };
+}
+
+function downloadProgress(episodeId, progress = 0) {
+    return {
+        type: DOWNLOAD_EPISODE_PROGRESS,
+        id: episodeId,
+        progress,
+    };
+}
+
+function downloadDone(episodeId) {
+    return {
+        type: DOWNLOAD_EPISODE_DONE,
+        id: episodeId,
+    };
+}
+
+function downloadError(episodeId) {
+    return {
+        type: DOWNLOAD_EPISODE_ERROR,
+        id: episodeId,
+    };
+}
+
+export function downloadEpisodeIfNeeded(episodeId) {
+    return async (dispatch, getState) => {
+        let state = getState();
+        if (state.info.episodes[episodeId] && state.info.episodes[episodeId].offline) {
+            return;
+        }
+
+        dispatch(downloadProgress(episodeId));
+
+        const episode = state.episodes[episodeId].data;
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener('progress', evt => {
+            const progress = evt.loaded / evt.total;
+            dispatch(downloadProgress(episodeId, progress));
+        });
+
+        xhr.addEventListener('load', () => {
+            // TODO: Add check if the response is actually in the cache at this point.
+            dispatch(downloadDone(episodeId));
+        });
+
+        const handleErrorState = () => {
+            dispatch(downloadError(episodeId));
+        };
+
+        xhr.addEventListener('error', handleErrorState);
+        xhr.addEventListener('abort', handleErrorState);
+
+        xhr.open('GET', getNoCorsUrl(episode.playback_url));
+        xhr.send();
+    };
 }

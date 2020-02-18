@@ -33,10 +33,10 @@ export function loadState() {
     }
 }
 
-function saveState({ subscriptions }) {
+function saveState({ info }) {
     try {
         const serializedState = JSON.stringify({
-            subscriptions,
+            info,
         });
         localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
     } catch (error) {

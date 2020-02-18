@@ -10,23 +10,13 @@ import {
     PLAY,
     PAUSE,
     LISTEN_EPISODE,
+    DOWNLOAD_EPISODE_PROGRESS,
+    DOWNLOAD_EPISODE_DONE,
+    DOWNLOAD_EPISODE_ERROR,
     RECORD_TYPE_HIGHLIGHT,
     RECORD_TYPE_FULL,
     ENDED,
 } from 'store/shared';
-
-export function subscriptions(state = [], action) {
-    switch (action.type) {
-        case SUBSCRIBE_PODCAST:
-            return state.includes(action.id) ? state : [...state, action.id];
-
-        case UNSUBSCRIBE_PODCAST:
-            return state.filter(podcastId => podcastId !== action.id);
-
-        default:
-            return state;
-    }
-}
 
 export function player(
     state = {
@@ -245,6 +235,69 @@ export function users(state = {}, action) {
                     lastUpdated: action.receivedAt,
                     type: RECORD_TYPE_HIGHLIGHT,
                     data: action.data.author,
+                },
+            };
+
+        default:
+            return state;
+    }
+}
+
+function subscriptions(state = [], action) {
+    switch (action.type) {
+        case SUBSCRIBE_PODCAST:
+            return state.includes(action.id) ? state : [...state, action.id];
+
+        case UNSUBSCRIBE_PODCAST:
+            return state.filter(podcastId => podcastId !== action.id);
+
+        default:
+            return state;
+    }
+}
+
+export function info(state = { subscriptions: [], episodes: {} }, action) {
+    switch (action.type) {
+        case SUBSCRIBE_PODCAST:
+        case UNSUBSCRIBE_PODCAST:
+            return {
+                ...state,
+                subscriptions: subscriptions(state.subscriptions, action),
+            };
+
+        case DOWNLOAD_EPISODE_PROGRESS:
+            return {
+                ...state,
+                episodes: {
+                    [action.id]: {
+                        offline: false,
+                        downloading: true,
+                        downloadProgress: action.progress,
+                    },
+                },
+            };
+
+        case DOWNLOAD_EPISODE_DONE:
+            return {
+                ...state,
+                episodes: {
+                    [action.id]: {
+                        offline: true,
+                        downloading: false,
+                        downloadProgress: 1,
+                    },
+                },
+            };
+
+        case DOWNLOAD_EPISODE_ERROR:
+            return {
+                ...state,
+                episode: {
+                    [action.id]: {
+                        offline: false,
+                        downloading: false,
+                        progress: 0,
+                    },
                 },
             };
 

@@ -13,10 +13,10 @@ export default class ViewPodcast extends LightningElement {
     @track isDescriptionExpanded = false;
 
     @wire(connectStore, { store })
-    storeChange({ podcasts, subscriptions, episodes, users }) {
+    storeChange({ podcasts, episodes, users, info }) {
         const { podcastId } = this;
 
-        this.isSubscribed = subscriptions.includes(podcastId);
+        this.isSubscribed = info.subscriptions.includes(podcastId);
 
         this.podcast = podcasts[podcastId] && podcasts[podcastId].data;
 
