@@ -1,6 +1,8 @@
 import {
     REQUEST_SHOW,
     RECEIVE_SHOW,
+    REQUEST_EPISODE,
+    RECEIVE_EPISODE,
     REQUEST_CATEGORY,
     RECEIVE_CATEGORY,
     SUBSCRIBE_PODCAST,
@@ -101,6 +103,16 @@ export function podcasts(state = {}, action) {
                 [action.id]: podcast(state[action.id], action),
             };
 
+        case RECEIVE_EPISODE:
+            return {
+                ...state,
+                [action.data.show_id]: {
+                    isFetching: false,
+                    type: RECORD_TYPE_HIGHLIGHT,
+                    data: action.data.show,
+                },
+            };
+
         case RECEIVE_CATEGORY:
             return action.data.reduce(
                 (acc, show) => {
@@ -176,6 +188,9 @@ export function episodes(state = {}, action) {
                     return {
                         ...acc,
                         [episode.episode_id]: {
+                            isFetching: false,
+                            lastUpdated: action.receivedAt,
+                            type: RECORD_TYPE_HIGHLIGHT,
                             data: episode,
                         },
                     };
@@ -184,6 +199,54 @@ export function episodes(state = {}, action) {
                     ...state,
                 },
             );
+
+        case REQUEST_EPISODE:
+            return {
+                ...state,
+                [action.id]: {
+                    isFetching: true,
+                },
+            };
+
+        case RECEIVE_EPISODE:
+            return {
+                ...state,
+                [action.id]: {
+                    isFetching: false,
+                    lastUpdated: action.receivedAt,
+                    type: RECORD_TYPE_FULL,
+                    data: action.data,
+                },
+            };
+
+        default:
+            return state;
+    }
+}
+
+export function users(state = {}, action) {
+    switch (action.type) {
+        case RECEIVE_SHOW:
+            return {
+                ...state,
+                [action.data.show.author_id]: {
+                    isFetching: false,
+                    lastUpdated: action.receivedAt,
+                    type: RECORD_TYPE_HIGHLIGHT,
+                    data: action.data.show.author,
+                },
+            };
+
+        case RECEIVE_EPISODE:
+            return {
+                ...state,
+                [action.data.author_id]: {
+                    isFetching: false,
+                    lastUpdated: action.receivedAt,
+                    type: RECORD_TYPE_HIGHLIGHT,
+                    data: action.data.author,
+                },
+            };
 
         default:
             return state;

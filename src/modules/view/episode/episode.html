@@ -1,0 +1,34 @@
+<template>
+    <base-header>
+        <base-back-button slot="left"></base-back-button>
+        Episode
+    </base-header>
+
+    <base-content class="with-header">
+        <template if:true={loading}>
+            <div class="center">
+                <base-spinner></base-spinner>
+            </div>
+        </template>
+
+        <template if:false={loading}>
+            <div class="header" onclick={handleHeaderClick}>
+                <base-cover href={episode.image_url} name={episode.title} rounded-corners></base-cover>
+                <div class="header-right">
+                    <div class="show-name">{show.title}</div>
+                    <div class="release-date">{releaseDate}</div>
+                </div>
+            </div>
+
+            <div class="title">{episode.title}</div>
+
+            <div class="action-bar">
+                <button onclick={handlePlay}>Play</button>
+                <button onclick={handleDownload}>Download</button>
+                <button onclick={handleShare}>Share</button>
+            </div>
+
+            <div class="description">{episode.description}</div>
+        </template>
+    </base-content>
+</template>

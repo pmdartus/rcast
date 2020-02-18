@@ -30,7 +30,7 @@ registerRoute(
 // Using a stale while revalidate approach to keep the data up to date when online. Cache all the
 // API response for 10 days max.
 registerRoute(
-    /.*api.spreaker.com/,
+    /^https:\/\/api.spreaker.com/,
     new StaleWhileRevalidate({
         cacheName: 'spreaker-api',
         plugins: [

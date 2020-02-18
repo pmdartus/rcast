@@ -7,20 +7,25 @@ export default class ViewPodcast extends LightningElement {
     @api podcastId;
 
     @track podcast = null;
+    @track author = null;
     @track episodes = [];
     @track isSubscribed = false;
     @track isDescriptionExpanded = false;
 
     @wire(connectStore, { store })
-    storeChange({ podcasts, subscriptions, episodes }) {
+    storeChange({ podcasts, subscriptions, episodes, users }) {
         const { podcastId } = this;
 
         this.isSubscribed = subscriptions.includes(podcastId);
 
         this.podcast = podcasts[podcastId] && podcasts[podcastId].data;
 
-        if (this.podcast && this.podcast.episodes) {
-            this.episodes = this.podcast.episodes.map(id => episodes[id].data);
+        if (this.podcast) {
+            this.author = users[this.podcast.author_id].data;
+
+            if (this.podcast.episodes) {
+                this.episodes = this.podcast.episodes.map(id => episodes[id].data);
+            }
         }
     }
 
@@ -43,8 +48,8 @@ export default class ViewPodcast extends LightningElement {
         return this.podcast && this.podcast.title;
     }
 
-    get author() {
-        return this.podcast && this.podcast.author && this.podcast.author.fullname;
+    get authorName() {
+        return this.author && this.author.fullname;
     }
 
     get subscriptionLabel() {

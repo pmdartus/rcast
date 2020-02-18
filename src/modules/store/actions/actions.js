@@ -1,6 +1,8 @@
 import {
     REQUEST_SHOW,
     RECEIVE_SHOW,
+    REQUEST_EPISODE,
+    RECEIVE_EPISODE,
     REQUEST_CATEGORY,
     RECEIVE_CATEGORY,
     SUBSCRIBE_PODCAST,
@@ -53,18 +55,54 @@ function fetchShow(showId) {
 }
 
 function shouldFetchShow(state, showId) {
-    // TODO: Add proper cache invalidation and refetching
-    if (!state.podcasts[showId] || state.podcasts[showId].type !== RECORD_TYPE_FULL) {
-        return true;
-    }
+    return !state.podcasts[showId] || state.podcasts[showId].type !== RECORD_TYPE_FULL;
 }
 
 export function fetchShowIfNeeded(showId) {
     return (dispatch, getState) => {
         const state = getState();
 
+        // TODO: Add proper cache invalidation and refetching
         if (shouldFetchShow(state, showId)) {
             dispatch(fetchShow(showId));
+        }
+    };
+}
+
+function requestEpisode(episodeId) {
+    return {
+        type: REQUEST_EPISODE,
+        id: episodeId,
+    };
+}
+
+function receiveEpisode(episodeId, data) {
+    return {
+        type: RECEIVE_EPISODE,
+        id: episodeId,
+        data,
+        receivedAt: Date.now(),
+    };
+}
+
+function fetchEpisode(episodeId) {
+    return async dispatch => {
+        dispatch(requestEpisode(episodeId));
+
+        const response = await fetch(`${API_BASE}/episodes/${episodeId}`);
+        const data = await response.json();
+
+        dispatch(receiveEpisode(episodeId, data.response.episode));
+    };
+}
+
+export function fetchEpisodeIfNeeded(episodeId) {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        // TODO: Add proper cache invalidation and refetching
+        if (!state.episodes[episodeId] || state.episodes[episodeId].type !== RECORD_TYPE_FULL) {
+            dispatch(fetchEpisode(episodeId));
         }
     };
 }
