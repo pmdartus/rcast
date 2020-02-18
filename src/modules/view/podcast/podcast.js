@@ -21,7 +21,8 @@ export default class ViewPodcast extends LightningElement {
         this.podcast = podcasts[podcastId] && podcasts[podcastId].data;
 
         if (this.podcast) {
-            this.author = users[this.podcast.author_id].data;
+            const authorId = this.podcast.author_id;
+            this.author = users[authorId] && users[authorId].data;
 
             if (this.podcast.episodes) {
                 this.episodes = this.podcast.episodes.map(id => episodes[id].data);

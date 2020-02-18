@@ -1,8 +1,8 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { fetchEpisodeIfNeeded } from 'store/actions';
 import { formatDate } from 'base/utils';
+import { connectStore, store } from 'store/store';
+import { fetchEpisodeIfNeeded, listenEpisode } from 'store/actions';
 
 export default class Episode extends LightningElement {
     @api episodeId;
@@ -49,7 +49,7 @@ export default class Episode extends LightningElement {
     }
 
     handlePlay() {
-        console.log('Play');
+        store.dispatch(listenEpisode(this.episodeId));
     }
 
     handleDownload() {

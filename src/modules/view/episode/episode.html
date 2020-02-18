@@ -12,7 +12,7 @@
         </template>
 
         <template if:false={loading}>
-            <div class="header" onclick={handleHeaderClick}>
+            <div class="header spacing" onclick={handleHeaderClick}>
                 <base-cover href={episode.image_url} name={episode.title} rounded-corners></base-cover>
                 <div class="header-right">
                     <div class="show-name">{show.title}</div>
@@ -20,15 +20,15 @@
                 </div>
             </div>
 
-            <div class="title">{episode.title}</div>
+            <div class="title spacing">{episode.title}</div>
 
-            <div class="action-bar">
+            <div class="action-bar spacing">
                 <button onclick={handlePlay}>Play</button>
                 <button onclick={handleDownload}>Download</button>
                 <button onclick={handleShare}>Share</button>
             </div>
 
-            <div class="description">{episode.description}</div>
+            <div class="description spacing">{episode.description}</div>
         </template>
     </base-content>
 </template>

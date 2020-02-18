@@ -9,6 +9,7 @@ export default class PlayerCondensed extends LightningElement {
 
     @track episode = null;
     @track podcast = null;
+    @track author = null;
 
     @track isPlaying = false;
     @track progress = 0;
@@ -19,7 +20,7 @@ export default class PlayerCondensed extends LightningElement {
     _duration = 0;
 
     @wire(connectStore, { store })
-    storeChange({ player, episodes, podcasts }) {
+    storeChange({ player, episodes, podcasts, users }) {
         this.isPlaying = player.isPlaying;
 
         const episodeId = player.episode;
@@ -30,11 +31,13 @@ export default class PlayerCondensed extends LightningElement {
 
         const episode = episodes[episodeId].data;
         const podcast = podcasts[episode.show_id].data;
+        const author = users[episode.author_id].data;
 
         if (this.episodeId !== episodeId) {
             this.episodeId = episodeId;
             this.episode = episode;
             this.podcast = podcast;
+            this.author = author;
         }
 
         this.setPlayerVisibility();
@@ -65,8 +68,8 @@ export default class PlayerCondensed extends LightningElement {
         return this.episode && this.episode.title;
     }
 
-    get author() {
-        return this.podcast && this.podcast.author.name;
+    get authorName() {
+        return this.author && this.author.fullname;
     }
 
     get progressBarStyle() {
