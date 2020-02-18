@@ -1,0 +1,9 @@
+<template>
+    <div onclick={handleClick}>
+        <template if:true={isUncached}>
+            <div class="circle">
+                <base-icon name="arrowDown"></base-icon>
+            </div>
+        </template>
+    </div>
+</template>

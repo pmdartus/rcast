@@ -1,3 +1,4 @@
+export { default as arrowDown } from './templates/arrow-down.html';
 export { default as atom } from './templates/atom.html';
 export { default as back } from './templates/back.html';
 export { default as badge } from './templates/badge.html';

@@ -13,6 +13,7 @@ import {
     DOWNLOAD_EPISODE_PROGRESS,
     DOWNLOAD_EPISODE_DONE,
     DOWNLOAD_EPISODE_ERROR,
+    DISCARD_DOWNLOADED_EPISODE,
     RECORD_TYPE_HIGHLIGHT,
     RECORD_TYPE_FULL,
     ENDED,
@@ -290,13 +291,14 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             };
 
         case DOWNLOAD_EPISODE_ERROR:
+        case DISCARD_DOWNLOADED_EPISODE:
             return {
                 ...state,
-                episode: {
+                episodes: {
                     [action.id]: {
                         offline: false,
                         downloading: false,
-                        progress: 0,
+                        downloadProgress: 0,
                     },
                 },
             };
