@@ -7,7 +7,7 @@ import { downloadEpisode, discardDownloadedEpisode } from 'store/actions';
 // https://css-tricks.com/building-progress-ring-quickly/
 
 // TODO: Remove radius hard-coding.
-const DOWNLOAD_BUTTON_RADIUS = 12;
+const DOWNLOAD_BUTTON_RADIUS = 10.5;
 const DOWNLOAD_BUTTON_CIRCUMFERENCE = DOWNLOAD_BUTTON_RADIUS * 2 * Math.PI;
 
 const BUTTON_STATE = {
@@ -79,7 +79,7 @@ export default class DownloadButton extends LightningElement {
         return `progress-container ${stateClass}`;
     }
 
-    get downloadRingStyle() {
+    get progressRingStyle() {
         const { state, progress } = this;
         const offset =
             state === BUTTON_STATE.DOWNLOADING

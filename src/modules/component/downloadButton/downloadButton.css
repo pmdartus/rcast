@@ -9,12 +9,17 @@
 }
 
 .progress-container {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     position: relative;
 }
 
-.process-ring {
+.progress-container svg {
+    width: 25px;
+    height: 25px;
+}
+
+circle {
     fill: transparent;
     transition: 0.3s stroke-dashoffset, 0.3s fill;
     transform: rotate(-90deg);
@@ -34,11 +39,11 @@
 }
 
 base-icon {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
 }
 
-.uncached .process-ring {
+.uncached circle {
     stroke: var(--primary-color);
 }
 .uncached base-icon {
@@ -48,14 +53,14 @@ base-icon {
 .downloading {
     opacity: 0.5;
 }
-.downloading .process-ring {
+.downloading circle {
     stroke: var(--background-color-lighter);
 }
 .downloading base-icon {
     fill: var(--background-color-lighter);
 }
 
-.cached .process-ring {
+.cached circle {
     stroke: #66bb6a;
     fill: #66bb6a;
 }
