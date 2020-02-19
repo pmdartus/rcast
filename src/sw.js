@@ -1,7 +1,11 @@
 import { ExpirationPlugin } from 'workbox-expiration';
+import { RangeRequestsPlugin } from 'workbox-range-requests';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
-import { StaleWhileRevalidate, NetworkOnly } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { StaleWhileRevalidate, NetworkOnly, CacheFirst } from 'workbox-strategies';
+
+const TEN_DAYS_IN_SECONDS = 10 * 24 * 60 * 60;
 
 // Notes:
 //  - No need to cache cover image, the CDN used by spreaker API marks the cover images immutable
@@ -30,12 +34,31 @@ registerRoute(
 // Using a stale while revalidate approach to keep the data up to date when online. Cache all the
 // API response for 10 days max.
 registerRoute(
-    /.*api.spreaker.com/,
+    /^https:\/\/api.spreaker.com/,
     new StaleWhileRevalidate({
         cacheName: 'spreaker-api',
         plugins: [
             new ExpirationPlugin({
-                maxAgeSeconds: 10 * 24 * 60 * 60, // 10 Days
+                maxAgeSeconds: TEN_DAYS_IN_SECONDS,
+                purgeOnQuotaError: true,
+            }),
+        ],
+    }),
+);
+
+// Register route for all the request going through the proxy. THe application uses the proxy to
+// get around CORS limitations. This route uses a cache first strategy and store the episodes for
+// a maximum of 10 days.
+registerRoute(
+    /^https:\/\/cors-anywhere\.herokuapp\.com/,
+    new CacheFirst({
+        cacheName: 'episodes',
+        plugins: [
+            new CacheableResponsePlugin({ statuses: [200] }),
+            new RangeRequestsPlugin(),
+            new ExpirationPlugin({
+                maxAgeSeconds: TEN_DAYS_IN_SECONDS,
+                purgeOnQuotaError: true,
             }),
         ],
     }),

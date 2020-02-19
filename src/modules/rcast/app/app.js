@@ -6,6 +6,7 @@ export default class App extends LightningElement {
     releaseDate = process.env.RELEASE_DATE;
 
     router = new Navigo(location.origin, false);
+    routeStack = [];
 
     menuItems = [
         {
@@ -41,9 +42,15 @@ export default class App extends LightningElement {
                 this.setPage('view-discover', ViewDiscover);
             },
             '/categories/:id': async ({ id }) => {
-                const { default: PodcastList } = await import('view/category');
-                this.setPage('view-category', PodcastList, {
+                const { default: ViewCategory } = await import('view/category');
+                this.setPage('view-category', ViewCategory, {
                     categoryId: parseInt(id, 10),
+                });
+            },
+            '/episodes/:id': async ({ id }) => {
+                const { default: ViewEpisode } = await import('view/episode');
+                this.setPage('view-episode', ViewEpisode, {
+                    episodeId: parseInt(id, 10),
                 });
             },
         });

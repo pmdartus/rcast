@@ -1,0 +1,73 @@
+:host {
+    height: 100%;
+    display: flex;
+}
+
+.spacing {
+    margin-top: var(--spacing-medium);
+    padding: 0 var(--spacing-medium);
+}
+/* Spinner */
+
+.center {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+base-spinner {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Header */
+
+.header {
+    display: flex;
+}
+
+base-cover {
+    height: 50px;
+    width: 50px;
+    margin-right: var(--spacing-medium);
+}
+
+.header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.show-name {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.release-date {
+    opacity: 0.7;
+    font-size: 0.875rem;
+}
+
+/* Body */
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.action-bar {
+    display: flex;
+    align-items: center;
+}
+
+.action-bar > * {
+    margin-right: var(--spacing-small);
+}
+
+.description {
+    opacity: 0.8;
+    font-size: 0.875rem;
+    line-height: 1.4rem;
+}

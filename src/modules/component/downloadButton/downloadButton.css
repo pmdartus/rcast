@@ -1,0 +1,69 @@
+/* 
+ * TODO: 
+ *  - Externalize button size is a CSS custom property 
+ *  - Remove radius hard-coding
+ */
+
+:host {
+    display: block;
+}
+
+.progress-container {
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+
+.progress-container svg {
+    width: 25px;
+    height: 25px;
+}
+
+circle {
+    fill: transparent;
+    transition: 0.3s stroke-dashoffset, 0.3s fill;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.icon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+base-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.uncached circle {
+    stroke: var(--primary-color);
+}
+.uncached base-icon {
+    fill: var(--primary-color);
+}
+
+.downloading {
+    opacity: 0.5;
+}
+.downloading circle {
+    stroke: var(--background-color-lighter);
+}
+.downloading base-icon {
+    fill: var(--background-color-lighter);
+}
+
+.cached circle {
+    stroke: #66bb6a;
+    fill: #66bb6a;
+}
+.cached base-icon {
+    fill: var(--background-color);
+}

@@ -1,6 +1,8 @@
 import {
     REQUEST_SHOW,
     RECEIVE_SHOW,
+    REQUEST_EPISODE,
+    RECEIVE_EPISODE,
     REQUEST_CATEGORY,
     RECEIVE_CATEGORY,
     SUBSCRIBE_PODCAST,
@@ -8,9 +10,14 @@ import {
     PLAY,
     PAUSE,
     ENDED,
+    DOWNLOAD_EPISODE_PROGRESS,
+    DOWNLOAD_EPISODE_DONE,
+    DOWNLOAD_EPISODE_ERROR,
+    DISCARD_DOWNLOADED_EPISODE,
     LISTEN_EPISODE,
     RECORD_TYPE_FULL,
 } from 'store/shared';
+import { getNoCorsUrl } from 'base/utils';
 
 const API_BASE = `https://api.spreaker.com/v2`;
 const LIST_SIZE = 25;
@@ -53,18 +60,54 @@ function fetchShow(showId) {
 }
 
 function shouldFetchShow(state, showId) {
-    // TODO: Add proper cache invalidation and refetching
-    if (!state.podcasts[showId] || state.podcasts[showId].type !== RECORD_TYPE_FULL) {
-        return true;
-    }
+    return !state.podcasts[showId] || state.podcasts[showId].type !== RECORD_TYPE_FULL;
 }
 
 export function fetchShowIfNeeded(showId) {
     return (dispatch, getState) => {
         const state = getState();
 
+        // TODO: Add proper cache invalidation and refetching
         if (shouldFetchShow(state, showId)) {
             dispatch(fetchShow(showId));
+        }
+    };
+}
+
+function requestEpisode(episodeId) {
+    return {
+        type: REQUEST_EPISODE,
+        id: episodeId,
+    };
+}
+
+function receiveEpisode(episodeId, data) {
+    return {
+        type: RECEIVE_EPISODE,
+        id: episodeId,
+        data,
+        receivedAt: Date.now(),
+    };
+}
+
+function fetchEpisode(episodeId) {
+    return async dispatch => {
+        dispatch(requestEpisode(episodeId));
+
+        const response = await fetch(`${API_BASE}/episodes/${episodeId}`);
+        const data = await response.json();
+
+        dispatch(receiveEpisode(episodeId, data.response.episode));
+    };
+}
+
+export function fetchEpisodeIfNeeded(episodeId) {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        // TODO: Add proper cache invalidation and refetching
+        if (!state.episodes[episodeId] || state.episodes[episodeId].type !== RECORD_TYPE_FULL) {
+            dispatch(fetchEpisode(episodeId));
         }
     };
 }
@@ -117,7 +160,7 @@ export function fetchSubscribedPodcastsIfNeeded() {
     return (dispatch, getState) => {
         const state = getState();
 
-        for (const id of state.subscriptions) {
+        for (const id of state.info.subscriptions) {
             // TODO: Avoid copy/paste
             if (shouldFetchShow(getState(), id)) {
                 dispatch(fetchShow(id));
@@ -146,6 +189,77 @@ export function ended() {
     return { type: ENDED };
 }
 
-export function listenEpisode(episode) {
-    return { type: LISTEN_EPISODE, id: episode };
+export function listenEpisode(episodeId) {
+    return { type: LISTEN_EPISODE, id: episodeId };
+}
+
+function downloadEpisodeProgress(episodeId, progress = 0) {
+    return {
+        type: DOWNLOAD_EPISODE_PROGRESS,
+        id: episodeId,
+        progress,
+    };
+}
+
+function downloadEpisodeDone(episodeId) {
+    return {
+        type: DOWNLOAD_EPISODE_DONE,
+        id: episodeId,
+    };
+}
+
+function downloadEpisodeError(episodeId) {
+    return {
+        type: DOWNLOAD_EPISODE_ERROR,
+        id: episodeId,
+    };
+}
+
+export function downloadEpisode(episodeId) {
+    return async (dispatch, getState) => {
+        const state = getState();
+        if (state.info.episodes[episodeId] && state.info.episodes[episodeId].offline) {
+            return;
+        }
+
+        dispatch(downloadEpisodeProgress(episodeId));
+
+        const episode = state.episodes[episodeId].data;
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener('progress', evt => {
+            const progress = evt.loaded / evt.total;
+            dispatch(downloadEpisodeProgress(episodeId, progress));
+        });
+
+        xhr.addEventListener('load', () => {
+            // TODO: Add check if the response is actually in the cache at this point.
+            dispatch(downloadEpisodeDone(episodeId));
+        });
+
+        const handleErrorState = () => {
+            dispatch(downloadEpisodeError(episodeId));
+        };
+
+        xhr.addEventListener('error', handleErrorState);
+        xhr.addEventListener('abort', handleErrorState);
+
+        xhr.open('GET', getNoCorsUrl(episode.playback_url));
+        xhr.send();
+    };
+}
+
+export function discardDownloadedEpisode(episodeId) {
+    return async (dispatch, getState) => {
+        const state = getState();
+
+        if (!state.info.episodes[episodeId] || !state.info.episodes[episodeId].offline) {
+            return;
+        }
+
+        dispatch({
+            type: DISCARD_DOWNLOADED_EPISODE,
+            id: episodeId,
+        });
+    };
 }

@@ -1,0 +1,57 @@
+:host {
+    display: block;
+}
+
+.extended {
+    display: flex;
+    align-items: center;
+
+    padding: 4px;
+    border: 2px solid #e2e2e2;
+    border-radius: 30px;
+
+    font-size: 0.875rem;
+}
+
+.button-container {
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+
+.extended .button-container {
+    margin-right: 3px;
+}
+
+.button-container svg {
+    width: 25px;
+    height: 25px;
+}
+
+circle {
+    fill: transparent;
+    stroke: var(--primary-color);
+
+    transition: 0.3s stroke-dashoffset, 0.3s fill;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.icon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+base-icon {
+    width: 14px;
+    height: 14px;
+
+    fill: var(--primary-color);
+}

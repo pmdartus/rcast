@@ -10,12 +10,12 @@ export default class ViewPodcasts extends LightningElement {
     @track subscriptions = [];
 
     @wire(connectStore, { store })
-    stateChange({ podcasts, subscriptions }) {
-        this.subscriptions = subscriptions;
+    stateChange({ podcasts, info }) {
+        this.subscriptions = info.subscriptions;
 
-        this.loading = subscriptions.some(id => podcasts[id] === undefined || podcasts[id].isFetching);
+        this.loading = this.subscriptions.some(id => podcasts[id] === undefined || podcasts[id].isFetching);
         if (!this.loading) {
-            this.podcasts = subscriptions.map(id => podcasts[id].data);
+            this.podcasts = this.subscriptions.map(id => podcasts[id].data);
         }
     }
 

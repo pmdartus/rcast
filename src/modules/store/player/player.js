@@ -1,5 +1,6 @@
 import { store } from 'store/store';
 import { ended } from 'store/actions';
+import { getNoCorsUrl } from 'base/utils';
 
 import EventEmitter from './event-emitter';
 
@@ -17,7 +18,7 @@ class Player extends EventEmitter {
 
         if (src) {
             this.currentSrc = src;
-            this._audioEl.src = `https://cors-anywhere.herokuapp.com/${src}`;
+            this._audioEl.src = getNoCorsUrl(src);
         }
 
         this.isPlaying = true;

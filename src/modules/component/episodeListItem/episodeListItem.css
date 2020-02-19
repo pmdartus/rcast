@@ -54,21 +54,3 @@ base-cover {
     display: flex;
     align-items: center;
 }
-
-.play-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 25px;
-    height: 25px;
-    border-radius: 25px;
-
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.play-button base-icon {
-    width: 15px;
-    height: 15px;
-}
