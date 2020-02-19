@@ -59,6 +59,7 @@ base-cover {
 
 .action-bar {
     display: flex;
+    align-items: center;
 }
 
 .action-bar > * {
@@ -68,4 +69,5 @@ base-cover {
 .description {
     opacity: 0.8;
     font-size: 0.875rem;
+    line-height: 1.4rem;
 }

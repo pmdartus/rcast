@@ -25,7 +25,7 @@ export default class PlayerCondensed extends LightningElement {
 
         const episodeId = player.episode;
 
-        if (!episodes[episodeId]) {
+        if (!episodes[episodeId] || episodes[episodeId].isFetching) {
             return;
         }
 

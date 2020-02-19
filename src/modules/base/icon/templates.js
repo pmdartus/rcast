@@ -25,6 +25,7 @@ export { default as rewind } from './templates/rewind.html';
 export { default as rss } from './templates/rss.html';
 export { default as search } from './templates/search.html';
 export { default as settings } from './templates/settings.html';
+export { default as share } from './templates/share.html';
 export { default as smile } from './templates/smile.html';
 export { default as soccer } from './templates/soccer.html';
 export { default as tools } from './templates/tools.html';

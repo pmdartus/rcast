@@ -1,0 +1,11 @@
+base-icon {
+    width: 18px;
+    height: 18px;
+
+    fill: var(--primary-color);
+}
+
+base-icon.unsupported {
+    fill: var(--background-color-lighter);
+    opacity: 0.8;
+}

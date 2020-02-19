@@ -2,13 +2,28 @@
     display: block;
 }
 
-.container {
+.extended {
+    display: flex;
+    align-items: center;
+
+    padding: 4px;
+    border: 2px solid #e2e2e2;
+    border-radius: 30px;
+
+    font-size: 0.875rem;
+}
+
+.button-container {
     width: 25px;
     height: 25px;
     position: relative;
 }
 
-.container svg {
+.extended .button-container {
+    margin-right: 3px;
+}
+
+.button-container svg {
     width: 25px;
     height: 25px;
 }

@@ -55,8 +55,4 @@ export default class Episode extends LightningElement {
     handleDownload() {
         store.dispatch(downloadEpisode(this.episodeId));
     }
-
-    handleShare() {
-        console.log('Share');
-    }
 }
