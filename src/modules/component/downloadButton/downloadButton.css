@@ -6,7 +6,31 @@
 
 :host {
     display: block;
+}
+
+.progress-container {
+    width: 30px;
+    height: 30px;
     position: relative;
+}
+
+.process-ring {
+    fill: transparent;
+    transition: 0.3s stroke-dashoffset, 0.3s fill;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.icon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 base-icon {
@@ -14,52 +38,27 @@ base-icon {
     height: 15px;
 }
 
-/* Cached and uncached */
-
-.circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.uncached .process-ring {
+    stroke: var(--primary-color);
 }
-
-.uncached {
-    background-color: var(--background-color-lighter);
-}
-
-.cached {
-    background-color: #66bb6a;
-}
-
-.cached base-icon,
 .uncached base-icon {
-    fill: var(--background-color);
-}
-
-/* Downloading */
-
-.downloading {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.downloading base-icon {
     fill: var(--primary-color);
 }
 
-.download-ring {
-    width: 30px;
-    height: 30px;
+.downloading {
+    opacity: 0.5;
+}
+.downloading .process-ring {
+    stroke: var(--background-color-lighter);
+}
+.downloading base-icon {
+    fill: var(--background-color-lighter);
 }
 
-.download-ring__circle {
-    fill: transparent;
-    stroke: var(--primary-color);
-    transition: 0.3s stroke-dashoffset;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
+.cached .process-ring {
+    stroke: #66bb6a;
+    fill: #66bb6a;
+}
+.cached base-icon {
+    fill: var(--background-color);
 }

@@ -1,23 +1,10 @@
 <template>
-    <template if:true={isUncached}>
-        <div class="circle uncached">
-            <base-icon name="arrowDown"></base-icon>
-        </div>
-    </template>
-
-    <template if:true={isDownloading}>
-        <svg class="download-ring">
-            <circle class="download-ring__circle" stroke-width="3" r="12" cx="15" cy="15" style={downloadRingStyle} />
+    <div class={progressContainerClass}>
+        <svg width="30" height="30">
+            <circle class="process-ring" stroke-width="3" r="12" cx="15" cy="15" style={downloadRingStyle} />
         </svg>
-
-        <div class="circle downloading">
+        <div class="icon-container">
             <base-icon name="arrowDown"></base-icon>
         </div>
-    </template>
-
-    <template if:true={isCached}>
-        <div class="circle cached">
-            <base-icon name="arrowDown"></base-icon>
-        </div>
-    </template>
+    </div>
 </template>

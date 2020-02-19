@@ -60,20 +60,32 @@ export default class DownloadButton extends LightningElement {
         });
     }
 
-    get isUncached() {
-        return this.state === BUTTON_STATE.UNCACHED;
-    }
+    get progressContainerClass() {
+        let stateClass;
+        switch (this.state) {
+            case BUTTON_STATE.UNCACHED:
+                stateClass = 'uncached';
+                break;
 
-    get isDownloading() {
-        return this.state === BUTTON_STATE.DOWNLOADING;
-    }
+            case BUTTON_STATE.CACHED:
+                stateClass = 'cached';
+                break;
 
-    get isCached() {
-        return this.state === BUTTON_STATE.CACHED;
+            case BUTTON_STATE.DOWNLOADING:
+                stateClass = 'downloading';
+                break;
+        }
+
+        return `progress-container ${stateClass}`;
     }
 
     get downloadRingStyle() {
-        const offset = DOWNLOAD_BUTTON_CIRCUMFERENCE - this.progress * DOWNLOAD_BUTTON_CIRCUMFERENCE;
+        const { state, progress } = this;
+        const offset =
+            state === BUTTON_STATE.DOWNLOADING
+                ? DOWNLOAD_BUTTON_CIRCUMFERENCE - progress * DOWNLOAD_BUTTON_CIRCUMFERENCE
+                : 0;
+
         return [
             `stroke-dasharray: ${DOWNLOAD_BUTTON_CIRCUMFERENCE} ${DOWNLOAD_BUTTON_CIRCUMFERENCE}`,
             `stroke-dashoffset: ${offset}`,
