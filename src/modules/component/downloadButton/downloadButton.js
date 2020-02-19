@@ -3,6 +3,13 @@ import { LightningElement, api, track, wire } from 'lwc';
 import { connectStore, store } from 'store/store';
 import { downloadEpisode, discardDownloadedEpisode } from 'store/actions';
 
+// Progress circle tutorial link:
+// https://css-tricks.com/building-progress-ring-quickly/
+
+// TODO: Remove radius hard-coding.
+const DOWNLOAD_BUTTON_RADIUS = 12;
+const DOWNLOAD_BUTTON_CIRCUMFERENCE = DOWNLOAD_BUTTON_RADIUS * 2 * Math.PI;
+
 const BUTTON_STATE = {
     UNCACHED: 'UNCACHED',
     CACHED: 'CACHED',
@@ -35,6 +42,24 @@ export default class DownloadButton extends LightningElement {
         }
     }
 
+    connectedCallback() {
+        this.template.addEventListener('click', () => {
+            const { state, episodeId } = this;
+
+            switch (state) {
+                case BUTTON_STATE.UNCACHED:
+                    return store.dispatch(downloadEpisode(episodeId));
+
+                case BUTTON_STATE.CACHED:
+                    return store.dispatch(discardDownloadedEpisode(episodeId));
+
+                default:
+                    // In the default case, do nothing for now.
+                    break;
+            }
+        });
+    }
+
     get isUncached() {
         return this.state === BUTTON_STATE.UNCACHED;
     }
@@ -47,19 +72,11 @@ export default class DownloadButton extends LightningElement {
         return this.state === BUTTON_STATE.CACHED;
     }
 
-    handleClick() {
-        const { state, episodeId } = this;
-
-        switch (state) {
-            case BUTTON_STATE.UNCACHED:
-                return store.dispatch(downloadEpisode(episodeId));
-
-            case BUTTON_STATE.CACHED:
-                return store.dispatch(discardDownloadedEpisode(episodeId));
-
-            default:
-                // In the default case, do nothing for now.
-                break;
-        }
+    get downloadRingStyle() {
+        const offset = DOWNLOAD_BUTTON_CIRCUMFERENCE - this.progress * DOWNLOAD_BUTTON_CIRCUMFERENCE;
+        return [
+            `stroke-dasharray: ${DOWNLOAD_BUTTON_CIRCUMFERENCE} ${DOWNLOAD_BUTTON_CIRCUMFERENCE}`,
+            `stroke-dashoffset: ${offset}`,
+        ].join('; ');
     }
 }
