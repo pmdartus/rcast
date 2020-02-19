@@ -57,6 +57,14 @@ base-cover {
     font-weight: 600;
 }
 
+.action-bar {
+    display: flex;
+}
+
+.action-bar > * {
+    margin-right: var(--spacing-small);
+}
+
 .description {
     opacity: 0.8;
     font-size: 0.875rem;

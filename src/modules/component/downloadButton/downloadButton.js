@@ -43,7 +43,9 @@ export default class DownloadButton extends LightningElement {
     }
 
     connectedCallback() {
-        this.template.addEventListener('click', () => {
+        this.template.addEventListener('click', evt => {
+            evt.stopPropagation();
+
             const { state, episodeId } = this;
 
             switch (state) {

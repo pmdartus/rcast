@@ -23,7 +23,7 @@
             <div class="title spacing">{episode.title}</div>
 
             <div class="action-bar spacing">
-                <button onclick={handlePlay}>Play</button>
+                <component-play-button episode-id={episodeId}></component-play-button>
                 <component-download-button episode-id={episodeId}></component-download-button>
                 <button onclick={handleShare}>Share</button>
             </div>

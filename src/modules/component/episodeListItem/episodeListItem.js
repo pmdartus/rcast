@@ -1,7 +1,5 @@
 import { LightningElement, api } from 'lwc';
 
-import { store } from 'store/store';
-import { listenEpisode } from 'store/actions';
 import { convertMilliseconds, formatDate } from 'base/utils';
 
 export default class EpisodeListItem extends LightningElement {
@@ -29,11 +27,5 @@ export default class EpisodeListItem extends LightningElement {
     get duration() {
         const { minutes } = convertMilliseconds(this.episode.duration);
         return `${minutes}m`;
-    }
-
-    handlePlayClick(event) {
-        event.stopPropagation();
-
-        store.dispatch(listenEpisode(this.episode.episode_id));
     }
 }
