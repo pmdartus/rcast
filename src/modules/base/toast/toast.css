@@ -1,0 +1,33 @@
+:host {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: var(--spacing-medium);
+    padding: var(--spacing-medium);
+
+    color: #fff;
+    background-color: var(--background-color-lighter);
+
+    border-radius: 5px;
+
+    animation-duration: 3s;
+
+    transform: translateY(150%);
+    transition: transform 0.3s ease-in-out;
+}
+
+:host(.visible) {
+    transform: translateY(0);
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttons-container a {
+    padding: var(--spacing-small);
+    font-weight: 600;
+}

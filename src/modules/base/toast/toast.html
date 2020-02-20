@@ -1,0 +1,9 @@
+<template>
+    {message}
+
+    <div class="buttons-container">
+        <template for:each={buttons} for:item="button" for:index="index">
+            <a role="button" key={button.text} data-text={button.text} onclick={handleButtonClick}>{button.text}</a>
+        </template>
+    </div>
+</template>

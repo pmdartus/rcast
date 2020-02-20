@@ -35,6 +35,7 @@ module.exports = {
         copyAssets(),
         resolve(),
         lwc({
+            exclude: ['**/*.mjs'],
             rootDir: 'src/modules',
         }),
         replace({

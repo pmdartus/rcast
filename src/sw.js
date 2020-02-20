@@ -13,6 +13,13 @@ const TEN_DAYS_IN_SECONDS = 10 * 24 * 60 * 60;
 
 const networkOnly = new NetworkOnly();
 
+addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        // eslint-disable-next-line
+        skipWaiting();
+    }
+});
+
 // Download and cache assets when the server worker is installed. The WORKBOX_MANIFEST environment
 // variable is injected at build time by the service-worker plugin.
 precacheAndRoute(process.env.WORKBOX_MANIFEST);
