@@ -100,61 +100,10 @@
                 /* Prevent the elastic scrolling effect when trying to scroll past the page bottom. */
                 overflow: hidden;
             }
-
-            .unsupported {
-                height: 100%;
-
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .unsupported_title,
-            .unsupported_message {
-                padding: 0 var(--spacing-medium);
-                text-align: center;
-            }
-
-            .unsupported_title {
-                padding-bottom: var(--spacing-medium);
-
-                font-size: 1.5rem;
-                font-weight: 500;
-                line-height: 2rem;
-                text-transform: uppercase;
-
-                color: var(--primary-color);
-            }
-
-            .unsupported_message {
-                opacity: 0.7;
-            }
         </style>
     </head>
 
     <body></body>
-
-    <noscript>
-        <div class="unsupported">
-            <div class="unsupported_title">rcast can't be loaded!</div>
-            <div class="unsupported_message">This application requires javascript to work properly.</div>
-        </div>
-    </noscript>
-
-    <div id="outdated" style="display: none">
-        <div class="unsupported">
-            <div class="unsupported_title">rcast can't be loaded!</div>
-            <div class="unsupported_message"></div>
-        </div>
-    </div>
-
-    <script nomodule>
-        const { outdated } = window;
-        outdated.style.display = 'unset';
-        outdated.querySelector('.unsupported_message').textContent =
-            'This application requires a more recent version of your browser';
-    </script>
 
     <!-- MODULE_ENTRY -->
 </html>
