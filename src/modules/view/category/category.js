@@ -8,24 +8,18 @@ import { fetchCategoryIfNeeded } from 'store/actions';
 export default class PodcastList extends LightningElement {
     @api categoryId;
 
-    @track loading = true;
-    @track podcasts = [];
+    @track shows;
 
     @wire(connectStore, { store })
-    storeChange({ topPodcastsByCategory }) {
-        const topPodcasts = topPodcastsByCategory[this.categoryId];
-
-        if (topPodcasts) {
-            this.loading = topPodcasts.isFetching;
-            this.podcasts = topPodcasts.data;
-        }
+    storeChange({ topShowsByCategory }) {
+        this.shows = topShowsByCategory[this.categoryId];
     }
 
     connectedCallback() {
-        this.fetchTopPodcasts();
+        this.loadShows();
     }
 
-    fetchTopPodcasts() {
+    loadShows() {
         store.dispatch(fetchCategoryIfNeeded(this.categoryId));
     }
 
@@ -35,7 +29,7 @@ export default class PodcastList extends LightningElement {
         }).name;
     }
 
-    handlePodcastClick(event) {
+    handleShowClick(event) {
         const { podcastId } = event.target;
 
         this.dispatchEvent(

@@ -7,40 +7,43 @@ import { fetchEpisodeIfNeeded, listenEpisode, downloadEpisode } from 'store/acti
 export default class Episode extends LightningElement {
     @api episodeId;
 
-    @track loading = true;
-
     @track show;
     @track episode;
     @track author;
 
     @wire(connectStore, { store })
     storeChange({ episodes, podcasts, users }) {
-        if (!episodes[this.episodeId] || episodes[this.episodeId].isFetching) {
-            return;
+        this.episode = episodes[this.episodeId];
+
+        if (this.episode && this.episode.data) {
+            const episode = this.episode.data;
+
+            this.show = podcasts[episode.show_id];
+            this.author = users[episode.author_id];
         }
-
-        const episode = episodes[this.episodeId].data;
-
-        this.episode = episode;
-        this.show = podcasts[episode.show_id].data;
-        this.author = users[episode.author_id].data;
-
-        this.loading = false;
     }
 
     connectedCallback() {
+        this.loadEpisode();
+    }
+
+    loadEpisode() {
         store.dispatch(fetchEpisodeIfNeeded(this.episodeId));
     }
 
     get releaseDate() {
-        return formatDate(new Date(this.episode.published_at));
+        return this.episode.data ? formatDate(new Date(this.episode.data.published_at)) : '';
     }
 
     handleHeaderClick() {
+        if (!this.episode.data) {
+            return;
+        }
+
         this.dispatchEvent(
             new CustomEvent('navigate', {
                 detail: {
-                    path: `/podcasts/${this.show.show_id}`,
+                    path: `/podcasts/${this.episode.data.show_id}`,
                 },
                 composed: true,
                 bubbles: true,

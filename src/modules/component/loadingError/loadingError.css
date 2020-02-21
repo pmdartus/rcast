@@ -1,0 +1,34 @@
+:host {
+    text-align: center;
+    padding: var(--spacing-medium);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.title,
+.subtitle {
+    margin-bottom: var(--spacing-medium);
+}
+
+.title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    font-weight: 500;
+}
+
+pre {
+    padding: var(--spacing-small);
+    text-align: left;
+    background-color: #efefef;
+    overflow: scroll;
+    border-radius: 5px;
+}
+
+.retry {
+    opacity: 0.8;
+    color: var(--primary-color);
+}

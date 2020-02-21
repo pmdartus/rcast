@@ -1,11 +1,14 @@
 import {
     CONNECTIVITY_STATUS_CHANGED,
     REQUEST_SHOW,
-    RECEIVE_SHOW,
+    RECEIVE_SHOW_SUCCESS,
+    RECEIVE_SHOW_ERROR,
     REQUEST_EPISODE,
-    RECEIVE_EPISODE,
+    RECEIVE_EPISODE_SUCCESS,
+    RECEIVE_EPISODE_ERROR,
     REQUEST_CATEGORY,
-    RECEIVE_CATEGORY,
+    RECEIVE_CATEGORY_SUCCESS,
+    RECEIVE_CATEGORY_ERROR,
     SUBSCRIBE_PODCAST,
     UNSUBSCRIBE_PODCAST,
     PLAY,
@@ -79,6 +82,8 @@ function podcast(
     state = {
         isFetching: false,
         data: null,
+        type: null,
+        error: null,
     },
     action,
 ) {
@@ -86,16 +91,38 @@ function podcast(
         case REQUEST_SHOW:
             return { ...state, isFetching: true };
 
-        case RECEIVE_SHOW: {
+        case RECEIVE_SHOW_SUCCESS: {
             return {
                 ...state,
                 isFetching: false,
-                lastUpdated: action.receivedAt,
-                type: RECORD_TYPE_FULL,
                 data: {
                     ...action.data.show,
                     episodes: action.data.episodes.map(episode => episode.episode_id),
                 },
+                type: RECORD_TYPE_FULL,
+                error: null,
+            };
+        }
+
+        case RECEIVE_SHOW_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.error,
+            };
+
+        case RECEIVE_EPISODE_SUCCESS:
+        case RECEIVE_CATEGORY_SUCCESS: {
+            if (state.type === RECORD_TYPE_FULL) {
+                return state;
+            }
+
+            return {
+                ...state,
+                isFetching: false,
+                data: action.data,
+                type: RECORD_TYPE_HIGHLIGHT,
+                error: null,
             };
         }
 
@@ -107,37 +134,32 @@ function podcast(
 export function podcasts(state = {}, action) {
     switch (action.type) {
         case REQUEST_SHOW:
-        case RECEIVE_SHOW:
+        case RECEIVE_SHOW_SUCCESS:
+        case RECEIVE_SHOW_ERROR:
             return {
                 ...state,
                 [action.id]: podcast(state[action.id], action),
             };
 
-        case RECEIVE_EPISODE:
+        case RECEIVE_EPISODE_SUCCESS:
             return {
                 ...state,
-                [action.data.show_id]: {
-                    isFetching: false,
-                    type: RECORD_TYPE_HIGHLIGHT,
+                [action.data.show_id]: podcast(state[action.data.show_id], {
+                    ...action,
                     data: action.data.show,
-                },
+                }),
             };
 
-        case RECEIVE_CATEGORY:
+        case RECEIVE_CATEGORY_SUCCESS:
             return action.data.reduce(
-                (acc, show) => {
-                    if (!acc[show.show_id]) {
-                        return {
-                            ...acc,
-                            [show.show_id]: {
-                                isFetching: false,
-                                type: RECORD_TYPE_HIGHLIGHT,
-                                data: show,
-                            },
-                        };
-                    }
-
-                    return acc;
+                (acc, entry) => {
+                    return {
+                        ...acc,
+                        [entry.show_id]: podcast(acc[entry.show_id], {
+                            ...action,
+                            data: entry,
+                        }),
+                    };
                 },
                 {
                     ...state,
@@ -152,8 +174,8 @@ export function podcasts(state = {}, action) {
 function showsByCategory(
     state = {
         isFetching: false,
-        lastUpdated: null,
-        data: [],
+        data: null,
+        error: null,
     },
     action,
 ) {
@@ -164,11 +186,19 @@ function showsByCategory(
                 isFetching: true,
             };
 
-        case RECEIVE_CATEGORY:
+        case RECEIVE_CATEGORY_SUCCESS:
             return {
+                ...state,
                 isFetching: false,
-                lastUpdated: action.receivedAt,
                 data: action.data.map(show => show.show_id),
+                error: null,
+            };
+
+        case RECEIVE_CATEGORY_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.error,
             };
 
         default:
@@ -176,10 +206,11 @@ function showsByCategory(
     }
 }
 
-export function topPodcastsByCategory(state = {}, action) {
+export function topShowsByCategory(state = {}, action) {
     switch (action.type) {
         case REQUEST_CATEGORY:
-        case RECEIVE_CATEGORY:
+        case RECEIVE_CATEGORY_SUCCESS:
+        case RECEIVE_CATEGORY_ERROR:
             return {
                 ...state,
                 [action.categoryId]: showsByCategory(state[action.categoryId], action),
@@ -190,19 +221,77 @@ export function topPodcastsByCategory(state = {}, action) {
     }
 }
 
+function episode(
+    state = {
+        isFetching: false,
+        data: null,
+        type: null,
+        error: null,
+    },
+    action,
+) {
+    switch (action.type) {
+        case REQUEST_EPISODE:
+            return {
+                ...state,
+                isFetching: true,
+            };
+
+        case RECEIVE_EPISODE_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: action.data,
+                type: RECORD_TYPE_FULL,
+                error: null,
+            };
+
+        case RECEIVE_EPISODE_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.error,
+            };
+
+        case RECEIVE_SHOW_SUCCESS: {
+            if (state.type === RECORD_TYPE_FULL) {
+                return state;
+            }
+
+            return {
+                ...state,
+                isFetching: false,
+                data: action.data,
+                type: RECORD_TYPE_HIGHLIGHT,
+                error: null,
+            };
+        }
+
+        default:
+            return state;
+    }
+}
+
 export function episodes(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_SHOW:
+        case REQUEST_EPISODE:
+        case RECEIVE_EPISODE_SUCCESS:
+        case RECEIVE_EPISODE_ERROR:
+            return {
+                ...state,
+                [action.id]: episode(state[action.id], action),
+            };
+
+        case RECEIVE_SHOW_SUCCESS:
             return action.data.episodes.reduce(
-                (acc, episode) => {
+                (acc, entry) => {
+                    const episodeId = entry.episode_id;
                     return {
                         ...acc,
-                        [episode.episode_id]: {
-                            isFetching: false,
-                            lastUpdated: action.receivedAt,
-                            type: RECORD_TYPE_HIGHLIGHT,
-                            data: episode,
-                        },
+                        [episodeId]: episode(acc[episodeId], {
+                            ...action,
+                            data: entry,
+                        }),
                     };
                 },
                 {
@@ -210,23 +299,29 @@ export function episodes(state = {}, action) {
                 },
             );
 
-        case REQUEST_EPISODE:
-            return {
-                ...state,
-                [action.id]: {
-                    isFetching: true,
-                },
-            };
+        default:
+            return state;
+    }
+}
 
-        case RECEIVE_EPISODE:
+function user(
+    state = {
+        isFetching: false,
+        data: null,
+        type: null,
+        error: null,
+    },
+    action,
+) {
+    switch (action.type) {
+        case RECEIVE_SHOW_SUCCESS:
+        case RECEIVE_EPISODE_SUCCESS:
             return {
                 ...state,
-                [action.id]: {
-                    isFetching: false,
-                    lastUpdated: action.receivedAt,
-                    type: RECORD_TYPE_FULL,
-                    data: action.data,
-                },
+                isFetching: false,
+                data: action.data,
+                type: RECORD_TYPE_HIGHLIGHT,
+                error: null,
             };
 
         default:
@@ -236,27 +331,27 @@ export function episodes(state = {}, action) {
 
 export function users(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_SHOW:
+        case RECEIVE_SHOW_SUCCESS: {
+            const { author } = action.data.show;
             return {
                 ...state,
-                [action.data.show.author_id]: {
-                    isFetching: false,
-                    lastUpdated: action.receivedAt,
-                    type: RECORD_TYPE_HIGHLIGHT,
-                    data: action.data.show.author,
-                },
+                [author.user_id]: user(state[author.user_id], {
+                    ...action,
+                    data: author,
+                }),
             };
+        }
 
-        case RECEIVE_EPISODE:
+        case RECEIVE_EPISODE_SUCCESS: {
+            const { author } = action.data;
             return {
                 ...state,
-                [action.data.author_id]: {
-                    isFetching: false,
-                    lastUpdated: action.receivedAt,
-                    type: RECORD_TYPE_HIGHLIGHT,
-                    data: action.data.author,
-                },
+                [author.user_id]: user(state[author.user_id], {
+                    ...action,
+                    data: author,
+                }),
             };
+        }
 
         default:
             return state;

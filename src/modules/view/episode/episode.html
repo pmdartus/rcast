@@ -5,30 +5,45 @@
     </base-header>
 
     <base-content class="with-header">
-        <template if:true={loading}>
+        <template if:true={episode.isFetching}>
             <div class="center">
                 <base-spinner></base-spinner>
             </div>
         </template>
 
-        <template if:false={loading}>
-            <div class="header spacing" onclick={handleHeaderClick}>
-                <base-cover href={episode.image_url} name={episode.title} rounded-corners></base-cover>
-                <div class="header-right">
-                    <div class="show-name">{show.title}</div>
-                    <div class="release-date">{releaseDate}</div>
+        <template if:true={episode.error}>
+            <div class="center">
+                <component-loading-error
+                    class="center"
+                    error={episode.error}
+                    onretry={loadEpisode}
+                ></component-loading-error>
+            </div>
+        </template>
+
+        <template if:true={episode.data}>
+            <div class="view">
+                <div class="header" onclick={handleHeaderClick}>
+                    <base-cover href={episode.data.image_url} name={episode.data.title} rounded-corners></base-cover>
+                    <div class="header-right">
+                        <div class="show-name">{show.data.title}</div>
+                        <div class="release-date">{releaseDate}</div>
+                    </div>
                 </div>
+
+                <div class="title">{episode.title}</div>
+
+                <div class="action-bar">
+                    <component-play-button episode-id={episodeId} extended></component-play-button>
+                    <component-download-button episode-id={episodeId}></component-download-button>
+                    <component-share-button
+                        title={episode.data.title}
+                        text={episode.data.description}
+                    ></component-share-button>
+                </div>
+
+                <div class="description">{episode.data.description}</div>
             </div>
-
-            <div class="title spacing">{episode.title}</div>
-
-            <div class="action-bar spacing">
-                <component-play-button episode-id={episodeId} extended></component-play-button>
-                <component-download-button episode-id={episodeId}></component-download-button>
-                <component-share-button title={episode.title} text={episode.description}></component-share-button>
-            </div>
-
-            <div class="description spacing">{episode.description}</div>
         </template>
     </base-content>
 </template>
