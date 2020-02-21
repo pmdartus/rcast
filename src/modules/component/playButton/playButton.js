@@ -1,7 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
 import { connectStore, store } from 'store/store';
-import { listenEpisode, pause } from 'store/actions';
+import { fetchEpisodeIfNeeded, listenEpisode, pause } from 'store/actions';
 
 import { convertMilliseconds } from 'base/utils';
 
@@ -15,15 +15,23 @@ export default class PlayButton extends LightningElement {
     @track info;
     @track player;
     @track episode;
+    @track application;
 
     @wire(connectStore, { store })
-    storeChange({ player, episodes, info }) {
+    storeChange({ info, player, episodes, application }) {
         this.info = info;
         this.player = player;
         this.episode = episodes[this.episodeId];
+        this.application = application;
     }
 
     connectedCallback() {
+        // Fetch the additional information including the duration when the displaying the extended
+        // version of the component.
+        if (this.isExtended) {
+            store.dispatch(fetchEpisodeIfNeeded(this.episodeId));
+        }
+
         this.addEventListener('click', evt => {
             evt.stopPropagation();
 
@@ -50,9 +58,9 @@ export default class PlayButton extends LightningElement {
     }
 
     get canPlay() {
-        const { episodeId, info, isPlaying } = this;
+        const { episodeId, isPlaying, info, application } = this;
 
-        const isDeviceOnline = info.isOnline;
+        const isDeviceOnline = application.isOnline;
         const isEpisodeOffline = info.episodes[episodeId] && info.episodes[episodeId].offline;
 
         return Boolean(isPlaying || isDeviceOnline || isEpisodeOffline);

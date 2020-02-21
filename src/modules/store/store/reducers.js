@@ -20,6 +20,24 @@ import {
     ENDED,
 } from 'store/shared';
 
+export function application(
+    state = {
+        isOnline: navigator.onLine,
+    },
+    action,
+) {
+    switch (action.type) {
+        case CONNECTIVITY_STATUS_CHANGED:
+            return {
+                ...state,
+                isOnline: action.isOnline,
+            };
+
+        default:
+            return state;
+    }
+}
+
 export function player(
     state = {
         episode: null,
@@ -258,14 +276,8 @@ function subscriptions(state = [], action) {
     }
 }
 
-export function info(state = { isOnline: navigator.onLine, subscriptions: [], episodes: {} }, action) {
+export function info(state = { subscriptions: [], episodes: {} }, action) {
     switch (action.type) {
-        case CONNECTIVITY_STATUS_CHANGED:
-            return {
-                ...state,
-                isOnline: action.isOnline,
-            };
-
         case SUBSCRIBE_PODCAST:
         case UNSUBSCRIBE_PODCAST:
             return {

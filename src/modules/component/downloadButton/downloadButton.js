@@ -24,10 +24,10 @@ export default class DownloadButton extends LightningElement {
     @track progress = 0;
 
     @wire(connectStore, { store })
-    storeChange({ info }) {
+    storeChange({ application, info }) {
         const { episodeId } = this;
 
-        const isDeviceOnline = info.isOnline;
+        const isDeviceOnline = application.isOnline;
         const { downloading: downloadingEpisode, offline: offlineEpisode, downloadProgress } = info.episodes[
             episodeId
         ] || {
