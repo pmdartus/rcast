@@ -3,7 +3,8 @@ import {
     REQUEST_SHOW,
     RECEIVE_SHOW,
     REQUEST_EPISODE,
-    RECEIVE_EPISODE,
+    RECEIVE_EPISODE_SUCCESS,
+    RECEIVE_EPISODE_ERROR,
     REQUEST_CATEGORY,
     RECEIVE_CATEGORY_SUCCESS,
     RECEIVE_CATEGORY_ERROR,
@@ -42,7 +43,6 @@ function receiveShow(podcast, data) {
         type: RECEIVE_SHOW,
         id: podcast,
         data,
-        receivedAt: Date.now(),
     };
 }
 
@@ -72,7 +72,6 @@ export function fetchShowIfNeeded(showId) {
     return (dispatch, getState) => {
         const state = getState();
 
-        // TODO: Add proper cache invalidation and refetching
         if (shouldFetchShow(state, showId)) {
             dispatch(fetchShow(showId));
         }
@@ -86,12 +85,19 @@ function requestEpisode(episodeId) {
     };
 }
 
-function receiveEpisode(episodeId, data) {
+function receiveEpisodeSuccess(episodeId, data) {
     return {
-        type: RECEIVE_EPISODE,
+        type: RECEIVE_EPISODE_SUCCESS,
         id: episodeId,
         data,
-        receivedAt: Date.now(),
+    };
+}
+
+function receiveEpisodeError(episodeId, error) {
+    return {
+        type: RECEIVE_EPISODE_ERROR,
+        id: episodeId,
+        error,
     };
 }
 
@@ -99,9 +105,14 @@ function fetchEpisode(episodeId) {
     return async dispatch => {
         dispatch(requestEpisode(episodeId));
 
-        const episodeResponse = await api.fetchEpisode(episodeId);
+        try {
+            const episodeResponse = await api.fetchEpisode(episodeId);
+            const { episode } = episodeResponse.response;
 
-        dispatch(receiveEpisode(episodeId, episodeResponse.response.episode));
+            dispatch(receiveEpisodeSuccess(episodeId, episode));
+        } catch (error) {
+            dispatch(receiveEpisodeError(episodeId, error));
+        }
     };
 }
 
@@ -109,7 +120,6 @@ export function fetchEpisodeIfNeeded(episodeId) {
     return (dispatch, getState) => {
         const state = getState();
 
-        // TODO: Add proper cache invalidation and refetching
         if (!state.episodes[episodeId] || state.episodes[episodeId].type !== RECORD_TYPE_FULL) {
             dispatch(fetchEpisode(episodeId));
         }

@@ -3,11 +3,13 @@
     display: flex;
 }
 
-.spacing {
-    margin-top: var(--spacing-medium);
-    padding: 0 var(--spacing-medium);
+.view {
+    margin: var(--spacing-medium);
 }
-/* Spinner */
+
+.view > * {
+    margin-top: var(--spacing-medium);
+}
 
 .center {
     display: flex;
@@ -21,8 +23,6 @@ base-spinner {
     width: 2rem;
     height: 2rem;
 }
-
-/* Header */
 
 .header {
     display: flex;
@@ -49,8 +49,6 @@ base-cover {
     opacity: 0.7;
     font-size: 0.875rem;
 }
-
-/* Body */
 
 .title {
     font-size: 1.3rem;
