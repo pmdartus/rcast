@@ -5,15 +5,20 @@
     </base-header>
 
     <base-content class="with-header">
-        <template if:true={loading}>
+        <template if:true={shows.isFetching}>
             <div class="center">
                 <base-spinner></base-spinner>
             </div>
         </template>
 
-        <template if:false={loading}>
-            <template for:each={podcasts} for:item="podcastId">
-                <component-podcast-list-item key={podcastId} podcast-id={podcastId} onclick={handlePodcastClick}>
+        <template if:true={shows.error}>
+            ERRRORR!!
+            <button onclick={loadShows}>Retry</button>
+        </template>
+
+        <template if:true={shows.data}>
+            <template for:each={shows.data} for:item="showId">
+                <component-podcast-list-item key={showId} podcast-id={showId} onclick={handleShowClick}>
                 </component-podcast-list-item>
             </template>
         </template>

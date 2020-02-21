@@ -20,8 +20,7 @@ import {
 } from 'store/shared';
 import { getNoCorsUrl } from 'base/utils';
 
-const API_BASE = `https://api.spreaker.com/v2`;
-const LIST_SIZE = 25;
+import * as api from './api';
 
 export function connectivityStatusChanged() {
     return {
@@ -50,18 +49,15 @@ function fetchShow(showId) {
     return async dispatch => {
         dispatch(requestShow(showId));
 
-        // TODO: Add proper error handling
-        const responses = await Promise.all([
-            fetch(`${API_BASE}/shows/${showId}`),
-            fetch(`${API_BASE}/shows/${showId}/episodes?limit=${LIST_SIZE}`),
+        const [showResponse, showEpisodeResponse] = await Promise.all([
+            api.fetchShow(showId),
+            api.fetchShowEpisodes(showId),
         ]);
-
-        const [showResponse, episodeResponse] = await Promise.all(responses.map(res => res.json()));
 
         dispatch(
             receiveShow(showId, {
                 show: showResponse.response.show,
-                episodes: episodeResponse.response.items,
+                episodes: showEpisodeResponse.response.items,
             }),
         );
     };
@@ -102,10 +98,9 @@ function fetchEpisode(episodeId) {
     return async dispatch => {
         dispatch(requestEpisode(episodeId));
 
-        const response = await fetch(`${API_BASE}/episodes/${episodeId}`);
-        const data = await response.json();
+        const episodeResponse = await api.fetchEpisode(episodeId);
 
-        dispatch(receiveEpisode(episodeId, data.response.episode));
+        dispatch(receiveEpisode(episodeId, episodeResponse.response.episode));
     };
 }
 
@@ -140,18 +135,16 @@ function fetchCategory(categoryId) {
     return async dispatch => {
         dispatch(requestCategory(categoryId));
 
-        // TODO: Add proper error handling
-        const response = await fetch(`${API_BASE}/explore/categories/${categoryId}/items?limit=${LIST_SIZE}`);
-        const data = await response.json();
+        const categoryResponse = await api.fetchCategory(categoryId);
 
-        const shows = data.response.items;
+        const shows = categoryResponse.response.items;
         dispatch(receiveCategory(categoryId, shows));
     };
 }
 
 function shouldFetchCategory(state, categoryId) {
     // TODO: Add proper cache invalidation and refetching
-    if (!state.topPodcastsByCategory[categoryId]) {
+    if (!state.topShowsByCategory[categoryId]) {
         return true;
     }
 }

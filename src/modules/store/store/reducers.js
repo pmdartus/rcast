@@ -176,7 +176,7 @@ function showsByCategory(
     }
 }
 
-export function topPodcastsByCategory(state = {}, action) {
+export function topShowsByCategory(state = {}, action) {
     switch (action.type) {
         case REQUEST_CATEGORY:
         case RECEIVE_CATEGORY:
