@@ -22,12 +22,6 @@
     font-weight: 800;
 }
 
-.menu-version {
-    font-size: 0.875rem;
-    font-weight: 300;
-    opacity: 0.6;
-}
-
 .menu-item {
     display: flex;
     align-items: center;
@@ -44,6 +38,7 @@
 
 .menu-item base-icon {
     width: var(--spacing-medium);
+    height: var(--spacing-medium);
     margin-right: 9px;
 
     fill: #657786;

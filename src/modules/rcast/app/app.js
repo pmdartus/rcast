@@ -2,9 +2,6 @@ import { LightningElement, createElement, track } from 'lwc';
 import Navigo from 'navigo';
 
 export default class App extends LightningElement {
-    releaseVersion = process.env.RELEASE_VERSION;
-    releaseDate = process.env.RELEASE_DATE;
-
     router = new Navigo(location.origin, false);
     routeStack = [];
 
@@ -18,6 +15,11 @@ export default class App extends LightningElement {
             title: 'Discover',
             location: '/discover',
             iconName: 'search',
+        },
+        {
+            title: 'Settings',
+            location: '/settings',
+            iconName: 'settings',
         },
     ];
 
@@ -52,6 +54,10 @@ export default class App extends LightningElement {
                 this.setPage('view-episode', ViewEpisode, {
                     episodeId: parseInt(id, 10),
                 });
+            },
+            '/settings': async () => {
+                const { default: ViewSettings } = await import('view/settings');
+                this.setPage('view-settings', ViewSettings);
             },
         });
 

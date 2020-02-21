@@ -1,5 +1,7 @@
 'use strict';
 
+const { execSync } = require('child_process');
+
 const lwc = require('@lwc/rollup-plugin');
 const replace = require('@rollup/plugin-replace');
 const { terser } = require('rollup-plugin-terser');
@@ -11,7 +13,10 @@ const copyAssets = require('./plugin-copy-assets');
 const serviceWorker = require('./plugin-service-worker');
 
 const { __PROD__ } = require('./shared');
-const packageJSON = require('../package.json');
+
+const COMMIT_HASH = execSync('git rev-parse HEAD')
+    .toString()
+    .trim();
 
 module.exports = {
     input: 'src/main.js',
@@ -40,8 +45,8 @@ module.exports = {
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-            'process.env.RELEASE_VERSION': JSON.stringify(packageJSON.version),
-            'process.env.RELEASE_DATE': JSON.stringify(new Date().toLocaleDateString('en-US')),
+            'process.env.COMMIT_HASH': JSON.stringify(COMMIT_HASH),
+            'process.env.RELEASE_DATE': JSON.stringify(Date.now()),
         }),
         serviceWorker(),
         __PROD__ && terser(),
