@@ -61,8 +61,8 @@ base-icon {
 }
 
 .cached circle {
-    stroke: #66bb6a;
-    fill: #66bb6a;
+    stroke: var(--success-color);
+    fill: var(--success-color);
 }
 .cached base-icon {
     fill: var(--background-color);

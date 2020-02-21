@@ -42,5 +42,5 @@ base-icon {
 }
 
 base-icon.subscribed {
-    fill: #66bb6a;
+    fill: var(--success-color);
 }

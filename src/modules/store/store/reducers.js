@@ -270,6 +270,7 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             return {
                 ...state,
                 episodes: {
+                    ...state.episodes,
                     [action.id]: {
                         offline: false,
                         downloading: true,
@@ -282,6 +283,7 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             return {
                 ...state,
                 episodes: {
+                    ...state.episodes,
                     [action.id]: {
                         offline: true,
                         downloading: false,
@@ -295,6 +297,7 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             return {
                 ...state,
                 episodes: {
+                    ...state.episodes,
                     [action.id]: {
                         offline: false,
                         downloading: false,
