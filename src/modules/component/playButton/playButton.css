@@ -12,15 +12,24 @@
 
     font-size: 0.875rem;
 }
+.extended .button-container {
+    margin-right: 3px;
+}
+
+.unavailable .button-container {
+    opacity: 0.5;
+}
+.unavailable circle {
+    stroke: var(--background-color-lighter);
+}
+.unavailable base-icon {
+    fill: var(--background-color-lighter);
+}
 
 .button-container {
     width: 25px;
     height: 25px;
     position: relative;
-}
-
-.extended .button-container {
-    margin-right: 3px;
 }
 
 .button-container svg {

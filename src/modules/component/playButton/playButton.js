@@ -12,33 +12,50 @@ export default class PlayButton extends LightningElement {
     @api episodeId;
     @api extended = false;
 
-    @track isPlaying = false;
-    @track message = '';
+    @track info;
+    @track player;
+    @track episode;
 
     @wire(connectStore, { store })
-    storeChange({ player, episodes }) {
-        const { episodeId } = this;
-        const isPlaying = player.isPlaying && episodeId === player.episode;
-
-        this.isPlaying = isPlaying;
-        this.message = isPlaying ? 'Pause' : 'Play';
-
-        if (!isPlaying && episodes[episodeId] && !episodes[episodeId].isFetching) {
-            const episode = episodes[episodeId].data;
-            this.message += ` • ${convertMilliseconds(episode.duration).minutes} min`;
-        }
+    storeChange({ player, episodes, info }) {
+        this.info = info;
+        this.player = player;
+        this.episode = episodes[this.episodeId];
     }
 
     connectedCallback() {
         this.addEventListener('click', evt => {
             evt.stopPropagation();
 
-            if (this.isPlaying) {
+            if (!this.canPlay) {
+                window.dispatchEvent(
+                    new CustomEvent('show-toast', {
+                        detail: {
+                            message: `This episode can't be played right now.`,
+                            duration: 3000, // 3 seconds
+                        },
+                    }),
+                );
+            } else if (this.isPlaying) {
                 store.dispatch(pause());
             } else {
                 store.dispatch(listenEpisode(this.episodeId));
             }
         });
+    }
+
+    get isPlaying() {
+        const { player, episodeId } = this;
+        return player.isPlaying && episodeId === player.episode;
+    }
+
+    get canPlay() {
+        const { episodeId, info, isPlaying } = this;
+
+        const isDeviceOnline = info.isOnline;
+        const isEpisodeOffline = info.episodes[episodeId] && info.episodes[episodeId].offline;
+
+        return Boolean(isPlaying || isDeviceOnline || isEpisodeOffline);
     }
 
     get iconName() {
@@ -53,10 +70,21 @@ export default class PlayButton extends LightningElement {
     }
 
     get pillContainerClass() {
-        return this.extended ? 'extended' : '';
+        return [this.extended && 'extended', !this.canPlay && 'unavailable'].filter(Boolean).join(' ');
     }
 
     get pillMessage() {
-        return this.extended ? this.message : '';
+        const { episode, extended, isPlaying } = this;
+
+        if (!extended) {
+            return '';
+        }
+
+        let message = isPlaying ? 'Pause' : 'Play';
+        if (episode && episode.data) {
+            message += ` • ${convertMilliseconds(episode.data.duration).minutes} min`;
+        }
+
+        return message;
     }
 }
