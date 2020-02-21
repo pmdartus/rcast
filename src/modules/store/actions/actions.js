@@ -1,4 +1,5 @@
 import {
+    CONNECTIVITY_STATUS_CHANGED,
     REQUEST_SHOW,
     RECEIVE_SHOW,
     REQUEST_EPISODE,
@@ -21,6 +22,13 @@ import { getNoCorsUrl } from 'base/utils';
 
 const API_BASE = `https://api.spreaker.com/v2`;
 const LIST_SIZE = 25;
+
+export function connectivityStatusChanged() {
+    return {
+        type: CONNECTIVITY_STATUS_CHANGED,
+        isOnline: navigator.onLine,
+    };
+}
 
 function requestShow(podcast) {
     return {

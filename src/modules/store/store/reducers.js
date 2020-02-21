@@ -1,4 +1,5 @@
 import {
+    CONNECTIVITY_STATUS_CHANGED,
     REQUEST_SHOW,
     RECEIVE_SHOW,
     REQUEST_EPISODE,
@@ -257,8 +258,14 @@ function subscriptions(state = [], action) {
     }
 }
 
-export function info(state = { subscriptions: [], episodes: {} }, action) {
+export function info(state = { isOnline: navigator.onLine, subscriptions: [], episodes: {} }, action) {
     switch (action.type) {
+        case CONNECTIVITY_STATUS_CHANGED:
+            return {
+                ...state,
+                isOnline: action.isOnline,
+            };
+
         case SUBSCRIBE_PODCAST:
         case UNSUBSCRIBE_PODCAST:
             return {

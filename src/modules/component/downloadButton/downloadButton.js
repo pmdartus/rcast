@@ -11,6 +11,7 @@ const DOWNLOAD_BUTTON_RADIUS = 10.5;
 const DOWNLOAD_BUTTON_CIRCUMFERENCE = DOWNLOAD_BUTTON_RADIUS * 2 * Math.PI;
 
 const BUTTON_STATE = {
+    UNAVAILABLE: 'UNAVAILABLE',
     UNCACHED: 'UNCACHED',
     CACHED: 'CACHED',
     DOWNLOADING: 'DOWNLOADING',
@@ -26,18 +27,26 @@ export default class DownloadButton extends LightningElement {
     storeChange({ info }) {
         const { episodeId } = this;
 
-        if (!info.episodes[episodeId]) {
-            this.state = BUTTON_STATE.UNCACHED;
-            this.progress = 0;
-        } else if (info.episodes[episodeId].offline) {
+        const isDeviceOnline = info.isOnline;
+        const { downloading: downloadingEpisode, offline: offlineEpisode, downloadProgress } = info.episodes[
+            episodeId
+        ] || {
+            offline: false,
+            downloading: false,
+            downloadProgress: 0,
+        };
+
+        if (downloadingEpisode) {
+            this.state = BUTTON_STATE.DOWNLOADING;
+            this.progress = downloadProgress;
+        } else if (offlineEpisode) {
             this.state = BUTTON_STATE.CACHED;
             this.progress = 0;
-        } else if (info.episodes[episodeId].downloading) {
-            this.state = BUTTON_STATE.DOWNLOADING;
-            this.progress = info.episodes[episodeId].downloadProgress;
-        } else {
-            // Handle all the other cases by showing the download button in the UNCACHED state.
+        } else if (isDeviceOnline) {
             this.state = BUTTON_STATE.UNCACHED;
+            this.progress = 0;
+        } else {
+            this.state = BUTTON_STATE.UNAVAILABLE;
             this.progress = 0;
         }
     }
@@ -49,6 +58,16 @@ export default class DownloadButton extends LightningElement {
             const { state, episodeId } = this;
 
             switch (state) {
+                case BUTTON_STATE.UNAVAILABLE:
+                    return window.dispatchEvent(
+                        new CustomEvent('show-toast', {
+                            detail: {
+                                message: `This episode can't be downloaded right now.`,
+                                duration: 3000, // 3 seconds
+                            },
+                        }),
+                    );
+
                 case BUTTON_STATE.UNCACHED:
                     return store.dispatch(downloadEpisode(episodeId));
 
@@ -65,6 +84,10 @@ export default class DownloadButton extends LightningElement {
     get progressContainerClass() {
         let stateClass;
         switch (this.state) {
+            case BUTTON_STATE.UNAVAILABLE:
+                stateClass = 'unavailable';
+                break;
+
             case BUTTON_STATE.UNCACHED:
                 stateClass = 'uncached';
                 break;
