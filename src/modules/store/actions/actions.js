@@ -5,7 +5,8 @@ import {
     REQUEST_EPISODE,
     RECEIVE_EPISODE,
     REQUEST_CATEGORY,
-    RECEIVE_CATEGORY,
+    RECEIVE_CATEGORY_SUCCESS,
+    RECEIVE_CATEGORY_ERROR,
     SUBSCRIBE_PODCAST,
     UNSUBSCRIBE_PODCAST,
     PLAY,
@@ -122,31 +123,39 @@ function requestCategory(categoryId) {
     };
 }
 
-function receiveCategory(categoryId, data) {
+function receiveCategorySuccess(categoryId, data) {
     return {
-        type: RECEIVE_CATEGORY,
+        type: RECEIVE_CATEGORY_SUCCESS,
         categoryId,
         data,
-        receivedAt: Date.now(),
     };
+}
+
+function receiveCategoryError(categoryId, error) {
+    return {
+        type: RECEIVE_CATEGORY_ERROR,
+        categoryId,
+        error,
+    };
+}
+
+function shouldFetchCategory({ topShowsByCategory }, categoryId) {
+    return !topShowsByCategory[categoryId] || !topShowsByCategory[categoryId].data;
 }
 
 function fetchCategory(categoryId) {
     return async dispatch => {
         dispatch(requestCategory(categoryId));
 
-        const categoryResponse = await api.fetchCategory(categoryId);
+        try {
+            const categoryResponse = await api.fetchCategory(categoryId);
+            const shows = categoryResponse.response.items;
 
-        const shows = categoryResponse.response.items;
-        dispatch(receiveCategory(categoryId, shows));
+            dispatch(receiveCategorySuccess(categoryId, shows));
+        } catch (error) {
+            dispatch(receiveCategoryError(categoryId, error));
+        }
     };
-}
-
-function shouldFetchCategory(state, categoryId) {
-    // TODO: Add proper cache invalidation and refetching
-    if (!state.topShowsByCategory[categoryId]) {
-        return true;
-    }
 }
 
 export function fetchCategoryIfNeeded(categoryId) {

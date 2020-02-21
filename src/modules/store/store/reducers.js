@@ -5,7 +5,8 @@ import {
     REQUEST_EPISODE,
     RECEIVE_EPISODE,
     REQUEST_CATEGORY,
-    RECEIVE_CATEGORY,
+    RECEIVE_CATEGORY_SUCCESS,
+    RECEIVE_CATEGORY_ERROR,
     SUBSCRIBE_PODCAST,
     UNSUBSCRIBE_PODCAST,
     PLAY,
@@ -123,7 +124,7 @@ export function podcasts(state = {}, action) {
                 },
             };
 
-        case RECEIVE_CATEGORY:
+        case RECEIVE_CATEGORY_SUCCESS:
             return action.data.reduce(
                 (acc, show) => {
                     if (!acc[show.show_id]) {
@@ -152,8 +153,8 @@ export function podcasts(state = {}, action) {
 function showsByCategory(
     state = {
         isFetching: false,
-        lastUpdated: null,
-        data: [],
+        data: null,
+        error: null,
     },
     action,
 ) {
@@ -164,11 +165,18 @@ function showsByCategory(
                 isFetching: true,
             };
 
-        case RECEIVE_CATEGORY:
+        case RECEIVE_CATEGORY_SUCCESS:
             return {
                 isFetching: false,
-                lastUpdated: action.receivedAt,
                 data: action.data.map(show => show.show_id),
+                error: null,
+            };
+
+        case RECEIVE_CATEGORY_ERROR:
+            return {
+                isFetching: false,
+                data: null,
+                error: action.error,
             };
 
         default:
@@ -179,7 +187,8 @@ function showsByCategory(
 export function topShowsByCategory(state = {}, action) {
     switch (action.type) {
         case REQUEST_CATEGORY:
-        case RECEIVE_CATEGORY:
+        case RECEIVE_CATEGORY_SUCCESS:
+        case RECEIVE_CATEGORY_ERROR:
             return {
                 ...state,
                 [action.categoryId]: showsByCategory(state[action.categoryId], action),
