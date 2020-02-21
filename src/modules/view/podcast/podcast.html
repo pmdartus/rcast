@@ -1,29 +1,55 @@
 <template>
     <base-header>
         <base-back-button slot="left"></base-back-button>
-        {name}
+        {title}
     </base-header>
 
     <base-content class="with-header">
-        <div class="header">
-            <base-cover class="cover" href={imageUrl} name={name} rounded-corners></base-cover>
-
-            <div class="details">
-                <div class="detail-name">{name}</div>
-                <div class="detail-genre">{authorName}</div>
-
-                <button class="subscription" onclick={handleSubscriptionClick}>
-                    {subscriptionLabel}
-                </button>
+        <template if:true={podcast.isFetching}>
+            <div class="center">
+                <base-spinner></base-spinner>
             </div>
-        </div>
+        </template>
 
-        <div class={descriptionClassName} onclick={handleDescriptionClick} lwc:dom="manual"></div>
+        <template if:true={podcast.error}>
+            <div class="center">
+                <component-loading-error
+                    class="center"
+                    error={podcast.error}
+                    onretry={loadShow}
+                ></component-loading-error>
+            </div>
+        </template>
 
-        <div class="episode-list">
-            <template for:each={episodes} for:item="episode">
-                <component-episode-list-item key={episode.episode_id} episode={episode}> </component-episode-list-item>
-            </template>
-        </div>
+        <template if:true={podcast.data}>
+            <div class="header">
+                <base-cover class="cover" href={podcast.data.image_url} name={title} rounded-corners></base-cover>
+
+                <div class="details">
+                    <div class="detail-name">{title}</div>
+                    <div class="detail-genre">{authorName}</div>
+
+                    <button class="subscription" onclick={handleSubscriptionClick}>
+                        <template if:true={isSubscribed}>
+                            Subscribe
+                        </template>
+                        <template if:false={isSubscribed}>
+                            Unsubscribe
+                        </template>
+                    </button>
+                </div>
+            </div>
+
+            <div class={descriptionClassName} onclick={handleDescriptionClick}>
+                {podcast.data.description}
+            </div>
+
+            <div class="episode-list">
+                <template for:each={episodes} for:item="episode">
+                    <component-episode-list-item key={episode.data.episode_id} episode={episode.data}>
+                    </component-episode-list-item>
+                </template>
+            </div>
+        </template>
     </base-content>
 </template>

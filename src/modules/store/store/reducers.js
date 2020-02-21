@@ -1,7 +1,8 @@
 import {
     CONNECTIVITY_STATUS_CHANGED,
     REQUEST_SHOW,
-    RECEIVE_SHOW,
+    RECEIVE_SHOW_SUCCESS,
+    RECEIVE_SHOW_ERROR,
     REQUEST_EPISODE,
     RECEIVE_EPISODE_SUCCESS,
     RECEIVE_EPISODE_ERROR,
@@ -90,7 +91,7 @@ function podcast(
         case REQUEST_SHOW:
             return { ...state, isFetching: true };
 
-        case RECEIVE_SHOW: {
+        case RECEIVE_SHOW_SUCCESS: {
             return {
                 ...state,
                 isFetching: false,
@@ -102,6 +103,13 @@ function podcast(
                 error: null,
             };
         }
+
+        case RECEIVE_SHOW_ERROR:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.error,
+            };
 
         case RECEIVE_EPISODE_SUCCESS:
         case RECEIVE_CATEGORY_SUCCESS: {
@@ -126,7 +134,8 @@ function podcast(
 export function podcasts(state = {}, action) {
     switch (action.type) {
         case REQUEST_SHOW:
-        case RECEIVE_SHOW:
+        case RECEIVE_SHOW_SUCCESS:
+        case RECEIVE_SHOW_ERROR:
             return {
                 ...state,
                 [action.id]: podcast(state[action.id], action),
@@ -179,6 +188,7 @@ function showsByCategory(
 
         case RECEIVE_CATEGORY_SUCCESS:
             return {
+                ...state,
                 isFetching: false,
                 data: action.data.map(show => show.show_id),
                 error: null,
@@ -186,8 +196,8 @@ function showsByCategory(
 
         case RECEIVE_CATEGORY_ERROR:
             return {
+                ...state,
                 isFetching: false,
-                data: null,
                 error: action.error,
             };
 
@@ -240,12 +250,10 @@ function episode(
             return {
                 ...state,
                 isFetching: false,
-                data: null,
-                type: null,
                 error: action.error,
             };
 
-        case RECEIVE_SHOW: {
+        case RECEIVE_SHOW_SUCCESS: {
             if (state.type === RECORD_TYPE_FULL) {
                 return state;
             }
@@ -274,7 +282,7 @@ export function episodes(state = {}, action) {
                 [action.id]: episode(state[action.id], action),
             };
 
-        case RECEIVE_SHOW:
+        case RECEIVE_SHOW_SUCCESS:
             return action.data.episodes.reduce(
                 (acc, entry) => {
                     const episodeId = entry.episode_id;
@@ -306,7 +314,7 @@ function user(
     action,
 ) {
     switch (action.type) {
-        case RECEIVE_SHOW:
+        case RECEIVE_SHOW_SUCCESS:
         case RECEIVE_EPISODE_SUCCESS:
             return {
                 ...state,
@@ -323,7 +331,7 @@ function user(
 
 export function users(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_SHOW: {
+        case RECEIVE_SHOW_SUCCESS: {
             const { author } = action.data.show;
             return {
                 ...state,

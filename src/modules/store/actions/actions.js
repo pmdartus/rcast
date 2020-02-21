@@ -1,7 +1,8 @@
 import {
     CONNECTIVITY_STATUS_CHANGED,
     REQUEST_SHOW,
-    RECEIVE_SHOW,
+    RECEIVE_SHOW_SUCCESS,
+    RECEIVE_SHOW_ERROR,
     REQUEST_EPISODE,
     RECEIVE_EPISODE_SUCCESS,
     RECEIVE_EPISODE_ERROR,
@@ -38,11 +39,19 @@ function requestShow(podcast) {
     };
 }
 
-function receiveShow(podcast, data) {
+function receiveShowSuccess(showId, data) {
     return {
-        type: RECEIVE_SHOW,
-        id: podcast,
+        type: RECEIVE_SHOW_SUCCESS,
+        id: showId,
         data,
+    };
+}
+
+function receiveShowError(showId, error) {
+    return {
+        type: RECEIVE_SHOW_ERROR,
+        id: showId,
+        error,
     };
 }
 
@@ -50,17 +59,21 @@ function fetchShow(showId) {
     return async dispatch => {
         dispatch(requestShow(showId));
 
-        const [showResponse, showEpisodeResponse] = await Promise.all([
-            api.fetchShow(showId),
-            api.fetchShowEpisodes(showId),
-        ]);
+        try {
+            const [showResponse, showEpisodeResponse] = await Promise.all([
+                api.fetchShow(showId),
+                api.fetchShowEpisodes(showId),
+            ]);
 
-        dispatch(
-            receiveShow(showId, {
-                show: showResponse.response.show,
-                episodes: showEpisodeResponse.response.items,
-            }),
-        );
+            dispatch(
+                receiveShowSuccess(showId, {
+                    show: showResponse.response.show,
+                    episodes: showEpisodeResponse.response.items,
+                }),
+            );
+        } catch (error) {
+            dispatch(receiveShowError(showId, error));
+        }
     };
 }
 
