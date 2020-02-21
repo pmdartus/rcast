@@ -50,19 +50,23 @@ base-icon {
     fill: var(--primary-color);
 }
 
+.unavailable,
 .downloading {
     opacity: 0.5;
 }
+
+.unavailable circle,
 .downloading circle {
     stroke: var(--background-color-lighter);
 }
+.unavailable base-icon,
 .downloading base-icon {
     fill: var(--background-color-lighter);
 }
 
 .cached circle {
-    stroke: #66bb6a;
-    fill: #66bb6a;
+    stroke: var(--success-color);
+    fill: var(--success-color);
 }
 .cached base-icon {
     fill: var(--background-color);

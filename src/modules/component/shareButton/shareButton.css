@@ -7,5 +7,5 @@ base-icon {
 
 base-icon.unsupported {
     fill: var(--background-color-lighter);
-    opacity: 0.8;
+    opacity: 0.5;
 }

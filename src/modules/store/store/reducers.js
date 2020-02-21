@@ -1,4 +1,5 @@
 import {
+    CONNECTIVITY_STATUS_CHANGED,
     REQUEST_SHOW,
     RECEIVE_SHOW,
     REQUEST_EPISODE,
@@ -18,6 +19,24 @@ import {
     RECORD_TYPE_FULL,
     ENDED,
 } from 'store/shared';
+
+export function application(
+    state = {
+        isOnline: navigator.onLine,
+    },
+    action,
+) {
+    switch (action.type) {
+        case CONNECTIVITY_STATUS_CHANGED:
+            return {
+                ...state,
+                isOnline: action.isOnline,
+            };
+
+        default:
+            return state;
+    }
+}
 
 export function player(
     state = {
@@ -270,6 +289,7 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             return {
                 ...state,
                 episodes: {
+                    ...state.episodes,
                     [action.id]: {
                         offline: false,
                         downloading: true,
@@ -282,6 +302,7 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             return {
                 ...state,
                 episodes: {
+                    ...state.episodes,
                     [action.id]: {
                         offline: true,
                         downloading: false,
@@ -295,6 +316,7 @@ export function info(state = { subscriptions: [], episodes: {} }, action) {
             return {
                 ...state,
                 episodes: {
+                    ...state.episodes,
                     [action.id]: {
                         offline: false,
                         downloading: false,

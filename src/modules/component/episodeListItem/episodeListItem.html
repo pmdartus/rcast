@@ -2,9 +2,20 @@
     <base-cover href={episode.image_url} name={episode.title} rounded-corners></base-cover>
 
     <div class="info-container">
-        <div class="release-date">{releaseDate}</div>
         <div class="title">{episode.title}</div>
-        <div class="duration">{duration}</div>
+        <div class="subtitle">
+            <template if:false={isDownloading}>
+                {releaseDate} • {duration}
+
+                <template if:true={isOffline}>
+                    <base-icon class="offline-icon" name="arrowDown"></base-icon>
+                </template>
+            </template>
+
+            <template if:true={isDownloading}>
+                Downloading... ({downloadProgress})
+            </template>
+        </div>
     </div>
 
     <div class="play-container">

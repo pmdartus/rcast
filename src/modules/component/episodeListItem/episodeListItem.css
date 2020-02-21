@@ -29,25 +29,30 @@ base-cover {
     padding-right: var(--spacing-medium);
 }
 
-.info-container > div {
+.info-container > * {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.release-date,
-.duration {
-    opacity: 0.7;
-    font-size: 0.7rem;
-}
-
-.release-date {
-    text-transform: uppercase;
-}
-
-.title {
+.info-container .title {
     font-size: 0.875rem;
     font-weight: 500;
+}
+
+.info-container .subtitle {
+    display: flex;
+    align-items: center;
+
+    opacity: 0.8;
+    font-size: 0.8rem;
+}
+
+.info-container .offline-icon {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-left: var(--spacing-small);
+    color: var(--success-color);
 }
 
 .play-container {
