@@ -20,8 +20,6 @@ export default class RcastProgressBar extends LightningElement {
     progressValueEl = null;
     progressThumbEl = null;
 
-    _isRendered = false;
-
     @api
     set currentTime(value) {
         if (!this.isControlled) {
@@ -43,11 +41,6 @@ export default class RcastProgressBar extends LightningElement {
     }
 
     renderedCallback() {
-        if (!this._isRendered) {
-            const thumb = this.template.querySelector('.progress-bar-thumb');
-            thumb.addEventListener('touchstart', () => this.handleProgressTouchStart, { passive: true });
-        }
-
         if (!this.progressValueEl || !this.progressThumbEl) {
             this.progressValueEl = this.template.querySelector('.progress-bar-value');
             this.progressThumbEl = this.template.querySelector('.progress-bar-thumb');
@@ -92,8 +85,7 @@ export default class RcastProgressBar extends LightningElement {
         this.isControlled = true;
 
         const touchMove = evt => {
-            const touch = evt.touches[0];
-            const currentX = touch.pageX;
+            const currentX = evt.pageX || evt.touches[0].pageX;
 
             const sliderX = Math.min(Math.max(currentX, startX), endX);
             const value = ((startX - sliderX) / (startX - endX)) * this.duration;
@@ -105,7 +97,10 @@ export default class RcastProgressBar extends LightningElement {
             this.isControlled = false;
 
             window.removeEventListener('touchmove', touchMove);
-            window.removeEventListener('touchend', touchEnd);
+            window.removeEventListener('mousemove', touchMove);
+
+            window.removeEventListener('touchend', touchMove);
+            window.removeEventListener('mouseup', touchEnd);
 
             this.dispatchEvent(
                 new CustomEvent('currenttimechange', {
@@ -117,6 +112,9 @@ export default class RcastProgressBar extends LightningElement {
         };
 
         window.addEventListener('touchmove', touchMove);
+        window.addEventListener('mousemove', touchMove);
+
         window.addEventListener('touchend', touchEnd);
+        window.addEventListener('mouseup', touchEnd);
     }
 }
