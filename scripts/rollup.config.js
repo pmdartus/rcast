@@ -16,12 +16,12 @@ const { __PROD__ } = require('./shared');
 
 // Heroku doesn't setup git when building the application. The current git commit is set via the
 // SOURCE_VERSION environment variable. https://devcenter.heroku.com/changelog-items/630
-const COMMIT_HASH =
+const COMMIT_HASH = (
     process.env.SOURCE_VERSION ||
     execSync('git rev-parse HEAD')
         .toString()
         .trim()
-        .slice(0, 7);
+).slice(0, 7);
 
 module.exports = {
     input: 'src/main.js',
