@@ -14,10 +14,14 @@ const serviceWorker = require('./plugin-service-worker');
 
 const { __PROD__ } = require('./shared');
 
-const COMMIT_HASH = execSync('git rev-parse HEAD')
-    .toString()
-    .trim()
-    .slice(0, 7);
+// Heroku doesn't setup git when building the application. The current git commit is set via the
+// SOURCE_VERSION environment variable. https://devcenter.heroku.com/changelog-items/630
+const COMMIT_HASH =
+    process.env.SOURCE_VERSION ||
+    execSync('git rev-parse HEAD')
+        .toString()
+        .trim()
+        .slice(0, 7);
 
 module.exports = {
     input: 'src/main.js',
