@@ -61,7 +61,7 @@ export default class PlayerCondensed extends LightningElement {
     }
 
     get cover() {
-        return this.podcast && this.podcast.image_url;
+        return this.episode && this.episode.image_url;
     }
 
     get title() {

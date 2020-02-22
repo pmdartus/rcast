@@ -22,7 +22,7 @@ let COVER_INTERSECTION_OBSERVER = new IntersectionObserver(
 
 export default class Cover extends LightningElement {
     @api name;
-    @api roundedCorners = false;
+    @api lazy = false;
 
     _inViewport = false;
     _href = null;
@@ -34,6 +34,18 @@ export default class Cover extends LightningElement {
     set href(value) {
         this._href = value;
         this.loadCover();
+    }
+
+    @api
+    get roundedCorners() {
+        return this.getAttribute('rounded-corners') !== null;
+    }
+    set roundedCorners(value) {
+        if (value === null) {
+            this.removeAttribute('rounded-corners');
+        } else {
+            this.setAttribute('rounded-corners', '');
+        }
     }
 
     @api _load() {
@@ -51,14 +63,14 @@ export default class Cover extends LightningElement {
         COVER_INTERSECTION_OBSERVER.unobserve(this.template.host);
     }
 
-    get containerClassName() {
-        return `container ${this.roundedCorners ? 'rounded-corners' : ''}`;
+    renderedCallback() {
+        this.loadCover();
     }
 
     loadCover() {
         // Wait until the image is in the viewport and the image URL is set before rendering the
         // image.
-        if (!this._inViewport && !this._href) {
+        if (this.lazy && (!this._inViewport || !this._href)) {
             return;
         }
 
@@ -67,7 +79,6 @@ export default class Cover extends LightningElement {
             return;
         }
 
-        // Remove placeholder once the image has loaded.
         img.addEventListener('load', () => {
             img.classList.add('loaded');
         });

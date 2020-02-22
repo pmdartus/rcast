@@ -29,7 +29,6 @@ base-spinner {
 }
 
 base-cover {
-    height: 50px;
     width: 50px;
     margin-right: var(--spacing-medium);
 }

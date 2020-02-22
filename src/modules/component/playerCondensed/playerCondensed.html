@@ -1,7 +1,7 @@
 <template>
     <div class="head">
         <template if:true={episode}>
-            <base-cover class="cover" href={cover} name={title} rounded-corners></base-cover>
+            <base-cover class="cover" href={cover} name={title} lazy rounded-corners></base-cover>
 
             <div class="info">
                 <span class="title">{title}</span>

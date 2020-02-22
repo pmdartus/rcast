@@ -43,8 +43,8 @@
     align-items: center;
 }
 
-.info .cover {
-    max-width: 70vw;
+.info base-cover {
+    width: 50%;
     margin: var(--spacing-medium) 0;
 }
 

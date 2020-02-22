@@ -23,7 +23,7 @@
 
         <template if:true={podcast.data}>
             <div class="header">
-                <base-cover class="cover" href={podcast.data.image_url} name={title} rounded-corners></base-cover>
+                <base-cover class="cover" href={podcast.data.image_url} name={title} lazy rounded-corners></base-cover>
 
                 <div class="details">
                     <div class="detail-name">{title}</div>

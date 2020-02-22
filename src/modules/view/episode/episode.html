@@ -24,7 +24,12 @@
         <template if:true={episode.data}>
             <div class="view">
                 <div class="header" onclick={handleHeaderClick}>
-                    <base-cover href={episode.data.image_url} name={episode.data.title} rounded-corners></base-cover>
+                    <base-cover
+                        href={episode.data.image_url}
+                        name={episode.data.title}
+                        lazy
+                        rounded-corners
+                    ></base-cover>
                     <div class="header-right">
                         <div class="show-name">{show.data.title}</div>
                         <div class="release-date">{releaseDate}</div>
