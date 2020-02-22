@@ -5,8 +5,41 @@
     </base-header>
 
     <base-content class="with-header">
-        <div class="footer">
-            version {commitHash} ({releaseDate})
-        </div>
+        <!-- Adding a spinner hurt the perceived performance here because the storage lookup is pretty fast -->
+        <template if:false={loading}>
+            <div class="section">
+                <div class="section-header">Storage Info: {storageInfo.percentUsed}%</div>
+                <div class="section-content">
+                    Currently Used: {storageInfo.usageInMB} MB<br />
+                    Storage Quota: {storageInfo.quotaInMB} MB
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">Links</div>
+                <div class="section-content">
+                    <a href={repoUrl}>Rcast Source Code</a><br />
+                    <a href="https://developers.spreaker.com/api/">Spreaker API</a><br />
+                    <a href="https://cors-anywhere.herokuapp.com/">CORS everywhere API</a><br />
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">Version Info</div>
+                <div class="section-content">
+                    Version: <a href={commitLink}>{versionInfo.commitHash}</a> <br />
+                    Release Date: {versionInfo.releaseDate}
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">Danger Zone</div>
+                <div class="section-content">
+                    <!-- TODO: Convert to buttons -->
+                    <div onclick={handleCacheCleanup}>Clean up cache</div>
+                    <div onclick={handleFullCleanup}>Reset all</div>
+                </div>
+            </div>
+        </template>
     </base-content>
 </template>

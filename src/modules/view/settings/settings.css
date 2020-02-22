@@ -3,3 +3,33 @@
     display: flex;
     flex-direction: column;
 }
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+base-content {
+    padding: var(--spacing-medium);
+}
+
+.section {
+    padding: var(--spacing-small) 0;
+    margin-bottom: var(--spacing-medium);
+    border-bottom: 1px solid #e6eff7;
+}
+
+.section:last-of-type {
+    border-bottom: none;
+}
+
+.section-header {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-small);
+}
+
+.section-content {
+    line-height: 1.4rem;
+    color: var(--background-color-lighter);
+}

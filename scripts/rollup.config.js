@@ -16,7 +16,8 @@ const { __PROD__ } = require('./shared');
 
 const COMMIT_HASH = execSync('git rev-parse HEAD')
     .toString()
-    .trim();
+    .trim()
+    .slice(0, 7);
 
 module.exports = {
     input: 'src/main.js',
