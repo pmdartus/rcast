@@ -24,7 +24,9 @@ const COMMIT_HASH = (
 ).slice(0, 7);
 
 module.exports = {
-    input: 'src/main.js',
+    input: {
+        main: 'src/main.js',
+    },
 
     output: {
         dir: 'dist',
@@ -32,6 +34,8 @@ module.exports = {
         format: 'esm',
         sourcemap: true,
     },
+
+    experimentalOptimizeChunks: true,
 
     manualChunks(id) {
         if (id.includes('node_modules')) {
