@@ -1,5 +1,6 @@
 import {
     CONNECTIVITY_STATUS_CHANGED,
+    REQUEST_DISCOVER,
     REQUEST_SHOW,
     RECEIVE_SHOW_SUCCESS,
     RECEIVE_SHOW_ERROR,
@@ -199,6 +200,18 @@ export function fetchSubscribedPodcastsIfNeeded() {
                 dispatch(fetchShow(id));
             }
         }
+    };
+}
+
+function shouldFetchDiscover({ curatedLists }) {
+    if (curatedLists) {
+        
+    }
+}
+
+export function fetchDiscoverIfNeeded() {
+    return (dispatch, getState) => {
+
     };
 }
 

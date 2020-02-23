@@ -1,4 +1,5 @@
-const API_BASE = `https://api.spreaker.com/v2`;
+const API_URL = `https://api.spreaker.com`;
+const API_VERSION = 'v2';
 const LIST_SIZE = 25;
 
 export class OfflineError extends Error {
@@ -18,11 +19,11 @@ export class UnexpectedServerResponseError extends Error {
 }
 
 async function fetchSpreakerApi(path) {
-    const url = API_BASE + path;
+    const url = `${API_URL}/${API_VERSION}/${path}`;
 
     let response;
     try {
-        response = await fetch(API_BASE + path);
+        response = await fetch(API_URL + path);
     } catch {
         throw new OfflineError(url);
     }
@@ -48,4 +49,12 @@ export function fetchShowEpisodes(showId) {
 
 export function fetchCategory(categoryId) {
     return fetchSpreakerApi(`/explore/categories/${categoryId}/items?limit=${LIST_SIZE}`);
+}
+
+export function getCuratedLists() {
+    return fetchSpreakerApi(`/explore/lists`);
+}
+
+export function getCuratedListItems(listId, limit = LIST_SIZE) {
+    return fetchSpreakerApi(`/explore/lists/${listId}/items?limit=${limit}`);
 }
