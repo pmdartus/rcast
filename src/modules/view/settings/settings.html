@@ -7,13 +7,24 @@
     <base-content class="with-header">
         <!-- Adding a spinner hurt the perceived performance here because the storage lookup is pretty fast -->
         <template if:false={loading}>
-            <div class="section">
-                <div class="section-header">Storage Info: {storageInfo.percentUsed}%</div>
-                <div class="section-content">
-                    Currently Used: {storageInfo.usageInMB} MB<br />
-                    Storage Quota: {storageInfo.quotaInMB} MB
+            <template if:true={storageInfo}>
+                <div class="section">
+                    <div class="section-header">Storage Info ({storageInfo.percentUsed}%)</div>
+                    <div class="section-content">
+                        Currently Used: {storageInfo.usageInMB} MB<br />
+                        Storage Quota: {storageInfo.quotaInMB} MB
+                    </div>
                 </div>
-            </div>
+            </template>
+
+            <template if:false={storageInfo}>
+                <div class="section">
+                    <div class="section-header">Storage Info</div>
+                    <div class="section-content">
+                        Not available
+                    </div>
+                </div>
+            </template>
 
             <div class="section">
                 <div class="section-header">Links</div>
@@ -32,12 +43,13 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="danger-zone section">
                 <div class="section-header">Danger Zone</div>
                 <div class="section-content">
                     <!-- TODO: Convert to buttons -->
-                    <div onclick={handleCacheCleanup}>Clean up cache</div>
-                    <div onclick={handleFullCleanup}>Reset all</div>
+                    <a onclick={handleCheckForUpdates}>Check for updates</a><br />
+                    <a onclick={handleCacheCleanup}>Clean up cache</a><br />
+                    <a onclick={handleFullCleanup}>Reset all</a><br />
                 </div>
             </div>
         </template>

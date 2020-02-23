@@ -1,8 +1,7 @@
 import { createElement, register } from 'lwc';
 import { registerWireService } from 'wire-service';
 
-import { Workbox } from 'workbox-window';
-
+import 'sw/window';
 import 'base/toastManager';
 import App from 'rcast/app';
 import { store } from 'store/store';
@@ -24,61 +23,3 @@ document.body.appendChild(
         is: App,
     }),
 );
-
-// Kickstart the service worker if available.
-if ('serviceWorker' in navigator) {
-    const sw = new Workbox('/sw.js');
-
-    // Notify when the application is ready to be used offline.
-    // https://developers.google.com/web/tools/workbox/modules/workbox-window
-    sw.addEventListener('activated', evt => {
-        if (!evt.isUpdate) {
-            window.dispatchEvent(
-                new CustomEvent('show-toast', {
-                    detail: {
-                        message: 'Rcast is ready to be used offline.',
-                        duration: 3000, // 3 seconds
-                    },
-                }),
-            );
-        }
-    });
-
-    // Offer a way to reload the application, when there is a pending update.
-    // https://developers.google.com/web/tools/workbox/guides/advanced-recipes#offer_a_page_reload_for_users
-    sw.addEventListener('waiting', evt => {
-        if (evt.wasWaitingBeforeRegister) {
-            return;
-        }
-
-        const buttons = [
-            {
-                text: 'Reload',
-                callback() {
-                    sw.addEventListener('controlling', () => {
-                        window.location.reload();
-                    });
-
-                    sw.messageSW({ type: 'SKIP_WAITING' });
-                },
-            },
-            {
-                text: 'Dismiss',
-                callback(notification) {
-                    notification.dismiss();
-                },
-            },
-        ];
-
-        window.dispatchEvent(
-            new CustomEvent('show-toast', {
-                detail: {
-                    message: 'Rcast is ready to be used offline.',
-                    buttons,
-                },
-            }),
-        );
-    });
-
-    sw.register();
-}

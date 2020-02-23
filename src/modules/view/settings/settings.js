@@ -1,43 +1,32 @@
 import { LightningElement, track } from 'lwc';
 
+import { workbox } from 'sw/window';
+
 const REPO_URL = 'https://github.com/pmdartus/rcast';
 const VERSION_INFO = {
     commitHash: process.env.COMMIT_HASH,
     releaseDate: new Intl.DateTimeFormat('en-US').format(new Date(process.env.RELEASE_DATE)),
 };
 
-// https://developers.google.com/web/updates/2017/08/estimating-available-storage-space#the-present
-function estimateStorage() {
-    if ('storage' in navigator && 'estimate' in navigator.storage) {
-        return navigator.storage.estimate();
-    }
-
-    if ('webkitTemporaryStorage' in navigator && 'queryUsageAndQuota' in navigator.webkitTemporaryStorage) {
-        return new Promise((resolve, reject) => {
-            navigator.webkitTemporaryStorage.queryUsageAndQuota(function(usage, quota) {
-                resolve({ usage: usage, quota: quota });
-            }, reject);
-        });
-    }
-
-    return Promise.resolve({ usage: NaN, quota: NaN });
-}
-
 async function getStorageInfo() {
-    try {
-        const { usage, quota } = await estimateStorage();
-        return {
-            percentUsed: Math.round((usage / quota) * 100),
-            usageInMB: Math.round(usage / (1024 * 1024)),
-            quotaInMB: Math.round(quota / (1024 * 1024)),
-        };
-    } catch {
-        return undefined;
+    if ('storage' in navigator && 'estimate' in navigator.storage) {
+        try {
+            const { usage, quota } = await navigator.storage.estimate();
+            return {
+                percentUsed: Math.round((usage / quota) * 100),
+                usageInMB: Math.round(usage / (1024 * 1024)),
+                quotaInMB: Math.round(quota / (1024 * 1024)),
+            };
+        } catch {
+            // Do nothing
+        }
     }
+
+    return undefined;
 }
 
 async function cleanUp(options = {}) {
-    const { localStorage = false, cache = false, serviceWorker = false } = options;
+    const { localStorage = false, cache = false, serviceWorkers = false } = options;
 
     if (localStorage) {
         window.localStorage.clear();
@@ -48,7 +37,7 @@ async function cleanUp(options = {}) {
         await Promise.all(cacheKeys.map(name => caches.delete(name)));
     }
 
-    if (serviceWorker) {
+    if (serviceWorkers) {
         const swRegistrations = await navigator.serviceWorker.getRegistrations();
         await Promise.all(swRegistrations.map(swRegistration => swRegistration.unregister()));
     }
@@ -70,14 +59,36 @@ export default class Settings extends LightningElement {
         return `${REPO_URL}/tree/${VERSION_INFO.commitHash}`;
     }
 
+    async handleCheckForUpdates() {
+        const message = workbox ? 'Checking for updates...' : 'No updates found.';
+
+        window.dispatchEvent(
+            new CustomEvent('show-toast', {
+                detail: {
+                    message,
+                    duration: 3000, // 3 seconds
+                },
+            }),
+        );
+
+        if (workbox) {
+            // The update method asynchronously checks if a new service worker is available (doing
+            // byte-to-byte comparison). If a new service worker is available the "updatefound"
+            // event will be fired. Otherwise nothing will happen.
+            // It would be great to have know if no updates are available to report that back to
+            // the user.
+            workbox.update();
+        }
+    }
+
     async handleCacheCleanup() {
-        await cleanUp({ cache: true });
+        await cleanUp({ cache: true, serviceWorkers: true });
         window.location.reload();
     }
 
     async handleFullCleanup() {
         if (confirm('All the user preferences will be lost!')) {
-            await cleanUp({ localStorage: true, cache: true, serviceWorker: true });
+            await cleanUp({ localStorage: true, cache: true, serviceWorkers: true });
             window.location.reload();
         }
     }
