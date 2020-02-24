@@ -32,7 +32,10 @@ export default class Episode extends LightningElement {
     }
 
     get releaseDate() {
-        return this.episode.data ? formatDate(new Date(this.episode.data.published_at)) : '';
+        // Fix Safari bug not able to parse the date format.
+        // TODO: Refactor all the usages.
+        const publishedDate = new Date(this.episode.data.published_at.replace(' ', 'T'));
+        return this.episode.data ? formatDate(publishedDate) : '';
     }
 
     handleHeaderClick() {
