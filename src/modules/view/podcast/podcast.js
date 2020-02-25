@@ -1,7 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { fetchShowIfNeeded, subscribe, unsubscribe } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchShowIfNeeded, subscribe, unsubscribe } from 'rcast/store';
 
 export default class ViewPodcast extends LightningElement {
     @api podcastId;

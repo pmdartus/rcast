@@ -1,5 +1,5 @@
-import { store } from 'store/store';
-import { ended } from 'store/actions';
+import { store } from 'rcast/store';
+import { ended } from 'rcast/store';
 import { getNoCorsUrl } from 'base/utils';
 
 import EventEmitter from './event-emitter';

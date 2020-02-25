@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
-
-const loggerMiddleware = store => next => action => {
+export default store => next => action => {
     console.group(action.type);
     console.info('dispatching', action);
 
@@ -11,5 +9,3 @@ const loggerMiddleware = store => next => action => {
 
     return result;
 };
-
-export default loggerMiddleware;

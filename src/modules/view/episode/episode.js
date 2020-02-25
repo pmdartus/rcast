@@ -1,8 +1,8 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
 import { formatDate } from 'base/utils';
-import { connectStore, store } from 'store/store';
-import { fetchEpisodeIfNeeded, listenEpisode, downloadEpisode } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchEpisodeIfNeeded, listenEpisode, downloadEpisode } from 'rcast/store';
 
 export default class Episode extends LightningElement {
     @api episodeId;

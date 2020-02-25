@@ -2,8 +2,8 @@ import { LightningElement, api, track, wire } from 'lwc';
 
 import { categories } from 'base/utils';
 
-import { connectStore, store } from 'store/store';
-import { fetchCategoryIfNeeded } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchCategoryIfNeeded } from 'rcast/store';
 
 export default class PodcastList extends LightningElement {
     @api categoryId;

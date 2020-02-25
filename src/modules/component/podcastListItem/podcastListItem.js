@@ -1,7 +1,7 @@
 import { LightningElement, track, api, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { subscribe } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { subscribe } from 'rcast/store';
 
 export default class PodcastListItem extends LightningElement {
     @api podcastId;

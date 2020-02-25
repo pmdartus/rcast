@@ -1,8 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 
-import player from 'store/player';
-import { connectStore, store } from 'store/store';
-import { play, pause } from 'store/actions';
+import player from 'rcast/player';
+import { connectStore, store } from 'rcast/store';
+import { play, pause } from 'rcast/store';
 
 export default class PlayerCondensed extends LightningElement {
     episodeId = null;

@@ -1,7 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { fetchSubscribedPodcastsIfNeeded } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchSubscribedPodcastsIfNeeded } from 'rcast/store';
 
 export default class ViewPodcasts extends LightningElement {
     @track loading = true;
