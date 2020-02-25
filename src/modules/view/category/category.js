@@ -11,8 +11,8 @@ export default class PodcastList extends LightningElement {
     @track shows;
 
     @wire(connectStore, { store })
-    storeChange({ topShowsByCategory }) {
-        this.shows = topShowsByCategory[this.categoryId];
+    storeChange({ categories }) {
+        this.shows = categories[this.categoryId];
     }
 
     connectedCallback() {

@@ -12,13 +12,13 @@ export default class Episode extends LightningElement {
     @track author;
 
     @wire(connectStore, { store })
-    storeChange({ episodes, podcasts, users }) {
+    storeChange({ episodes, shows, users }) {
         this.episode = episodes[this.episodeId];
 
         if (this.episode && this.episode.data) {
             const episode = this.episode.data;
 
-            this.show = podcasts[episode.show_id];
+            this.show = shows[episode.show_id];
             this.author = users[episode.author_id];
         }
     }

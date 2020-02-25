@@ -10,10 +10,10 @@ export default class PodcastListItem extends LightningElement {
     @track isSubscribed;
 
     @wire(connectStore, { store })
-    storeChange({ podcasts, info }) {
+    storeChange({ shows, info }) {
         const { podcastId } = this;
 
-        this.podcast = podcasts[podcastId].data;
+        this.podcast = shows[podcastId].data;
         this.isSubscribed = info.subscriptions.includes(podcastId);
     }
 

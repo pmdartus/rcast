@@ -50,7 +50,3 @@ export function fetchEpisodeIfNeeded(episodeId) {
         }
     };
 }
-
-export function fetchSubscribedPodcastsIfNeeded() {
-    throw new Error('TODO');
-}

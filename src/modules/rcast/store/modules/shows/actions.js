@@ -61,3 +61,15 @@ export function fetchShowIfNeeded(showId) {
         }
     };
 }
+
+export function fetchSubscribedShowsIfNeeded() {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        for (const id of state.info.subscriptions) {
+            if (shouldFetchShow(state, id)) {
+                dispatch(fetchShow(id));
+            }
+        }
+    };
+}

@@ -25,8 +25,8 @@ function receiveCategoryError(categoryId, error) {
     };
 }
 
-function shouldFetchCategory({ topShowsByCategory }, categoryId) {
-    return !topShowsByCategory[categoryId] || !topShowsByCategory[categoryId].data;
+function shouldFetchCategory({ categories }, categoryId) {
+    return !categories[categoryId] || !categories[categoryId].data;
 }
 
 function fetchCategory(categoryId) {

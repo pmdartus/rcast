@@ -20,7 +20,7 @@ export default class PlayerCondensed extends LightningElement {
     _duration = 0;
 
     @wire(connectStore, { store })
-    storeChange({ player, episodes, podcasts, users }) {
+    storeChange({ player, episodes, shows, users }) {
         this.isPlaying = player.isPlaying;
 
         const episodeId = player.episode;
@@ -30,7 +30,7 @@ export default class PlayerCondensed extends LightningElement {
         }
 
         const episode = episodes[episodeId].data;
-        const podcast = podcasts[episode.show_id].data;
+        const podcast = shows[episode.show_id].data;
         const author = users[episode.author_id].data;
 
         if (this.episodeId !== episodeId) {
