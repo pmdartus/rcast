@@ -1,22 +1,22 @@
 <template>
     <base-header>
         <base-back-button slot="left"></base-back-button>
-        {categoryName}
+        {category.name}
     </base-header>
 
     <base-content class="with-header">
-        <template if:true={shows.isFetching}>
+        <template if:true={category.episodes.isFetching}>
             <div class="center">
                 <base-spinner></base-spinner>
             </div>
         </template>
 
-        <template if:true={shows.error}>
+        <template if:true={category.episodes.error}>
             <component-loading-error class="center" error={shows.error} onretry={loadShows}></component-loading-error>
         </template>
 
-        <template if:true={shows.data}>
-            <template for:each={shows.data} for:item="showId">
+        <template if:true={category.episodes.data}>
+            <template for:each={category.episodes.data} for:item="showId">
                 <component-podcast-list-item key={showId} podcast-id={showId} onclick={handleShowClick}>
                 </component-podcast-list-item>
             </template>

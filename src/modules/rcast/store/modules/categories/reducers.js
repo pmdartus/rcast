@@ -1,6 +1,12 @@
-import { REQUEST_CATEGORY, RECEIVE_CATEGORY_SUCCESS, RECEIVE_CATEGORY_ERROR } from './constants';
+import { CATEGORIES, REQUEST_CATEGORY, RECEIVE_CATEGORY_SUCCESS, RECEIVE_CATEGORY_ERROR } from './constants';
 
-function category(
+const INITIAL_CATEGORIES = Object.fromEntries(
+    CATEGORIES.map(category => {
+        return [category.category_id, category];
+    }),
+);
+
+function episodes(
     state = {
         isFetching: false,
         data: null,
@@ -35,15 +41,20 @@ function category(
     }
 }
 
-export default function categories(state = {}, action) {
+export default function categories(state = INITIAL_CATEGORIES, action) {
     switch (action.type) {
         case REQUEST_CATEGORY:
         case RECEIVE_CATEGORY_SUCCESS:
-        case RECEIVE_CATEGORY_ERROR:
+        case RECEIVE_CATEGORY_ERROR: {
+            const category = state[action.categoryId];
             return {
                 ...state,
-                [action.categoryId]: category(state[action.categoryId], action),
+                [action.categoryId]: {
+                    ...category,
+                    episodes: episodes(category.episodes, action),
+                },
             };
+        }
 
         default:
             return state;
