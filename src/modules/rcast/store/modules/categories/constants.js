@@ -1,6 +1,10 @@
-// TODO: Migrate this to an actual API call
+export const REQUEST_CATEGORY = 'REQUEST_CATEGORY';
+export const RECEIVE_CATEGORY_SUCCESS = 'RECEIVE_CATEGORY_SUCCESS';
+export const RECEIVE_CATEGORY_ERROR = 'RECEIVE_CATEGORY_ERROR';
+
+// TODO: Use an actual API call for fetch all the available categories.
 // https://api.spreaker.com/v2/show-categories
-export const categories = [
+export const CATEGORIES = [
     { category_id: 92, name: 'Arts', permalink: 'arts', level: 1 },
     { category_id: 99, name: 'Business', permalink: 'business', level: 1 },
     { category_id: 106, name: 'Comedy', permalink: 'comedy', level: 1 },
@@ -113,25 +117,3 @@ export const categories = [
     // { category_id: 200, name: 'Film Reviews', permalink: 'tv-film-film-reviews', level: 2 },
     // { category_id: 201, name: 'TV Reviews', permalink: 'tv-film-tv-reviews', level: 2 },
 ];
-
-export const iconMapping = {
-    arts: 'brush',
-    business: 'briefcase',
-    comedy: 'smile',
-    education: 'pen',
-    // 'fiction': '',
-    // 'government': '',
-    'health-fitness': 'heart',
-    // 'history': '',
-    // 'kids-family': '',
-    leisure: 'gamepad',
-    music: 'music',
-    news: 'news',
-    'religion-spirituality': 'cross',
-    science: 'atom',
-    'society-culture': 'chart',
-    sports: 'soccer',
-    technology: 'computer',
-    'true-crime': 'badge',
-    'tv-film': 'video',
-};

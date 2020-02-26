@@ -1,7 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { fetchEpisodeIfNeeded, listenEpisode, pause } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchEpisodeIfNeeded, listenEpisode, pause } from 'rcast/store';
 
 import { convertMilliseconds } from 'base/utils';
 

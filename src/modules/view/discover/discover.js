@@ -1,17 +1,37 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 
-import { categories, iconMapping } from 'base/utils';
+import { connectStore, store } from 'rcast/store';
+
+export const CATEGORY_ICON_MAPPING = {
+    arts: 'brush',
+    business: 'briefcase',
+    comedy: 'smile',
+    education: 'pen',
+    'health-fitness': 'heart',
+    leisure: 'gamepad',
+    music: 'music',
+    news: 'news',
+    'religion-spirituality': 'cross',
+    science: 'atom',
+    'society-culture': 'chart',
+    sports: 'soccer',
+    technology: 'computer',
+    'true-crime': 'badge',
+    'tv-film': 'video',
+};
 
 export default class ViewDiscovery extends LightningElement {
-    get categories() {
-        return Object.keys(iconMapping).map(permalink => {
-            const category = categories.find(c => c.permalink === permalink);
+    @api props;
+    @track categories = [];
 
-            return {
+    @wire(connectStore, { store })
+    storeChange({ categories }) {
+        this.categories = Object.values(categories)
+            .filter(category => CATEGORY_ICON_MAPPING[category.permalink])
+            .map(category => ({
                 ...category,
-                icon_name: iconMapping[permalink],
-            };
-        });
+                icon_name: CATEGORY_ICON_MAPPING[category.permalink],
+            }));
     }
 
     handleCategoryClick(event) {

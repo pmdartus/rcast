@@ -1,4 +1,4 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 
 import { workbox } from 'sw/window';
 
@@ -44,11 +44,13 @@ async function cleanUp(options = {}) {
 }
 
 export default class Settings extends LightningElement {
-    repoUrl = REPO_URL;
-    versionInfo = VERSION_INFO;
+    @api props;
 
     @track loading = true;
     @track storageInfo;
+
+    repoUrl = REPO_URL;
+    versionInfo = VERSION_INFO;
 
     async connectedCallback() {
         this.storageInfo = await getStorageInfo();

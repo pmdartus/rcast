@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const LOCAL_STORAGE_KEY = 'state';
 const DEBOUNCE_DURATION = 500;
 
@@ -48,9 +46,7 @@ function saveState({ info }) {
 
 const debouncedSave = debounce(saveState, DEBOUNCE_DURATION);
 
-const localStorageMiddleware = store => next => action => {
+export default store => next => action => {
     next(action);
     debouncedSave(store.getState());
 };
-
-export default localStorageMiddleware;

@@ -1,8 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 
-import player from 'store/player';
-import { connectStore, store } from 'store/store';
-import { play, pause } from 'store/actions';
+import player from 'rcast/player';
+import { connectStore, store } from 'rcast/store';
+import { play, pause } from 'rcast/store';
 
 export default class PlayerCondensed extends LightningElement {
     episodeId = null;
@@ -20,7 +20,7 @@ export default class PlayerCondensed extends LightningElement {
     _duration = 0;
 
     @wire(connectStore, { store })
-    storeChange({ player, episodes, podcasts, users }) {
+    storeChange({ player, episodes, shows, users }) {
         this.isPlaying = player.isPlaying;
 
         const episodeId = player.episode;
@@ -30,7 +30,7 @@ export default class PlayerCondensed extends LightningElement {
         }
 
         const episode = episodes[episodeId].data;
-        const podcast = podcasts[episode.show_id].data;
+        const podcast = shows[episode.show_id].data;
         const author = users[episode.author_id].data;
 
         if (this.episodeId !== episodeId) {

@@ -1,10 +1,10 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { fetchShowIfNeeded, subscribe, unsubscribe } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchShowIfNeeded, subscribe, unsubscribe } from 'rcast/store';
 
 export default class ViewPodcast extends LightningElement {
-    @api podcastId;
+    @api props;
 
     @track podcast = null;
     @track author = null;
@@ -13,10 +13,10 @@ export default class ViewPodcast extends LightningElement {
     @track isDescriptionExpanded = false;
 
     @wire(connectStore, { store })
-    storeChange({ podcasts, episodes, users, info }) {
-        const { podcastId } = this;
+    storeChange({ shows, episodes, users, info }) {
+        const { podcastId } = this.props;
 
-        this.podcast = podcasts[podcastId];
+        this.podcast = shows[podcastId];
         this.isSubscribed = info.subscriptions.includes(podcastId);
 
         if (this.podcast && this.podcast.data) {
@@ -32,7 +32,7 @@ export default class ViewPodcast extends LightningElement {
     }
 
     loadShow() {
-        store.dispatch(fetchShowIfNeeded(this.podcastId));
+        store.dispatch(fetchShowIfNeeded(this.props.podcastId));
     }
 
     get title() {
@@ -48,7 +48,10 @@ export default class ViewPodcast extends LightningElement {
     }
 
     handleSubscriptionClick() {
-        const { isSubscribed, podcastId } = this;
+        const {
+            props: { podcastId },
+            isSubscribed,
+        } = this;
 
         if (isSubscribed) {
             if (window.confirm('Are you sure you want to unsubscribe?')) {

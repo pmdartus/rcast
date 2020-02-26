@@ -4,8 +4,8 @@ import { registerWireService } from 'wire-service';
 import 'sw/window';
 import 'base/toastManager';
 import App from 'rcast/app';
-import { store } from 'store/store';
-import { connectivityStatusChanged } from 'store/actions';
+import { store } from 'rcast/store';
+import { connectivityStatusChanged } from 'rcast/store';
 
 // Register custom wire adapters.
 registerWireService(register);

@@ -1,24 +1,24 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
 import { formatDate } from 'base/utils';
-import { connectStore, store } from 'store/store';
-import { fetchEpisodeIfNeeded, listenEpisode, downloadEpisode } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchEpisodeIfNeeded, listenEpisode, downloadEpisode } from 'rcast/store';
 
 export default class Episode extends LightningElement {
-    @api episodeId;
+    @api props;
 
     @track show;
     @track episode;
     @track author;
 
     @wire(connectStore, { store })
-    storeChange({ episodes, podcasts, users }) {
-        this.episode = episodes[this.episodeId];
+    storeChange({ episodes, shows, users }) {
+        this.episode = episodes[this.props.episodeId];
 
         if (this.episode && this.episode.data) {
             const episode = this.episode.data;
 
-            this.show = podcasts[episode.show_id];
+            this.show = shows[episode.show_id];
             this.author = users[episode.author_id];
         }
     }
@@ -28,7 +28,7 @@ export default class Episode extends LightningElement {
     }
 
     loadEpisode() {
-        store.dispatch(fetchEpisodeIfNeeded(this.episodeId));
+        store.dispatch(fetchEpisodeIfNeeded(this.props.episodeId));
     }
 
     get releaseDate() {
@@ -55,10 +55,10 @@ export default class Episode extends LightningElement {
     }
 
     handlePlay() {
-        store.dispatch(listenEpisode(this.episodeId));
+        store.dispatch(listenEpisode(this.props.episodeId));
     }
 
     handleDownload() {
-        store.dispatch(downloadEpisode(this.episodeId));
+        store.dispatch(downloadEpisode(this.props.episodeId));
     }
 }

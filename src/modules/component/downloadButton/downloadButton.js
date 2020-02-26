@@ -1,7 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
-import { connectStore, store } from 'store/store';
-import { downloadEpisode, discardDownloadedEpisode } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { downloadEpisode, discardDownloadedEpisode } from 'rcast/store';
 
 // Progress circle tutorial link:
 // https://css-tricks.com/building-progress-ring-quickly/

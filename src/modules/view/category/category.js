@@ -1,18 +1,16 @@
 import { LightningElement, api, track, wire } from 'lwc';
 
-import { categories } from 'base/utils';
-
-import { connectStore, store } from 'store/store';
-import { fetchCategoryIfNeeded } from 'store/actions';
+import { connectStore, store } from 'rcast/store';
+import { fetchCategoryIfNeeded } from 'rcast/store';
 
 export default class PodcastList extends LightningElement {
-    @api categoryId;
+    @api props;
 
-    @track shows;
+    @track category;
 
     @wire(connectStore, { store })
-    storeChange({ topShowsByCategory }) {
-        this.shows = topShowsByCategory[this.categoryId];
+    storeChange({ categories }) {
+        this.category = categories[this.props.categoryId];
     }
 
     connectedCallback() {
@@ -20,13 +18,7 @@ export default class PodcastList extends LightningElement {
     }
 
     loadShows() {
-        store.dispatch(fetchCategoryIfNeeded(this.categoryId));
-    }
-
-    get categoryName() {
-        return categories.find(category => {
-            return category.category_id == this.categoryId;
-        }).name;
+        store.dispatch(fetchCategoryIfNeeded(this.props.categoryId));
     }
 
     handleShowClick(event) {

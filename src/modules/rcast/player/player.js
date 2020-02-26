@@ -1,6 +1,6 @@
-import { store } from 'store/store';
-import { ended } from 'store/actions';
-import { getNoCorsUrl } from 'base/utils';
+import { store } from 'rcast/store';
+import { ended } from 'rcast/store';
+import { getProxyfiedUrl } from 'rcast/api';
 
 import EventEmitter from './event-emitter';
 
@@ -18,7 +18,7 @@ class Player extends EventEmitter {
 
         if (src) {
             this.currentSrc = src;
-            this._audioEl.src = getNoCorsUrl(src);
+            this._audioEl.src = getProxyfiedUrl(src);
         }
 
         this.isPlaying = true;

@@ -1,0 +1,2 @@
+export const RECORD_TYPE_HIGHLIGHT = 'HIGHLIGHT';
+export const RECORD_TYPE_FULL = 'FULL';
