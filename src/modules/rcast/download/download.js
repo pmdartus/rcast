@@ -1,7 +1,7 @@
 import { fetchEpisode, getPlaybackUrl, getProxyfiedUrl } from 'rcast/api';
 import { swRegistration } from 'sw/window';
 
-const BG_FETCH_ID_PREFIX = 'episode:';
+export const BG_FETCH_ID_PREFIX = 'episode:';
 
 async function getExpectedResponseSize(url) {
     try {
@@ -16,32 +16,39 @@ async function getExpectedResponseSize(url) {
     }
 }
 
+export function getFetchId(episodeId) {
+    return `${BG_FETCH_ID_PREFIX}${episodeId}`;
+}
+
+export function getEpisodeDownloadUrl(episodeId) {
+    return getProxyfiedUrl(getPlaybackUrl(episodeId));
+}
+
 export async function isEpisodeOffline(episodeId) {
-    const cachedUrl = getProxyfiedUrl(getPlaybackUrl(episodeId));
-    const match = await caches.match(cachedUrl);
+    const match = await caches.match(getEpisodeDownloadUrl(episodeId));
     return Boolean(match);
 }
 
 export async function downloadEpisode(episodeId) {
     const swReg = await swRegistration;
 
-    const fetchId = `${BG_FETCH_ID_PREFIX}${episodeId}`;
-    const episodeAudioUrl = getProxyfiedUrl(getPlaybackUrl(episodeId));
+    const fetchId = getFetchId(episodeId);
+    const downloadUrl = getEpisodeDownloadUrl(episodeId);
 
     // Return the existing registration if there is a background fetch in progress. Otherwise
     // register a new background fetch.
-    const existingFetchRegistration = swReg.backgroundFetch.get(fetchId);
+    const existingFetchRegistration = await swReg.backgroundFetch.get(fetchId);
     if (existingFetchRegistration) {
         return existingFetchRegistration;
     }
 
     const [episodeResponse, expectedAudioResponseSize] = await Promise.all([
         fetchEpisode(episodeId),
-        getExpectedResponseSize(episodeAudioUrl),
+        getExpectedResponseSize(downloadUrl),
     ]);
 
     const { episode } = episodeResponse.response;
-    return swReg.backgroundFetch.fetch(fetchId, [episodeAudioUrl], {
+    return swReg.backgroundFetch.fetch(fetchId, [downloadUrl], {
         title: episode.title,
         icons: [
             {
@@ -52,4 +59,8 @@ export async function downloadEpisode(episodeId) {
         ],
         downloadTotal: Number.isNaN(expectedAudioResponseSize) ? undefined : expectedAudioResponseSize,
     });
+}
+
+export function removeDownloadedEpisode(episodeId) {
+    return caches.delete(getEpisodeDownloadUrl(episodeId));
 }

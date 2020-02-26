@@ -1,3 +1,5 @@
+/* globals clients */
+
 import { ExpirationPlugin } from 'workbox-expiration';
 import { RangeRequestsPlugin } from 'workbox-range-requests';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
@@ -5,7 +7,7 @@ import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { StaleWhileRevalidate, NetworkOnly, CacheFirst } from 'workbox-strategies';
 
-import { EPISODES_CACHE_NAME, SPREAKER_API_CACHE_NAME } from 'sw/shared';
+import { EPISODES_CACHE_NAME, SPREAKER_API_CACHE_NAME, BG_FETCH_ID_PREFIX } from 'sw/shared';
 
 const TEN_DAYS_IN_SECONDS = 10 * 24 * 60 * 60;
 
@@ -72,3 +74,12 @@ registerRoute(
         ],
     }),
 );
+
+addEventListener('backgroundfetchclick', event => {
+    const { id } = event.registration;
+
+    if (id.startsWith(BG_FETCH_ID_PREFIX)) {
+        const episodeId = id.replace(BG_FETCH_ID_PREFIX, '');
+        clients.openWindow(`/episodes/${episodeId}`);
+    }
+});
