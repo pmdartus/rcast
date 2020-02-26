@@ -39,8 +39,8 @@
                 <div class="title">{episode.title}</div>
 
                 <div class="action-bar">
-                    <component-play-button episode-id={episodeId} extended></component-play-button>
-                    <component-download-button episode-id={episodeId}></component-download-button>
+                    <component-play-button episode-id={props.episodeId} extended></component-play-button>
+                    <component-download-button episode-id={props.episodeId}></component-download-button>
                     <component-share-button
                         title={episode.data.title}
                         text={episode.data.description}

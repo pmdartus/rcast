@@ -1,4 +1,4 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 
 import { connectStore, store } from 'rcast/store';
 
@@ -21,6 +21,7 @@ export const CATEGORY_ICON_MAPPING = {
 };
 
 export default class ViewDiscovery extends LightningElement {
+    @api props;
     @track categories = [];
 
     @wire(connectStore, { store })

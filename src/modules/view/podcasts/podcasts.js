@@ -1,11 +1,12 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 
 import { connectStore, store } from 'rcast/store';
 import { fetchSubscribedShowsIfNeeded } from 'rcast/store';
 
 export default class ViewPodcasts extends LightningElement {
-    @track loading = true;
+    @api props;
 
+    @track loading = true;
     @track podcasts = [];
     @track subscriptions = [];
 

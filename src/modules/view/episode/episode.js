@@ -5,7 +5,7 @@ import { connectStore, store } from 'rcast/store';
 import { fetchEpisodeIfNeeded, listenEpisode, downloadEpisode } from 'rcast/store';
 
 export default class Episode extends LightningElement {
-    @api episodeId;
+    @api props;
 
     @track show;
     @track episode;
@@ -13,7 +13,7 @@ export default class Episode extends LightningElement {
 
     @wire(connectStore, { store })
     storeChange({ episodes, shows, users }) {
-        this.episode = episodes[this.episodeId];
+        this.episode = episodes[this.props.episodeId];
 
         if (this.episode && this.episode.data) {
             const episode = this.episode.data;
@@ -28,7 +28,7 @@ export default class Episode extends LightningElement {
     }
 
     loadEpisode() {
-        store.dispatch(fetchEpisodeIfNeeded(this.episodeId));
+        store.dispatch(fetchEpisodeIfNeeded(this.props.episodeId));
     }
 
     get releaseDate() {
@@ -55,10 +55,10 @@ export default class Episode extends LightningElement {
     }
 
     handlePlay() {
-        store.dispatch(listenEpisode(this.episodeId));
+        store.dispatch(listenEpisode(this.props.episodeId));
     }
 
     handleDownload() {
-        store.dispatch(downloadEpisode(this.episodeId));
+        store.dispatch(downloadEpisode(this.props.episodeId));
     }
 }

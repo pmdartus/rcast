@@ -1,5 +1,5 @@
-import { LightningElement, createElement, track } from 'lwc';
 import Navigo from 'navigo';
+import { LightningElement, track } from 'lwc';
 
 export default class App extends LightningElement {
     router = new Navigo(location.origin, false);
@@ -23,6 +23,7 @@ export default class App extends LightningElement {
         },
     ];
 
+    @track view;
     @track playerExpanded = false;
 
     constructor() {
@@ -31,33 +32,33 @@ export default class App extends LightningElement {
         this.router.on({
             '/podcasts': async () => {
                 const { default: ViewPodcasts } = await import('view/podcasts');
-                this.setPage('view-podcasts', ViewPodcasts);
+                this.setView(ViewPodcasts);
             },
             '/podcasts/:id': async ({ id }) => {
                 const { default: ViewPodcast } = await import('view/podcast');
-                this.setPage('view-podcast', ViewPodcast, {
+                this.setView(ViewPodcast, {
                     podcastId: parseInt(id, 10),
                 });
             },
             '/discover': async () => {
                 const { default: ViewDiscover } = await import('view/discover');
-                this.setPage('view-discover', ViewDiscover);
+                this.setView(ViewDiscover);
             },
             '/categories/:id': async ({ id }) => {
                 const { default: ViewCategory } = await import('view/category');
-                this.setPage('view-category', ViewCategory, {
+                this.setView(ViewCategory, {
                     categoryId: parseInt(id, 10),
                 });
             },
             '/episodes/:id': async ({ id }) => {
                 const { default: ViewEpisode } = await import('view/episode');
-                this.setPage('view-episode', ViewEpisode, {
+                this.setView(ViewEpisode, {
                     episodeId: parseInt(id, 10),
                 });
             },
             '/settings': async () => {
                 const { default: ViewSettings } = await import('view/settings');
-                this.setPage('view-settings', ViewSettings);
+                this.setView(ViewSettings);
             },
         });
 
@@ -67,14 +68,15 @@ export default class App extends LightningElement {
 
         this.router.notFound(navigateToDefault);
         this.router.on(navigateToDefault);
+
+        this.router.resolve();
     }
 
-    renderedCallback() {
-        // Resolve the current view only after the container has rendered
-        if (!this.isRendered) {
-            this.isRendered = true;
-            this.router.resolve();
-        }
+    setView(component, props = {}) {
+        this.view = {
+            component,
+            props,
+        };
     }
 
     handleMenuItemClick(evt) {
@@ -97,22 +99,5 @@ export default class App extends LightningElement {
 
     handlePlayerCondensedClick() {
         this.template.querySelector('component-player').show();
-    }
-
-    setPage(tagName, component, props = {}) {
-        const el = createElement(tagName, {
-            is: component,
-            fallback: false,
-        });
-
-        Object.assign(el, props);
-
-        // Remove previous components from the container if necessary
-        const container = this.template.querySelector('.container');
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-
-        container.appendChild(el);
     }
 }

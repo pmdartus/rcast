@@ -4,14 +4,13 @@ import { connectStore, store } from 'rcast/store';
 import { fetchCategoryIfNeeded } from 'rcast/store';
 
 export default class PodcastList extends LightningElement {
-    @api categoryId;
+    @api props;
 
     @track category;
 
     @wire(connectStore, { store })
     storeChange({ categories }) {
-        this.category = categories[this.categoryId];
-        console.log(this.category);
+        this.category = categories[this.props.categoryId];
     }
 
     connectedCallback() {
@@ -19,8 +18,9 @@ export default class PodcastList extends LightningElement {
     }
 
     loadShows() {
-        store.dispatch(fetchCategoryIfNeeded(this.categoryId));
+        store.dispatch(fetchCategoryIfNeeded(this.props.categoryId));
     }
+
     handleShowClick(event) {
         const { podcastId } = event.target;
 

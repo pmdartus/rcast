@@ -15,7 +15,15 @@
     </base-menu>
 
     <div class="app">
-        <div class="container" lwc:dom="manual" onopenmenu={handleOpenMenuEvent} onnavigate={handleNavigateEvent}></div>
+        <template if:true={view}>
+            <rcast-view
+                lwc:dynamic={view.component}
+                props={view.props}
+                onopenmenu={handleOpenMenuEvent}
+                onnavigate={handleNavigateEvent}
+                class="container"
+            ></rcast-view>
+        </template>
 
         <component-player-condensed onclick={handlePlayerCondensedClick}></component-player-condensed>
         <component-player></component-player>
