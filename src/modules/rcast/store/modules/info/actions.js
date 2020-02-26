@@ -1,4 +1,4 @@
-import { getNoCorsUrl } from 'base/utils';
+import { getProxyfiedUrl } from 'rcast/api';
 
 import {
     SUBSCRIBE_SHOW,
@@ -68,7 +68,7 @@ export function downloadEpisode(episodeId) {
         xhr.addEventListener('error', handleErrorState);
         xhr.addEventListener('abort', handleErrorState);
 
-        xhr.open('GET', getNoCorsUrl(episode.playback_url));
+        xhr.open('GET', getProxyfiedUrl(episode.playback_url));
         xhr.send();
     };
 }
