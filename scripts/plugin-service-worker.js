@@ -3,6 +3,7 @@
 const workbox = require('workbox-build');
 
 const { rollup } = require('rollup');
+const lwc = require('@lwc/rollup-plugin');
 const replace = require('@rollup/plugin-replace');
 const { terser } = require('rollup-plugin-terser');
 const resolve = require('@rollup/plugin-node-resolve');
@@ -38,6 +39,10 @@ module.exports = () => ({
             input: 'src/sw.js',
             plugins: [
                 resolve(),
+                lwc({
+                    exclude: ['**/*.mjs'],
+                    rootDir: 'src/modules',
+                }),
                 replace({
                     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
                     'process.env.WORKBOX_MANIFEST': JSON.stringify(manifest.manifestEntries, null, 4),

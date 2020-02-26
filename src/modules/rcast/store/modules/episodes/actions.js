@@ -1,4 +1,5 @@
 import * as api from 'rcast/api';
+import { isEpisodeOffline } from 'rcast/download';
 
 import { RECORD_TYPE_FULL } from '../../constants';
 import { REQUEST_EPISODE, RECEIVE_EPISODE_SUCCESS, RECEIVE_EPISODE_ERROR } from './constants';
@@ -31,10 +32,17 @@ function fetchEpisode(episodeId) {
         dispatch(requestEpisode(episodeId));
 
         try {
-            const episodeResponse = await api.fetchEpisode(episodeId);
-            const { episode } = episodeResponse.response;
+            const [episodeResponse, offline] = await Promise.all([
+                api.fetchEpisode(episodeId),
+                isEpisodeOffline(episodeId),
+            ]);
 
-            dispatch(receiveEpisodeSuccess(episodeId, episode));
+            dispatch(
+                receiveEpisodeSuccess(episodeId, {
+                    ...episodeResponse.response.episode,
+                    offline,
+                }),
+            );
         } catch (error) {
             dispatch(receiveEpisodeError(episodeId, error));
         }

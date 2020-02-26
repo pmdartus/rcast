@@ -38,6 +38,10 @@ export function fetchEpisode(episodeId) {
     return fetchSpreakerApi(`/episodes/${episodeId}`);
 }
 
+export function getPlaybackUrl(episodeId) {
+    return `${API_BASE}/episodes/${episodeId}/play.mp3`;
+}
+
 export function fetchShow(showId) {
     return fetchSpreakerApi(`/shows/${showId}`);
 }
