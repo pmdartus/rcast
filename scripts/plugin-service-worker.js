@@ -14,6 +14,7 @@ module.exports = () => ({
     name: 'service-worker',
     buildStart() {
         this.addWatchFile('src/sw.js');
+        this.addWatchFile('src/modules/sw/worker');
     },
     async writeBundle() {
         const manifest = await workbox.getManifest({

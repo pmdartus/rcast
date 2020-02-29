@@ -20,6 +20,18 @@ export function getFetchId(episodeId) {
     return `${BG_FETCH_ID_PREFIX}${episodeId}`;
 }
 
+export function isEpisodeDownloadFetchId(fetchId) {
+    return fetchId.startsWith(BG_FETCH_ID_PREFIX);
+}
+
+export function getEpisodeId(fetchId) {
+    if (!isEpisodeDownloadFetchId(fetchId)) {
+        return null;
+    }
+
+    return fetchId.replace(BG_FETCH_ID_PREFIX, '');
+}
+
 export function getEpisodeDownloadUrl(episodeId) {
     return getProxyfiedUrl(getPlaybackUrl(episodeId));
 }

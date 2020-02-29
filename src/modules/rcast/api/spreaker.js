@@ -2,18 +2,16 @@ const API_BASE = `https://api.spreaker.com/v2`;
 const LIST_SIZE = 25;
 
 export class OfflineError extends Error {
-    name = 'OfflineError';
-
     constructor(url) {
         super(`Can't access "${url}" while offline`);
+        this.name = 'OfflineError';
     }
 }
 
 export class UnexpectedServerResponseError extends Error {
-    name = 'UnexpectedServerResponseError';
-
     constructor(url, status) {
         super(`Unexpected status ${status} response for "${url}"`);
+        this.name = 'UnexpectedServerResponseError';
     }
 }
 
