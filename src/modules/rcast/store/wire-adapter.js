@@ -1,30 +1,28 @@
-import { register, ValueChangedEvent } from 'wire-service';
+export class connectStore {
+    dataCallback;
+    store;
+    subscription;
 
-export function connectStore(store) {
-    return store.getState();
-}
+    constructor(dataCallback) {
+        this.dataCallback = dataCallback;
+    }
 
-register(connectStore, eventTarget => {
-    let store;
-    let subscription;
-
-    const notifyStateChange = () => {
-        const state = store.getState();
-        eventTarget.dispatchEvent(new ValueChangedEvent(state));
-    };
-
-    eventTarget.addEventListener('connect', () => {
-        subscription = store.subscribe(notifyStateChange);
+    connect() {
+        const notifyStateChange = () => {
+            const state = this.store.getState();
+            this.dataCallback(state);
+        };
+        this.subscription = this.store.subscribe(notifyStateChange);
         notifyStateChange();
-    });
+    }
 
-    eventTarget.addEventListener('disconnect', () => {
-        if (subscription) {
-            subscription();
+    disconnect() {
+        if (this.subscription) {
+            this.subscription();
         }
-    });
+    }
 
-    eventTarget.addEventListener('config', config => {
-        store = config.store;
-    });
-});
+    update(config) {
+        this.store = config.store;
+    }
+}
