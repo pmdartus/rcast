@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 const lwc = require('@lwc/rollup-plugin');
 const replace = require('@rollup/plugin-replace');
 const { terser } = require('rollup-plugin-terser');
-const resolve = require('@rollup/plugin-node-resolve');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
 const html = require('./plugin-html');
 const cleanup = require('./plugin-cleanup');
@@ -16,17 +16,14 @@ const { __PROD__ } = require('./shared');
 
 // Heroku doesn't setup git when building the application. The current git commit is set via the
 // SOURCE_VERSION environment variable. https://devcenter.heroku.com/changelog-items/630
-const COMMIT_HASH = (
-    process.env.SOURCE_VERSION ||
-    execSync('git rev-parse HEAD')
-        .toString()
-        .trim()
-).slice(0, 7);
+const COMMIT_HASH = (process.env.SOURCE_VERSION || execSync('git rev-parse HEAD').toString().trim()).slice(0, 7);
 
 module.exports = {
     input: {
         main: 'src/main.js',
     },
+
+    preserveEntrySignatures: false,
 
     output: {
         dir: 'dist',
@@ -34,8 +31,6 @@ module.exports = {
         format: 'esm',
         sourcemap: true,
     },
-
-    experimentalOptimizeChunks: true,
 
     manualChunks(id) {
         if (id.includes('node_modules')) {
@@ -47,7 +42,7 @@ module.exports = {
         cleanup(),
         html(),
         copyAssets(),
-        resolve(),
+        nodeResolve(),
         lwc({
             exclude: ['**/*.mjs'],
             rootDir: 'src/modules',
