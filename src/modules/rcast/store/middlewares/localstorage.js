@@ -3,7 +3,7 @@ const DEBOUNCE_DURATION = 500;
 
 function debounce(fn, duration) {
     let timer;
-    return function(...args) {
+    return function (...args) {
         const thisValue = this;
 
         if (timer) {
@@ -46,7 +46,7 @@ function saveState({ info }) {
 
 const debouncedSave = debounce(saveState, DEBOUNCE_DURATION);
 
-export default store => next => action => {
+export default (store) => (next) => (action) => {
     next(action);
     debouncedSave(store.getState());
 };

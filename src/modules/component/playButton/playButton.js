@@ -32,7 +32,7 @@ export default class PlayButton extends LightningElement {
             store.dispatch(fetchEpisodeIfNeeded(this.episodeId));
         }
 
-        this.addEventListener('click', evt => {
+        this.addEventListener('click', (evt) => {
             evt.stopPropagation();
 
             if (!this.canPlay) {

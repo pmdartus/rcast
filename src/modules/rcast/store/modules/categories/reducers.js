@@ -1,7 +1,7 @@
 import { CATEGORIES, REQUEST_CATEGORY, RECEIVE_CATEGORY_SUCCESS, RECEIVE_CATEGORY_ERROR } from './constants';
 
 const INITIAL_CATEGORIES = Object.fromEntries(
-    CATEGORIES.map(category => {
+    CATEGORIES.map((category) => {
         return [category.category_id, category];
     }),
 );
@@ -25,7 +25,7 @@ function episodes(
             return {
                 ...state,
                 isFetching: false,
-                data: action.data.map(show => show.show_id),
+                data: action.data.map((show) => show.show_id),
                 error: null,
             };
 

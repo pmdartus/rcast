@@ -51,7 +51,7 @@ export function downloadEpisode(episodeId) {
         const episode = state.episodes[episodeId].data;
         const xhr = new XMLHttpRequest();
 
-        xhr.addEventListener('progress', evt => {
+        xhr.addEventListener('progress', (evt) => {
             const progress = evt.loaded / evt.total;
             dispatch(downloadEpisodeProgress(episodeId, progress));
         });

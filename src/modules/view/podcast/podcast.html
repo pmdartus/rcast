@@ -30,19 +30,13 @@
                     <div class="detail-genre">{authorName}</div>
 
                     <button class="subscription" onclick={handleSubscriptionClick}>
-                        <template if:true={isSubscribed}>
-                            Unsubscribe
-                        </template>
-                        <template if:false={isSubscribed}>
-                            Subscribe
-                        </template>
+                        <template if:true={isSubscribed}> Unsubscribe </template>
+                        <template if:false={isSubscribed}> Subscribe </template>
                     </button>
                 </div>
             </div>
 
-            <div class={descriptionClassName} onclick={handleDescriptionClick}>
-                {podcast.data.description}
-            </div>
+            <div class={descriptionClassName} onclick={handleDescriptionClick}>{podcast.data.description}</div>
 
             <div class="episode-list">
                 <template for:each={episodes} for:item="episode">

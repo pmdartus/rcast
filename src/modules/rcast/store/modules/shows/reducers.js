@@ -22,7 +22,7 @@ function show(
                 isFetching: false,
                 data: {
                     ...action.data.show,
-                    episodes: action.data.episodes.map(episode => episode.episode_id),
+                    episodes: action.data.episodes.map((episode) => episode.episode_id),
                 },
                 type: RECORD_TYPE_FULL,
                 error: null,

@@ -34,12 +34,12 @@ async function cleanUp(options = {}) {
 
     if (cache) {
         const cacheKeys = await caches.keys();
-        await Promise.all(cacheKeys.map(name => caches.delete(name)));
+        await Promise.all(cacheKeys.map((name) => caches.delete(name)));
     }
 
     if (serviceWorkers) {
         const swRegistrations = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(swRegistrations.map(swRegistration => swRegistration.unregister()));
+        await Promise.all(swRegistrations.map((swRegistration) => swRegistration.unregister()));
     }
 }
 

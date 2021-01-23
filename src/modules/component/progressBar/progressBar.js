@@ -74,8 +74,9 @@ export default class RcastProgressBar extends LightningElement {
         const value = duration === 0 ? 0 : currentTime / duration;
 
         this.progressValueEl.style.transform = `scaleX(${value})`;
-        this.progressThumbEl.style.transform = `translateX(${value * progressBarBoundingRect.width -
-            THUMB_SIZE / 2}px) translateY(${THUMB_SIZE / 2}px)`;
+        this.progressThumbEl.style.transform = `translateX(${
+            value * progressBarBoundingRect.width - THUMB_SIZE / 2
+        }px) translateY(${THUMB_SIZE / 2}px)`;
     }
 
     handleProgressTouchStart() {
@@ -84,7 +85,7 @@ export default class RcastProgressBar extends LightningElement {
 
         this.isControlled = true;
 
-        const touchMove = evt => {
+        const touchMove = (evt) => {
             const currentX = evt.pageX || evt.touches[0].pageX;
 
             const sliderX = Math.min(Math.max(currentX, startX), endX);

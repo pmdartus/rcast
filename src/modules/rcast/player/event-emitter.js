@@ -116,14 +116,14 @@ export default class EventEmitter {
                      * @param {EventEmitterListenerFunc} fn
                      * @param {number} idx
                      */
-                    function(fn, idx) {
+                    function (fn, idx) {
                         if (fn.fn === listenerFunc) {
                             removedEvents.unshift(idx);
                         }
                     },
                 );
 
-                removedEvents.forEach(function(idx) {
+                removedEvents.forEach(function (idx) {
                     typeListeners.splice(idx, 1);
                 });
 
@@ -153,14 +153,14 @@ export default class EventEmitter {
         }
 
         let removableListeners = [];
-        typeListeners.forEach(function(eeListener, idx) {
+        typeListeners.forEach(function (eeListener, idx) {
             eeListener.fn.apply(null, eventArguments);
             if (eeListener.once) {
                 removableListeners.unshift(idx);
             }
         });
 
-        removableListeners.forEach(function(idx) {
+        removableListeners.forEach(function (idx) {
             typeListeners.splice(idx, 1);
         });
     }

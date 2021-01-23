@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
 let COVER_INTERSECTION_OBSERVER = new IntersectionObserver(
-    entries => {
+    (entries) => {
         for (const entry of entries) {
             if (entry.isIntersecting) {
                 const { target } = entry;

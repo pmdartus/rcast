@@ -23,7 +23,7 @@ export default class ViewPodcast extends LightningElement {
             const { data: podcast } = this.podcast;
 
             this.author = users[podcast.author_id];
-            this.episodes = podcast.episodes ? podcast.episodes.map(id => episodes[id]) : [];
+            this.episodes = podcast.episodes ? podcast.episodes.map((id) => episodes[id]) : [];
         }
     }
 

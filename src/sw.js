@@ -13,7 +13,7 @@ const TEN_DAYS_IN_SECONDS = 10 * 24 * 60 * 60;
 
 const networkOnly = new NetworkOnly();
 
-addEventListener('message', event => {
+addEventListener('message', (event) => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         // eslint-disable-next-line
         skipWaiting();
@@ -28,7 +28,7 @@ precacheAndRoute(process.env.WORKBOX_MANIFEST);
 // Using a network first approach to make sure the HTML file is alway up to date when online, but
 // fallback to the precached index file when offline.
 registerRoute(
-    new NavigationRoute(async params => {
+    new NavigationRoute(async (params) => {
         try {
             return await networkOnly.handle(params);
         } catch {

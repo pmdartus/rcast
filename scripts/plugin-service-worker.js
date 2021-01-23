@@ -5,7 +5,7 @@ const workbox = require('workbox-build');
 const { rollup } = require('rollup');
 const replace = require('@rollup/plugin-replace');
 const { terser } = require('rollup-plugin-terser');
-const resolve = require('@rollup/plugin-node-resolve');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
 const { __PROD__ } = require('./shared');
 
@@ -28,7 +28,7 @@ module.exports = () => ({
         //  - add the `/` to make URL relative to the root
         //  - remove revision from javascript file because the file name already have their revision encoded in their
         //    filename.
-        manifest.manifestEntries = manifest.manifestEntries.map(entry => ({
+        manifest.manifestEntries = manifest.manifestEntries.map((entry) => ({
             ...entry,
             url: `/${entry.url}`,
             revision: entry.url.endsWith('.js') ? null : entry.revision,
@@ -37,7 +37,7 @@ module.exports = () => ({
         const bundle = await rollup({
             input: 'src/sw.js',
             plugins: [
-                resolve(),
+                nodeResolve(),
                 replace({
                     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
                     'process.env.WORKBOX_MANIFEST': JSON.stringify(manifest.manifestEntries, null, 4),

@@ -27,7 +27,7 @@ function receiveEpisodeError(episodeId, error) {
 }
 
 function fetchEpisode(episodeId) {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch(requestEpisode(episodeId));
 
         try {

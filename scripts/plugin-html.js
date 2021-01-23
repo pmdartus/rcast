@@ -4,7 +4,7 @@ const fs = require('fs');
 
 // Returns the application entry point.
 function getEntryChunk(bundle) {
-    return Object.values(bundle).find(entry => entry.type === 'chunk' && entry.isEntry);
+    return Object.values(bundle).find((entry) => entry.type === 'chunk' && entry.isEntry);
 }
 
 // Returns the chunks that need to be preloaded with the rest of the application.
@@ -22,7 +22,7 @@ function getModulesToPreload(entryChunk, bundle) {
         // object it means that it's dependencies have already been processed.
         if (!toPreload[chunk.fileName]) {
             toPreload[chunk.fileName] = chunk;
-            toProcess.push(...imports.map(fileName => bundle[fileName]));
+            toProcess.push(...imports.map((fileName) => bundle[fileName]));
         }
     }
 
@@ -46,7 +46,7 @@ module.exports = () => ({
         );
         source = source.replace(
             '<!-- MODULES_PRELOAD -->',
-            modulesToPreload.map(chunk => `<link rel="modulepreload" href="/${chunk.fileName}">`).join('\n'),
+            modulesToPreload.map((chunk) => `<link rel="modulepreload" href="/${chunk.fileName}">`).join('\n'),
         );
 
         this.emitFile({
