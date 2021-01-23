@@ -27,7 +27,7 @@ function receiveShowError(showId, error) {
 }
 
 function fetchShow(showId) {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch(requestShow(showId));
 
         try {

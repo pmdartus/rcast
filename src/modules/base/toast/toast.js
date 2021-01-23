@@ -28,7 +28,7 @@ export default class Toast extends LightningElement {
     handleButtonClick(evt) {
         const { text } = evt.target.dataset;
 
-        const button = this.buttons.find(button => button.text === text);
+        const button = this.buttons.find((button) => button.text === text);
         button.callback(this.template.host);
     }
 }

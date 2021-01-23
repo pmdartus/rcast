@@ -7,7 +7,7 @@ export default class Tabs extends LightningElement {
 
     _didRendered = false;
 
-    handleNavigateEvent = event => {
+    handleNavigateEvent = (event) => {
         const { tab: tabName } = event.detail;
         this.select(tabName);
     };

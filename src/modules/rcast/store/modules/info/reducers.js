@@ -13,7 +13,7 @@ function subscriptions(state = [], action) {
             return state.includes(action.id) ? state : [...state, action.id];
 
         case UNSUBSCRIBE_SHOW:
-            return state.filter(id => id !== action.id);
+            return state.filter((id) => id !== action.id);
 
         default:
             return state;

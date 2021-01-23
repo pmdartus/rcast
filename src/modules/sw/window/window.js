@@ -20,7 +20,7 @@ async function registerServiceWorker() {
  * https://developers.google.com/web/tools/workbox/modules/workbox-window
  */
 function listenForActivation(workbox) {
-    workbox.addEventListener('activated', evt => {
+    workbox.addEventListener('activated', (evt) => {
         if (!evt.isUpdate) {
             window.dispatchEvent(
                 new CustomEvent('show-toast', {

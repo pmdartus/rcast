@@ -30,7 +30,7 @@ function shouldFetchCategory({ categories }, categoryId) {
 }
 
 function fetchCategory(categoryId) {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch(requestCategory(categoryId));
 
         try {

@@ -14,9 +14,9 @@ export default class ViewPodcasts extends LightningElement {
     stateChange({ shows, info }) {
         this.subscriptions = info.subscriptions;
 
-        this.loading = this.subscriptions.some(id => shows[id] === undefined || shows[id].isFetching);
+        this.loading = this.subscriptions.some((id) => shows[id] === undefined || shows[id].isFetching);
         if (!this.loading) {
-            this.podcasts = this.subscriptions.map(id => shows[id].data);
+            this.podcasts = this.subscriptions.map((id) => shows[id].data);
         }
     }
 

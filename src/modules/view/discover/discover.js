@@ -27,8 +27,8 @@ export default class ViewDiscovery extends LightningElement {
     @wire(connectStore, { store })
     storeChange({ categories }) {
         this.categories = Object.values(categories)
-            .filter(category => CATEGORY_ICON_MAPPING[category.permalink])
-            .map(category => ({
+            .filter((category) => CATEGORY_ICON_MAPPING[category.permalink])
+            .map((category) => ({
                 ...category,
                 icon_name: CATEGORY_ICON_MAPPING[category.permalink],
             }));

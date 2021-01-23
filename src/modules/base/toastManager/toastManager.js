@@ -2,7 +2,7 @@ import { createElement } from 'lwc';
 
 import Toast from 'base/toast';
 
-window.addEventListener('show-toast', evt => {
+window.addEventListener('show-toast', (evt) => {
     const { detail } = evt;
 
     if (!detail) {

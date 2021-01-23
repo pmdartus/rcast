@@ -3,7 +3,7 @@ import { LightningElement, api } from 'lwc';
 import * as templates from './templates';
 import sharedStylesheet from './icon.css';
 
-Object.values(templates).forEach(tmpl => {
+Object.values(templates).forEach((tmpl) => {
     tmpl.stylesheets = sharedStylesheet;
 });
 

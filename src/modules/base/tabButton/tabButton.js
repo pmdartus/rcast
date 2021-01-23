@@ -14,7 +14,7 @@ export default class TabButton extends LightningElement {
         return this._active;
     }
 
-    clickHandler = event => {
+    clickHandler = (event) => {
         event.stopPropagation();
 
         const { tab } = this;
